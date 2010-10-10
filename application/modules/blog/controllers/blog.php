@@ -2,19 +2,26 @@
 
 class Blog extends Controller
 {
-	function Blog()
+	// Protected or private properties
+	protected $_template;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Controller();
 			
-		$this->template['module'] = "blog";
-		$this->template['lang_file'] = "blog";
-			
+		$this->template['module'] = 'blog';
+		$this->template['lang_file'] = 'blog';
+
+		// Load needed models, libraries, helpers and language files
 		$this->load->module_model('blog', 'blog_model', 'blog');
 		$this->load->module_model('blog', 'users_model', 'users');
+		
 		$this->load->module_language('blog', 'general');
 	}
 
-	function index($page = null)
+	// Public methods
+	public function index($page = null)
 	{
 		$this->load->library('pagination');
 
@@ -43,28 +50,28 @@ class Blog extends Controller
 
 			foreach ($data['posts'] as $key => $post)
 			{
-				$data['posts'][$key]['url'] = date('Y', strtotime($post['date_posted'])) . '/' . date('m', strtotime($post['date_posted'])) . '/' . date('d', strtotime($post['date_posted'])) . '/' . $post['url_title']  . '/';
+				$data['posts'][$key]['url'] = post_url($post['url_title'], $post['date_posted']);
 				$data['posts'][$key]['display_name'] = $this->users->get_user_display_name($post['author']);
 			}
 
-			$this->template['page']	= "blog/posts";
+			$this->_template['page']	= 'blog/posts';
 		}
 		else
 		{
-			$this->template['page']	= "errors/no_posts";
+			$this->_template['page']	= 'errors/no_posts';
 		}
 			
-		$this->system->load($this->template['page'], $data);
+		$this->system_library->load($this->_template['page'], $data);
 	}
 
-	function post($year = NULL, $month = NULL, $day = NULL, $url_title = NULL)
+	public function post($year = NULL, $month = NULL, $day = NULL, $url_title = NULL)
 	{
 		$this->load->module_model('blog', 'comments_model', 'comments');
 		$this->load->module_model('blog', 'users_model', 'users');
 			
 		if ($data['post'] = $this->blog->get_posts_by_url($year, $month, $day, $url_title))
 		{
-			$data['post']['url'] = date('Y', strtotime($data['post']['date_posted'])) . '/' . date('m', strtotime($data['post']['date_posted'])) . '/' . date('d', strtotime($data['post']['date_posted'])) . '/' . $data['post']['url_title']  . '/';
+			$data['post']['url'] = post_url($data['post']['url_title'], $data['post']['date_posted']);
 			$data['post']['display_name'] = $this->users->get_user_display_name($data['post']['author']);
 			
 			if ($data['post']['allow_comments'] == 1)
@@ -96,58 +103,58 @@ class Blog extends Controller
 				}
 			}
 
-			$this->template['page']	= "blog/single_post";
+			$this->_template['page']	= 'blog/single_post';
 		}
 		else
 		{
-			$this->template['page']	= "errors/404";
+			$this->_template['page']	= 'errors/404';
 		}
 			
-		$this->system->load($this->template['page'], $data);
+		$this->system_library->load($this->_template['page'], $data);
 	}
 
-	function archive($year = null, $month = null)
+	public function archive($year = null, $month = null)
 	{
 		if ($data['posts'] = $this->blog->get_posts_by_date($year, $month))
 		{
 			foreach ($data['posts'] as $key => $post)
 			{
-				$data['posts'][$key]['url'] = date('Y', strtotime($post['date_posted'])) . '/' . date('m', strtotime($post['date_posted'])) . '/' . date('d', strtotime($post['date_posted'])) . '/' . $post['url_title']  . '/';
+				$data['posts'][$key]['url'] = post_url($post['url_title'], $post['date_posted']);
 				$data['posts'][$key]['display_name'] = $this->users->get_user_display_name($post['author']);
 			}
 
-			$this->template['page']	= "blog/archive";
+			$this->_template['page']	= 'blog/archive';
 		}
 		else
 		{
-			$this->template['page']	= "errors/archive_no_posts";
+			$this->_template['page']	= 'errors/archive_no_posts';
 		}
 			
-		$this->system->load($this->template['page'], $data);
+		$this->system_library->load($this->_template['page'], $data);
 	}
 
-	function category($url_name = null)
+	public function category($url_name = null)
 	{
 			
 		if ($data['posts'] = $this->blog->get_posts_by_category($url_name))
 		{
 			foreach ($data['posts'] as $key => $post)
 			{
-				$data['posts'][$key]['url'] = date('Y', strtotime($post['date_posted'])) . '/' . date('m', strtotime($post['date_posted'])) . '/' . date('d', strtotime($post['date_posted'])) . '/' . $post['url_title']  . '/';
+				$data['posts'][$key]['url'] = post_url($post['url_title'], $post['date_posted']);
 				$data['posts'][$key]['display_name'] = $this->users->get_user_display_name($post['author']);
 			}
 
-			$this->template['page']	= "blog/archive";
+			$this->_template['page']	= 'blog/archive';
 		}
 		else
 		{
-			$this->template['page']	= "errors/404";
+			$this->_template['page']	= 'errors/404';
 		}
 			
-		$this->system->load($this->template['page'], $data);
+		$this->system_library->load($this->_template['page'], $data);
 	}
 
-	function search()
+	public function search()
 	{
 		$data['search_term'] = $this->input->post('term');
 			
@@ -157,18 +164,18 @@ class Blog extends Controller
 			{
 				foreach ($data['posts'] as $key => $post)
 				{
-					$data['posts'][$key]['url'] = date('Y', strtotime($post['date_posted'])) . '/' . date('m', strtotime($post['date_posted'])) . '/' . date('d', strtotime($post['date_posted'])) . '/' . $post['url_title']  . '/';
+					$data['posts'][$key]['url'] = post_url($post['url_title'], $post['date_posted']);
 					$data['posts'][$key]['display_name'] = $this->users->get_user_display_name($post['author']);
 				}
 					
-				$this->template['page']	= "blog/search";
+				$this->_template['page']	= 'blog/search';
 			}
 			else
 			{
-				$this->template['page']	= "errors/search_no_results";
+				$this->_template['page']	= 'errors/search_no_results';
 			}
 				
-			$this->system->load($this->template['page'], $data);
+			$this->system_library->load($this->_template['page'], $data);
 		}
 		else
 		{
@@ -176,28 +183,22 @@ class Blog extends Controller
 		}
 	}
 
-	function comment($id, $url)
+	public function comment($id, $url)
 	{
 		$this->load->module_model('blog', 'comments_model', 'comments');
 			
 		if ($this->session->userdata('logged_in') == FALSE)
 		{
-			$rules['nickname']		= "required|max_length[50]";
-			$rules['email']			= "required|valid_email";
+			$this->form_validation->set_rules('nickname', 'lang:nickname', 'required|max_length[50]');
+			$this->form_validation->set_rules('email', 'lang:email', 'required|valid_email');
 		}
+		
+		$this->form_validation->set_rules('website', 'lang:website', '');
+		$this->form_validation->set_rules('comment', 'lang:comment', 'required|max_length[400]');
 			
-		$rules['comment']		= "required|max_length[400]";
-		$this->validation->set_rules($rules);
+		$this->form_validation->set_error_delimiters('', '<br />');
 
-		$fields['nickname']	= strtolower_utf8(lang('nickname'));
-		$fields['email']	= strtolower_utf8(lang('email'));
-		$fields['website']	= strtolower_utf8(lang('website'));
-		$fields['comment']	= strtolower_utf8(lang('comment'));
-		$this->validation->set_fields($fields);
-			
-		$this->validation->set_error_delimiters('', '<br />');
-
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->comments->create_comment($id);
 			redirect('blog/post/' . $url, 'refresh');

@@ -2,7 +2,7 @@
 
 // General
 $lang['navigation']						= "Navigation";
-$lang['navigation_description'] 		= "Manage navigation";
+$lang['navigation_description'] 		= "Here you can manage navigation.";
 
 $lang['create_item']					= "Create a navigation item";
 $lang['create_item_description'] 		= "Here you can create a new navigation item.";
@@ -32,6 +32,8 @@ $lang['form_example']					= "e.g.:";
 
 // Other
 $lang['new_item']						= "Create a new navigation item";
+$lang['move_up']						= "Move this item up";
+$lang['move_down']						= "Move this item down";
 
 /* End of file navigation_lang.php */
 /* Location: ./application/modules/admin/language/english/navigation_lang.php */

@@ -2,11 +2,12 @@
 
 // General
 $lang['users']							= "Users";
-$lang['users_description'] 				= "Manage users";
+$lang['users_description'] 				= "Here you can manage users.";
 
 $lang['edit_user']						= "Edit a user";
 $lang['edit_user_description'] 			= "Here you can edit a user.";
 
+// Messages
 $lang['no_users']						= "No users found.";
 $lang['delete_confirmation']			= "Are you sure you want to delete this user?";
 $lang['successfully_edited']			= "User has been successfully edited";

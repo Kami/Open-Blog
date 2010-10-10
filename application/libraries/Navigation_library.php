@@ -2,21 +2,26 @@
 
 class Navigation_library
 {
-	function Navigation_library()
+	// Protected or private properties
+	protected $_table;
+	
+	// Constructor
+	public function __construct()
 	{
 		if (!isset($this->CI))
 		{
 			$this->CI =& get_instance();
 		}
 		
-		$this->navigation_table = 'navigation';
+		$this->_table = $this->CI->config->item('database_tables');
 	}
-		
-	function get_navigation()
+
+	// Public methods
+	public function get_navigation()
 	{
-		$this->CI->db->select('title, description, url, position');
+		$this->CI->db->select('title, description, url, external, position');
 		$this->CI->db->order_by('position', 'ASC'); 
-		$query = $this->CI->db->get($this->navigation_table);
+		$query = $this->CI->db->get($this->_table['navigation']);
 			
 		if ($query->num_rows() > 0)
 		{

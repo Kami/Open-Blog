@@ -1,39 +1,39 @@
 <div class="post">
 		<div class="post_title">
-			<h1><?=lang('templates');?></h1>
+			<h1><?php echo lang('templates'); ?></h1>
 		</div>
 		<div class="post_body">
-			<p><?=lang('templates_description');?></p>
+			<p><?php echo lang('templates_description'); ?></p>
 
-				<? if ($this->validation->error_string != ""): ?>
+				<?php if (validation_errors()): ?>
 					<div class="error">
-					<?=$this->validation->error_string;?>
+						<?php echo validation_errors(); ?>
 					</div>
-				<? endif; ?>
+				<?php endif; ?>
 				
-				<? if($this->session->flashdata('message')): ?>
+				<?php if($this->session->flashdata('message')): ?>
 				<div class="message">
-					<?=$this->session->flashdata('message');?>
+					<?php echo $this->session->flashdata('message'); ?>
 				</div>
-				<? endif; ?>
+				<?php endif; ?>
 				
-				<?if ($templates): ?>
+				<?php if ($templates): ?>
 					<table width="100%">
 					<tr>
 						 <td colspan="2">
 						 	<fieldset id="template">
-						 		<legend><?=lang('form_choose_template');?></legend>
+						 		<legend><?php echo lang('form_choose_template'); ?></legend>
 						 		<table>
-						 			<?=form_open('admin/templates');?>
-						 			<? foreach ($templates as $template): ?>
+						 			<?php echo form_open('admin/templates'); ?>
+						 			<?php foreach ($templates as $template): ?>
 						 			<tr>
-						 				<td width="270px"><img src="<?=base_url();?>application/views/admin/static/images/templates/<?=$template['image'];?>" /><br /><center><strong><?=$template['name'];?></strong></center></td>
-						 				<td><?=form_radio('template', $template['id'], $template['checked']);?></td>
+						 				<td width="270px"><img src="<?php echo base_url(); ?>application/views/admin/static/images/templates/<?php echo $template['image']; ?>" /><br /><center><strong><?php echo $template['name']; ?></strong></center></td>
+						 				<td><?php echo form_radio('template', $template['id'], $template['checked']); ?></td>
 						 			</tr>
 						 			<tr>
 						 				<td colspan="2">&nbsp;</td>
 									</tr>
-						 			<? endforeach; ?>
+						 			<?php endforeach; ?>
 						 		</table>
 						 	</fieldset>
 					<tr>
@@ -41,11 +41,11 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="submit" name="submit" value="<?=lang('button_save');?>" class="styled" />
-							<?=form_close();?>
+							<input type="submit" name="submit" value="<?php echo lang('button_save'); ?>" class="styled" />
+							<?php echo form_close(); ?>
 						</td>
 					</tr>
 					</table>
-				<? endif; ?>
+				<?php endif; ?>
 		</div>
 </div>

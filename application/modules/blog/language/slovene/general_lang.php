@@ -1,16 +1,17 @@
 <?php
 
-// Index, Archive, Category
+// Indeks, Arhiv, Kategorija
 $lang['read_more'] 						= "Preberite več ...";
 $lang['older_entries']					= "&laquo; Starejši vnosi";
 $lang['newer_entries']					= "Novejši vnosi &raquo;";
 
+$lang['add_to']							= "Dodaj na:";
 $lang['posted_in']						= "Objavljeno v";
 $lang['in']								= "v";
 $lang['by'] 							= "od";
 $lang['comments']						= "Komentarji";
 
-// Single post
+// Sporočilo
 $lang['leave_reply']					= "Komentiraj to objavo";
 $lang['leave_reply_description']		= "Oddajte komentar.";
 $lang['comments_disabled']				= "Komentarji za to sporočilo so bili onemogočeni.";
@@ -23,12 +24,12 @@ $lang['website']						= "Spletna stran";
 $lang['comment']						= "Komentar";
 $lang['submit']							= "Pošlji";
 
-// Search
+// Iskanje
 $lang['search_results_for']				= "Iskalni rezultati za";
 $lang['no_results']						= "Ni najdenih sporočil, ki bi ustrezali temu iskalnemu kriteriju.";
 $lang['in']								= "v";
 
-// Errors
+// Napake
 $lang['error']							= "Napaka";
 $lang['not_found']						= "Strani ni mogoče najti.";
 $lang['no_posts_for_this_date']			= "Ni sporočil za to časovno obdobje.";

@@ -1,30 +1,30 @@
 <div class="post">
 		<div class="post_title">
-			<h1><?=lang('create_category');?></h1>
+			<h1><?php echo lang('create_category'); ?></h1>
 		</div>
 		<div class="post_body">
-			<p><?=lang('create_category_description');?></p>
+			<p><?php echo lang('create_category_description'); ?></p>
 			
-			<? if ($this->validation->error_string != ""): ?>
+			<?php if (validation_errors()): ?>
 				<div class="error">
-				<?=$this->validation->error_string;?>
+				<?php echo validation_errors(); ?>
 				</div>
-			<? endif; ?>
+			<?php endif; ?>
 			
 				<table width="100%">
 				<tr>
 					 <td colspan="2">
 					 	<fieldset id="main">
-					 		<legend><?=lang('form_main');?></legend>
+					 		<legend><?php echo lang('form_main'); ?></legend>
 					 		<table>
 					 			<tr>
-					 				<?=form_open('admin/categories/create');?>
-					 				<td width="200px"><?=lang('form_category_name');?></td>
-					 				<td><?=form_input(array('name' => 'name', 'id' => 'name', 'size' => '30', 'class' => 'styled', 'value' => $this->validation->name));?></td>
+					 				<?php echo form_open('admin/categories/create'); ?>
+					 				<td width="200px"><?php echo lang('form_category_name'); ?></td>
+					 				<td><?php echo form_input(array('name' => 'name', 'id' => 'name', 'size' => '30', 'class' => 'styled', 'value' => set_value('name'))); ?></td>
 					 			</tr>
 					 			<tr>
-					 				<td width="200px"><?=lang('form_category_description');?></td>
-					 				<td><?=form_input(array('name' => 'description', 'id' => 'description', 'size' => '50', 'class' => 'styled', 'value' => $this->validation->description));?></td>
+					 				<td width="200px"><?php echo lang('form_category_description'); ?></td>
+					 				<td><?php echo form_input(array('name' => 'description', 'id' => 'description', 'size' => '50', 'class' => 'styled', 'value' => set_value('description'))); ?></td>
 					 			</tr>
 					 		</table>
 					 	</fieldset>
@@ -35,8 +35,8 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="submit" name="submit" value="<?=lang('button_create');?>" class="styled" />
-						<?=form_close();?>
+						<input type="submit" name="submit" value="<?php echo lang('button_create'); ?>" class="styled" />
+						<?php echo form_close(); ?>
 					</td>
 				</tr>
 				</table>

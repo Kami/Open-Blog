@@ -2,40 +2,42 @@
 
 class Categories extends Controller
 {
-	function Categories()
+	// Protected or private properties
+	protected $_template;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Controller();
-			
+
+		// Check if the logged user is an administrator
 		$this->access_library->check_access();
-			
+
+		// Load needed models, libraries, helpers and language files
 		$this->load->module_model('admin', 'categories_model', 'categories');
 		
 		$this->load->module_language('admin', 'general');
 		$this->load->module_language('admin', 'categories');
 	}
 
-	function index()
+	// Public methods
+	public function index()
 	{
-		$data['categories'] = $this->categories->get_categories();
+		$data['categories'] 		= $this->categories->get_categories();
 
-		$this->template['page']	= "categories/list";
+		$this->_template['page']	= "categories/list";
 
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 
-	function create()
+	public function create()
 	{
-		$rules['name']	= "required|max_length[60]";
-		$rules['description']	= "required|max_length[200]";
-		$this->validation->set_rules($rules);
+		$this->form_validation->set_rules('name', 'lang:form_category_name', 'required|max_length[60]');
+		$this->form_validation->set_rules('description', 'lang:form_category_description', 'required|max_length[200]');
 
-		$fields['name']			= strtolower_utf8(lang('form_category_name'));
-		$fields['description']	= strtolower_utf8(lang('form_category_description'));
-		$this->validation->set_fields($fields);
+		$this->form_validation->set_error_delimiters('', '<br />');
 
-		$this->validation->set_error_delimiters('', '<br />');
-
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->categories->create_category();
 			$this->session->set_flashdata('message', lang('successfully_created'));
@@ -43,33 +45,26 @@ class Categories extends Controller
 			redirect('admin/categories', 'refresh');
 		}
 			
-		$this->template['page']	= "categories/create";
+		$this->_template['page']	= 'categories/create';
 			
-		$this->system->load($this->template['page'], null, TRUE);
+		$this->system_library->load($this->_template['page'], null, TRUE);
 	}
 
-	function edit($id = null)
+	public function edit($id = null)
 	{
 		if ($id == null)
 		{
 			$id = $this->input->post('id');
 		}
 			
-		$rules['name']	= "required|max_length[60]";
-		$rules['description']	= "required|max_length[200]";
-		$this->validation->set_rules($rules);
-			
-		$fields['name']			= strtolower_utf8(lang('form_category_name'));
-		$fields['description']	= strtolower_utf8(lang('form_category_description'));
-		$this->validation->set_fields($fields);
-			
-		$this->validation->set_error_delimiters('', '<br />');
+		$this->form_validation->set_rules('name', 'lang:form_category_name', 'required|max_length[60]');
+		$this->form_validation->set_rules('description', 'lang:form_category_description', 'required|max_length[200]');
+
+		$this->form_validation->set_error_delimiters('', '<br />');
 			
 		$data['category'] = $this->categories->get_category($id);
-		$this->validation->name = $data['category']['name'];
-		$this->validation->description = $data['category']['description'];
 			
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->categories->edit_category($id);
 			$this->session->set_flashdata('message', lang('successfully_edited'));
@@ -77,12 +72,12 @@ class Categories extends Controller
 			redirect('admin/categories', 'refresh');
 		}
 
-		$this->template['page']	= "categories/edit";
+		$this->_template['page']	= 'categories/edit';
 			
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 
-	function delete($id)
+	public function delete($id)
 	{
 		$this->categories->delete_category($id);
 		$this->session->set_flashdata('message', lang('successfully_deleted'));

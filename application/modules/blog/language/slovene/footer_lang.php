@@ -1,6 +1,6 @@
 <?php
 
-// Footer
+// Noga
 $lang['footer_powered_by']				= "Poganja";
 $lang['footer_template_by']				= "Avtor predloge";
 

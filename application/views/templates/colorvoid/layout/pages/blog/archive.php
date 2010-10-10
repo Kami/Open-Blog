@@ -1,24 +1,28 @@
-<? foreach ($posts as $post): ?>
+<?php foreach ($posts as $post): ?>
 	<div class="post">
 		<div class="post_title">
-			<h1 class="left"><a href="<?=site_url('blog/post/' . $post['url']);?>"><?=$post['title'];?></a></h1>
-			<div class="post_date right"><?=strftime('%B %d, %Y', strtotime($post['date_posted']));?></div>
+			<h1 class="left"><a href="<?php echo site_url('blog/post/' . $post['url']); ?>"><?php echo $post['title']; ?></a></h1>
+			<div class="post_date right"><?php echo strftime('%B %d, %Y', strtotime($post['date_posted'])); ?></div>
 			<div class="clearer">&nbsp;</div>
 		</div>
 		<div class="post_body">
-			<?=$post['excerpt'];?>
+			<?php echo $post['excerpt']; ?>
 			
-			<? if ($post['content']): ?>
-				<p class="read_more"><br /><a href="<?=site_url('blog/post/' . $post['url']);?>"><?=lang('read_more');?></a></p>
-			<? endif; ?>
+			<?php if ($post['content']): ?>
+				<p class="read_more"><br /><a href="<?php echo site_url('blog/post/' . $post['url']); ?>"><?php echo lang('read_more'); ?></a></p>
+			<?php endif; ?>
 			
 			<div class="post_metadata">
 				<div class="content">
 					<div class="left">
-						<?=lang('posted_in');?> <a href="<?=site_url('blog/category/' . $post['url_name']);?>"><?=$post['name'];?></a> <?=lang('by');?> <?=$post['display_name'];?>
+						<?php if ($links = $this->system_library->generate_social_bookmarking_links(site_url('blog/post/' . $post['url']), $post['title'])): ?>
+							<?php echo lang('add_to'); ?> <?php echo $links; ?><br />
+						<?php endif; ?>
+						<?php echo lang('posted_in'); ?> <a href="<?php echo site_url('blog/category/' . $post['url_name']); ?>"><?php echo $post['name']; ?></a> <?php echo lang('by'); ?> <?php echo $post['display_name']; ?>
 					</div>
 					<div class="right">
-						<span class="comment"><a href="<?=site_url('blog/post/' . $post['url']);?>#comments"><?=lang('comments');?> (<?=$post['comment_count'];?>) </a></span>
+						<br />
+						<span class="comment"><a href="<?php echo site_url('blog/post/' . $post['url']); ?>#comments"><?php echo lang('comments'); ?> (<?php echo $post['comment_count']; ?>) </a></span>
 					</div>
 					<div class="clearer">&nbsp;</div>
 				</div>
@@ -26,4 +30,4 @@
 		</div>
 		<div class="post_bottom"></div>
 	</div>
-<? endforeach; ?>
+<?php endforeach; ?>

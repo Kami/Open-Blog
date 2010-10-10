@@ -3,7 +3,10 @@
 	<li><?=anchor('admin/dashboard', lang('nav_dashboard'));?></li>
 	<li><?=anchor('admin/settings', lang('nav_settings'));?></li>
 	<li><?=anchor('admin/templates', lang('nav_templates'));?></li>
+	<li><?=anchor('admin/sidebar', lang('nav_sidebar'));?></li>
+	<li><?=anchor('admin/languages', lang('nav_languages'));?></li>
 	<li><?=anchor('admin/feeds', lang('nav_feeds'));?></li>
+	<li><?=anchor('admin/social_bookmarking', lang('nav_bookmarking'));?></li>
 	<li><?=anchor('admin/backup', lang('nav_database_backup'));?></li>
 </ul>
 <h2><?=lang('nav_posts');?></h2>

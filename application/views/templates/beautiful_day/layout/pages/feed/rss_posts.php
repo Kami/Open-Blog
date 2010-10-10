@@ -8,11 +8,11 @@
     xmlns:content="http://purl.org/rss/1.0/modules/content/">
 
 	<channel>
-		<title><?=$this->system->settings['blog_title'];?></title>
+		<title><?=$this->system_library->settings['blog_title'];?></title>
 	    <link><?=base_url();?></link>
-	    <description><?=$this->system->settings['blog_description'];?></description>
+	    <description><?=$this->system_library->settings['blog_description'];?></description>
 	    <pubDate><?=standard_date('DATE_RSS', time());?></pubDate>
-	    <language><?=$this->system->settings['language'];?></language>
+	    <language><?=$this->system_library->settings['language'];?></language>
 	    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
 	
 	    <dc:rights>Copyright <?=gmdate('Y', time());?></dc:rights>

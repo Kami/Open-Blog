@@ -1,2 +1,2 @@
-<div class="title"><a href="<?=site_url();?>"><?=$this->system->settings['blog_title'];?></a></div>
-<p class="olive"><?=$this->system->settings['blog_description'];?></p>
+<div class="title"><a href="<?php echo site_url();?>"><?php echo $this->system_library->settings['blog_title']; ?></a></div>
+<p class="olive"><?php echo $this->system_library->settings['blog_description']; ?></p>

@@ -2,18 +2,23 @@
 
 class Users_model extends Model
 {
-	function Users_model()
+	// Protected or private properties
+	protected $_table;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Model();
 			
-		$this->users_table = 'users';
+		$this->_table = $this->config->item('database_tables');
 	}
 
-	function get_user_display_name($user_id)
+	// Public methods
+	public function get_user_display_name($user_id)
 	{
 		$this->db->select('username, display_name');
 		$this->db->where('id', $user_id);
-		$query = $this->db->get($this->users_table, 1);
+		$query = $this->db->get($this->_table['users'], 1);
 			
 		if ($query->num_rows() == 1)
 		{
@@ -30,11 +35,11 @@ class Users_model extends Model
 		}
 	}
 
-	function get_user_website($user_id)
+	public function get_user_website($user_id)
 	{
 		$this->db->select('website');
 		$this->db->where('id', $user_id);
-		$query = $this->db->get($this->users_table, 1);
+		$query = $this->db->get($this->_table['users'], 1);
 			
 		if ($query->num_rows() == 1)
 		{

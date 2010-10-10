@@ -1,18 +1,23 @@
 <div class="post">
 	<div class="post_title">
-		<h1 class="left"><?=$post['title'];?></h1>
-		<div class="post_date right"><?=strftime('%B %d, %Y', strtotime($post['date_posted']));?></div>
+		<h1 class="left"><?php echo $post['title']; ?></h1>
+		<div class="post_date right"><?php echo strftime('%B %d, %Y', strtotime($post['date_posted'])); ?></div>
 		<div class="clearer">&nbsp;</div>
 	</div>
 	<div class="post_body">
-		<p><?=$post['excerpt'];?></p>
-			<? if ($post['content']): ?>
-				<p><?=$post['content'];?></p>
-			<? endif; ?>
+		<p><?php echo $post['excerpt']; ?></p>
+			<?php if ($post['content']): ?>
+				<p><?php echo $post['content']; ?></p>
+			<?php endif; ?>
 		<div class="post_metadata">
 			<div class="content">
-				<div class="left"><?=lang('posted_in');?> <a href="<?=site_url('blog/category/' . $post['url_name']);?>"><?=$post['name'];?></a> <?=lang('by');?> <?=$post['display_name'];?></div>
-				<div class="right"><span class="comment"><a href="#respond"><?=lang('leave_reply');?></a></span></div>
+				<div class="left">
+					<?php if ($links = $this->system_library->generate_social_bookmarking_links(site_url('blog/post/' . $post['url']), $post['title'])): ?>
+							<?php echo lang('add_to'); ?> <?php echo $links; ?><br />
+						<?php endif; ?>
+					<?php echo lang('posted_in'); ?> <a href="<?php echo site_url('blog/category/' . $post['url_name']); ?>"><?php echo $post['name']; ?></a> <?php echo lang('by'); ?> <?php echo $post['display_name']; ?>
+				</div>
+				<div class="right"><br /><span class="comment"><a href="#respond"><?php echo lang('leave_reply'); ?></a></span></div>
 				<div class="clearer">&nbsp;</div>												
 			</div>
 		</div>
@@ -20,98 +25,98 @@
 	<div class="post_bottom"></div>
 </div>
 
-<? if ($post['comment_count'] > 0): ?>
+<?php if ($post['comment_count'] > 0): ?>
 	<div class="post" id="comments">
 		<div class="post_title">
-			<h1><?=lang('responses_to', array($post['comment_count']));?> "<?=$post['title'];?>"</h1>
+			<h1><?php echo lang('responses_to', array($post['comment_count'])); ?> "<?php echo $post['title']; ?>"</h1>
 		</div>
 		
 		<div class="post_body nicelist">
 			<ol>
-				<? $i = 0; ?>
-				<? foreach ($comments as $comment): ?>
-					<? if ($i % 2 == 0): ?>
-						<li class="alt" id="comment-<?=$comment['id'];?>">
-					<? else: ?>
-						<li id="comment-<?=$comment['id'];?>">
-					<? endif; ?>
+				<?php $i = 0; ?>
+				<?php foreach ($comments as $comment): ?>
+					<?php if ($i % 2 == 0): ?>
+						<li class="alt" id="comment-<?php echo $comment['id']; ?>">
+					<?php else: ?>
+						<li id="comment-<?php echo $comment['id']; ?>">
+					<?php endif; ?>
 						<div class="comment_gravatar left">
-							<img alt="" src="<?=base_url();?>application/views/templates/colorvoid/static/images/default_avatar.jpg" height="32" width="32" />
+							<img alt="" src="<?php echo base_url(); ?>application/views/templates/colorvoid/static/images/default_avatar.jpg" height="32" width="32" />
 						</div>
 		
 						<div class="comment_author left">
-							<span class="comment"><?=$comment['author'];?></span>
-							<div class="date"><a href="#comment-<?=$comment['id'];?>"><?=strftime('%B %d, %Y ' . lang('at') . ' %H:%M:%S', strtotime($comment['date']));?></a></div>
+							<span class="comment"><?php echo $comment['author']; ?></span>
+							<div class="date"><a href="#comment-<?php echo $comment['id']; ?>"><?php echo strftime('%B %d, %Y ' . lang('at') . ' %H:%M:%S', strtotime($comment['date'])); ?></a></div>
 						</div>
 		
 						<div class="clearer">&nbsp;</div>
 						
 						<div class="body">									
-							<p><?=$comment['content'];?></p>
+							<p><?php echo $comment['content']; ?></p>
 						</div>
 					</li>	
-					<? $i++; ?>		
-				<? endforeach; ?>			
+					<?php $i++; ?>		
+				<?php endforeach; ?>			
 			</ol>
 		</div>
 	</div>
-<? endif; ?>
+<?php endif; ?>
 
 <div class="post" id="respond">
-	<div class="post_title"><h1><?=lang('leave_reply');?></h1></div>
-	<? if ($post['allow_comments'] == 1): ?>
+	<div class="post_title"><h1><?php echo lang('leave_reply'); ?></h1></div>
+	<?php if ($post['allow_comments'] == 1): ?>
 		<div class="post_body">
-			<p><?=lang('leave_reply_description');?></p>
+			<p><?php echo lang('leave_reply_description'); ?></p>
 			
-			<? if ($this->validation->error_string != ""): ?>
+			<?php if (validation_errors()): ?>
 				<div class="error">
-				<?=$this->validation->error_string;?>
+					<?php echo validation_errors(); ?>
 				</div>
-			<? endif; ?>
+			<?php endif; ?>
 			
 			<table>
 				<tr>
 					 <td colspan="2">
 					 		<table>
-					 			<form action="<?=site_url('blog/post/' . $post['url']); ?>" method="post">	
-					 			<? if ($this->session->userdata('logged_in') == false): ?>
+					 			<form action="<?php echo site_url('blog/post/' . $post['url']); ?>" method="post">	
+					 			<?php if ($this->session->userdata('logged_in') == FALSE): ?>
 						 			<tr>
-						 				<td width="80px"><?=lang('nickname');?></td>
-						 				<td><input name="nickname" id="nickname" type="text" value="<?=$this->validation->nickname;?>" size="22" class="styled" /></td>
+						 				<td width="80px"><?php echo lang('nickname'); ?></td>
+						 				<td><input name="nickname" id="nickname" type="text" value="<?php echo set_value('nickname'); ?>" size="22" class="styled" /></td>
 						 			</tr>
 						 			<tr>
-						 				<td width="80px"><?=lang('email');?></td>
-						 				<td><input name="email" id="email" type="text" value="<?=$this->validation->email;?>" size="22" class="styled" /></td>
+						 				<td width="80px"><?php echo lang('email'); ?></td>
+						 				<td><input name="email" id="email" type="text" value="<?php echo set_value('email'); ?>" size="22" class="styled" /></td>
 						 			</tr>
 						 			<tr>
-						 				<td width="80px"><?=lang('website');?></td>
-						 				<td><input name="website" id="website" type="text" value="<?=$this->validation->website;?>" size="22" class="styled" /></td>
+						 				<td width="80px"><?php echo lang('website'); ?></td>
+						 				<td><input name="website" id="website" type="text" value="<?php echo set_value('website'); ?>" size="22" class="styled" /></td>
 						 			</tr>
-					 			<? else: ?>
+					 			<?php else: ?>
 						 			<tr>
-						 				<td width="80px"><?=lang('nickname');?></td>
-							 			<td><input name="nickname" id="nickname" type="text" value="<?=$this->session->userdata('username');?>" size="22" class="styled" disabled /></td>
+						 				<td width="80px"><?php echo lang('nickname'); ?></td>
+							 			<td><input name="nickname" id="nickname" type="text" value="<?php echo $this->session->userdata('username'); ?>" size="22" class="styled" disabled /></td>
 						 			</tr>
-					 			<? endif; ?>
+					 			<?php endif; ?>
 					 			<tr>
-					 				<td valign="top"><?=lang('comment');?></td>
-					 				<td><textarea name="comment" id="comment" rows="6" cols="50" class="styled"><?=$this->validation->comment;?></textarea></td>
+					 				<td valign="top"><?php echo lang('comment'); ?></td>
+					 				<td><textarea name="comment" id="comment" rows="6" cols="50" class="styled"><?php echo set_value('comment'); ?></textarea></td>
 					 			</tr>
 					 		</table>
 					 </td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="image" src="<?=base_url();?>application/views/templates/colorvoid/static/images/button_submit.gif" />
+						<input type="image" src="<?php echo base_url(); ?>application/views/templates/colorvoid/static/images/button_submit.gif" />
 						</form>
 					</td>
 				</tr>
 				</table>
 		</div>
-	<? else: ?>	
+	<?php else: ?>	
 		<div class="post_body">
-			<p><?=lang('comments_disabled');?></p>
+			<p><?php echo lang('comments_disabled'); ?></p>
 		</div>
-	<? endif; ?>
+	<?php endif; ?>
 	<div class="post_bottom"></div>
 </div>

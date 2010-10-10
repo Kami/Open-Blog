@@ -2,19 +2,24 @@
 
 class Comments_model extends Model
 {
-	function Comments_model()
+	// Protected or private properties
+	protected $_table;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Model();
 			
-		$this->comments_table = 'comments';
+		$this->_table = $this->config->item('database_tables');
 	}
 
-	function get_comments($post_id)
+	// Public methods
+	public function get_comments($post_id)
 	{
 		$this->db->select('id, user_id, author, author_email, author_website, content, date');
 		$this->db->where('post_id', $post_id);
 		$this->db->order_by('id', 'ASC');
-		$query = $this->db->get($this->comments_table);
+		$query = $this->db->get($this->_table['comments']);
 			
 		if ($query->num_rows() > 0)
 		{
@@ -22,12 +27,12 @@ class Comments_model extends Model
 		}
 	}
 	
-	function get_latest_comments($number = 10, $offset = 0)
+	public function get_latest_comments($number = 10, $offset = 0)
 	{
-		$this->db->select('comments.id, comments.user_id, comments.author, comments.author_email, comments.author_website, comments.content, comments.date, posts.title, posts.url_title, posts.date_posted');
-		$this->db->join('posts', 'comments.post_id = posts.id');
+		$this->db->select($this->_table['comments'] . '.id, ' . $this->_table['comments'] . '.user_id, ' . $this->_table['comments'] . '.author, ' . $this->_table['comments'] . '.author_email, ' . $this->_table['comments'] . '.author_website, ' . $this->_table['comments'] . '.content, ' . $this->_table['comments'] . '.date, ' . $this->_table['posts'] . '.title, ' . $this->_table['posts'] . '.url_title, ' . $this->_table['posts'] . '.date_posted');
+		$this->db->join($this->_table['posts'], $this->_table['comments'] . '.post_id = ' . $this->_table['posts'] . '.id');
 		$this->db->order_by('comments.id', 'DESC');
-		$query = $this->db->get($this->comments_table, $number, $offset);
+		$query = $this->db->get($this->_table['comments'], $number, $offset);
 			
 		if ($query->num_rows() > 0)
 		{
@@ -35,12 +40,12 @@ class Comments_model extends Model
 		}
 	}
 	
-	function get_comment_author($id)
+	public function get_comment_author($id)
 	{
 		$this->db->select('user_id, author');
 		$this->db->where('id', $id);
 		
-		$query = $this->db->get($this->comments_table, 1);
+		$query = $this->db->get($this->_table['comments'], 1);
 		
 		if ($query->num_rows() == 1)
 		{
@@ -53,7 +58,7 @@ class Comments_model extends Model
 		}
 	}
 
-	function create_comment($id)
+	public function create_comment($id)
 	{
 		if ($this->session->userdata('logged_in') == TRUE)
 		{
@@ -80,7 +85,7 @@ class Comments_model extends Model
 						);
 		}
 
-		$this->db->insert($this->comments_table, $data);
+		$this->db->insert($this->_table['comments'], $data);
 	}
 }
 

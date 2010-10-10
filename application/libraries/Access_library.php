@@ -2,15 +2,17 @@
 
 class Access_library
 {
-	function Access_library()
+	// Constructor
+	public function __construct()
 	{
 		if (!isset($this->CI))
 		{
 			$this->CI =& get_instance();
 		}
 	}
-		
-	function is_logged_in()
+
+	// Public methods
+	public function is_logged_in()
 	{
 		if ($this->CI->session->userdata('logged_in') == TRUE)
 		{
@@ -22,9 +24,9 @@ class Access_library
 		}
 	}
 		
-	function is_admin()
+	public function is_admin()
 	{
-		if ($this->CI->session->userdata('level') == "administrator")
+		if ($this->CI->session->userdata('level') == 'administrator')
 		{
 			return TRUE;
 		}
@@ -34,7 +36,7 @@ class Access_library
 		}
 	}
 		
-	function check_logged_in()
+	public function check_logged_in()
 	{
 		if ($this->CI->session->userdata('logged_in') != TRUE)
 		{
@@ -43,9 +45,9 @@ class Access_library
 		}
 	}
 		
-	function check_access()
+	public function check_access()
 	{
-		if ($this->CI->session->userdata('level') != "administrator")
+		if ($this->CI->session->userdata('level') != 'administrator')
 		{
 			redirect('user/login', 'refresh');
 			exit();

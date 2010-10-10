@@ -1,22 +1,23 @@
-<h1><?=lang('login');?></h1>
+<h1><?php echo lang('login');?></h1>
 <div class="login">
-	<? if($this->session->flashdata('message')): ?>
+	<?php if($this->session->flashdata('message')): ?>
 	<div class="message">
-		<?=$this->session->flashdata('message');?>
+		<?php echo $this->session->flashdata('message');?>
 	</div>
-	<? endif; ?>
+	<?php endif; ?>
 	
-	<? if($this->session->flashdata('error')): ?>
+	<?php if($this->session->flashdata('error')): ?>
 	<div class="error">
-		<?=$this->session->flashdata('error');?>
+		<?php echo $this->session->flashdata('error');?>
 	</div>
-	<? endif; ?>
+	<?php endif; ?>
 	
 	<table class="login">
-		<form action="<?=site_url('user/login'); ?>" method="post">	
-			<tr><td><?=lang('form_username');?></td> <td><input name="username" id="username" type="text" size="15" class="styled" /></td></tr>
-			<tr><td><?=lang('form_password');?></td> <td><input name="password" id="password" type="password" size="15" class="styled" /></td></tr>
-			<tr><td colspan="2" class="login"><input type="submit" name="login" id="login" value="<?=lang('button_login');?>" class="login" /></td></tr>
+		<form action="<?php echo site_url('user/login'); ?>" method="post">	
+			<tr><td><?php echo lang('form_username'); ?></td> <td><input name="username" id="username" type="text" size="15" class="styled" /></td></tr>
+			<tr><td><?php echo lang('form_password'); ?></td> <td><input name="password" id="password" type="password" size="15" class="styled" /></td></tr>
+			<tr><td colspan="2" class="login"><input type="submit" name="login" id="login" value="<?php echo lang('button_login'); ?>" class="login" /></td></tr>
 		</form>
-	</table>
+	</table><br />
+	<p align="center"><a href="<?php echo site_url('user/register'); ?>"><?php echo lang('register'); ?></a> | <a href="<?php echo site_url('user/forgotten_password'); ?>"><?php echo lang('forgotten_password'); ?></a></p>
 </div>

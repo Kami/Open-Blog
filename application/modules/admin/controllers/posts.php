@@ -2,48 +2,48 @@
 
 class Posts extends Controller
 {
-	function Posts()
+	// Protected or private properties
+	protected $_template;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Controller();
-			
+
+		// Check if the logged user is an administrator
 		$this->access_library->check_access();
-			
+
+		// Load needed models, libraries, helpers and language files
 		$this->load->module_model('admin', 'posts_model', 'posts');
 		
 		$this->load->module_language('admin', 'general');
 		$this->load->module_language('admin', 'posts');
 	}
 
-	function index()
+	// Public methods
+	public function index()
 	{
 		$data['posts'] = $this->posts->get_posts();
 
-		$this->template['page']	= "posts/list";
+		$this->_template['page']	= 'posts/list';
 
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 
-	function create()
+	public function create()
 	{
-		$rules['title']				= "required|max_length[200]";
-		$rules['excerpt']			= "required";
-		$rules['category_id']		= "required|numeric";
-		$rules['status']			= "required";
-		$this->validation->set_rules($rules);
-		
-		$fields['title']			= strtolower_utf8(lang('form_title'));
-		$fields['excerpt']			= strtolower_utf8(lang('form_excerpt'));
-		$fields['content']			= strtolower_utf8(lang('form_content'));
-		$fields['category_id']		= strtolower_utf8(lang('form_category'));
-		$fields['status']			= strtolower_utf8(lang('form_status'));
-		$fields['allow_comments']	= strtolower_utf8(lang('form_allow_comments'));
-		$this->validation->set_fields($fields);
+		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[200]');
+		$this->form_validation->set_rules('excerpt', 'lang:form_excerpt', 'required');
+		$this->form_validation->set_rules('content', 'lang:form_content', '');
+		$this->form_validation->set_rules('category_id', 'lang:form_category', 'required|numeric');
+		$this->form_validation->set_rules('status', 'lang:form_status', 'required');
+		$this->form_validation->set_rules('allow_comments', 'lang:form_allow_comments', '');
 
-		$this->validation->set_error_delimiters('', '<br />');
+		$this->form_validation->set_error_delimiters('', '<br />');
 		
-		$this->validation->allow_comments = ($this->validation->allow_comments == '') ? "checked" : "";
+		$data['settings']['allow_comments'] = 'checked';
 			
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->posts->create_post();
 			$this->session->set_flashdata('message', lang('successfully_created'));
@@ -51,45 +51,33 @@ class Posts extends Controller
 			redirect('admin/posts', 'refresh');
 		}
 			
-		$data['categories'] = $this->posts->get_categories();
-		$this->template['page']	= "posts/create";
+		$data['categories'] 		= $this->posts->get_categories();
+		$this->_template['page']	= 'posts/create';
 			
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 
-	function edit($id = null)
+	public function edit($id = null)
 	{
 		if ($id == null)
 		{
 			$id = $this->input->post('id');
 		}
 			
-		$rules['title']				= "required|max_length[200]";
-		$rules['excerpt']			= "required";
-		$rules['category_id']		= "required|numeric";
-		$rules['status']			= "required";
-		$this->validation->set_rules($rules);
-
-		$fields['title']			= strtolower_utf8(lang('form_title'));
-		$fields['excerpt']			= strtolower_utf8(lang('form_excerpt'));
-		$fields['content']			= strtolower_utf8(lang('form_content'));
-		$fields['category_id']		= strtolower_utf8(lang('form_category'));
-		$fields['status']			= strtolower_utf8(lang('form_status'));
-		$fields['allow_comments']	= strtolower_utf8(lang('form_allow_comments'));
-		$this->validation->set_fields($fields);
+		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[200]');
+		$this->form_validation->set_rules('excerpt', 'lang:form_excerpt', 'required');
+		$this->form_validation->set_rules('content', 'lang:form_content', '');
+		$this->form_validation->set_rules('category_id', 'lang:form_category', 'required|numeric');
+		$this->form_validation->set_rules('status', 'lang:form_status', 'required');
+		$this->form_validation->set_rules('allow_comments', 'lang:form_allow_comments', '');
+		
+		$this->form_validation->set_error_delimiters('', '<br />');
 			
-		$this->validation->set_error_delimiters('', '<br />');
+		$data['post'] 						= $this->posts->get_post($id);
+		$data['categories'] 				= $this->posts->get_categories();
+		$data['settings']['allow_comments'] = ($data['post']['allow_comments'] == 1) ? 'checked' : '';
 			
-		$data['post'] = $this->posts->get_post($id);
-		$data['categories'] = $this->posts->get_categories();
-		$this->validation->title = $data['post']['title'];
-		$this->validation->excerpt = $data['post']['excerpt'];
-		$this->validation->content = $data['post']['content'];
-		$this->validation->category_id = $data['post']['category_id'];
-		$this->validation->allow_comments = ($data['post']['allow_comments'] == 1) ? "checked" : "";
-		$this->validation->status = $data['post']['status'];
-			
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->posts->edit_post($id);
 			$this->session->set_flashdata('message', lang('successfully_edited'));
@@ -97,12 +85,12 @@ class Posts extends Controller
 			redirect('admin/posts', 'refresh');
 		}
 		
-		$this->template['page']	= "posts/edit";
+		$this->_template['page']	= 'posts/edit';
 			
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 
-	function delete($id)
+	public function delete($id)
 	{
 		$this->posts->delete_post($id);
 		$this->session->set_flashdata('message', lang('successfully_deleted'));

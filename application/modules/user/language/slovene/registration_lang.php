@@ -1,18 +1,18 @@
 <?php
 
-// General
+// Glavno
 $lang['registration']					= "Registracija";
 $lang['registration_description']		= "Prosimo izpolnite spodnji obrazec in pritisnite Registracija.";
 
-// Messages
+// Sporočila
 $lang['registrations_closed']			= "Registracije so trenutno zaprte.";
 $lang['successfully_created']			= "Vaš račun je bil uspešno ustvarjen";
 
-// Validation
+// Validacija
 $lang['username_already_exists']		= "Uporabnik s tem uporabniškim imenom že obstaja.";
 $lang['email_already_exists']			= "Uporabnik s tem e-poštnim naslovom že obstaja.";
 
-// Form
+// Obrazec
 $lang['form_name']						= "Ime";
 $lang['form_username']					= "Uporabniško ime";
 $lang['form_display_name']				= "Prikazano ime";

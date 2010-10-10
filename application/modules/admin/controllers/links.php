@@ -2,46 +2,45 @@
 
 class Links extends Controller
 {
-	function Links()
+	// Protected or private properties
+	protected $_template;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Controller();
 			
+		// Check if the logged user is an administrator
 		$this->access_library->check_access();
-			
+
+		// Load needed models, libraries, helpers and language files 
 		$this->load->module_model('admin', 'links_model', 'links');
 		
 		$this->load->module_language('admin', 'general');
 		$this->load->module_language('admin', 'links');
 	}
 
-	function index()
+	// Public methods
+	public function index()
 	{
 		$data['links'] = $this->links->get_links();
 
-		$this->template['page']	= "links/list";
+		$this->_template['page']	= 'links/list';
 
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 
-	function create()
+	public function create()
 	{
-		$rules['name']			= "required|max_length[50]";
-		$rules['url']			= "required";
-		$rules['target']		= "required";
-		$rules['description']	= "required|max_length[100]";
-		$rules['visible']		= "required";
-		$this->validation->set_rules($rules);
+		$this->form_validation->set_rules('name', 'lang:form_name', 'required|max_length[50]');
+		$this->form_validation->set_rules('url', 'lang:form_url', 'required');
+		$this->form_validation->set_rules('target', 'lang:form_target', 'required');
+		$this->form_validation->set_rules('description', 'lang:form_description', 'required|max_length[100]');
+		$this->form_validation->set_rules('visible', 'lang:form_visible', 'required');
 
-		$fields['name']			= strtolower_utf8(lang('form_name'));
-		$fields['url']			= strtolower_utf8(lang('form_url'));
-		$fields['target']		= strtolower_utf8(lang('form_target'));
-		$fields['description']	= strtolower_utf8(lang('form_description'));
-		$fields['visible']		= strtolower_utf8(lang('form_visible'));
-		$this->validation->set_fields($fields);
-
-		$this->validation->set_error_delimiters('', '<br />');
+		$this->form_validation->set_error_delimiters('', '<br />');
 			
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->links->create_link();
 			$this->session->set_flashdata('message', lang('successfully_created'));
@@ -49,42 +48,29 @@ class Links extends Controller
 			redirect('admin/links', 'refresh');
 		}
 			
-		$this->template['page']	= "links/create";
+		$this->_template['page']	= 'links/create';
 			
-		$this->system->load($this->template['page'], null, TRUE);
+		$this->system_library->load($this->_template['page'], null, TRUE);
 	}
 
-	function edit($id = null)
+	public function edit($id = null)
 	{
 		if ($id == null)
 		{
 			$id = $this->input->post('id');
 		}
 			
-		$rules['name']			= "required|max_length[50]";
-		$rules['url']			= "required";
-		$rules['target']		= "required";
-		$rules['description']	= "required|max_length[100]";
-		$rules['visible']		= "required";
-		$this->validation->set_rules($rules);
+		$this->form_validation->set_rules('name', 'lang:form_name', 'required|max_length[50]');
+		$this->form_validation->set_rules('url', 'lang:form_url', 'required');
+		$this->form_validation->set_rules('target', 'lang:form_target', 'required');
+		$this->form_validation->set_rules('description', 'lang:form_description', 'required|max_length[100]');
+		$this->form_validation->set_rules('visible', 'lang:form_visible', 'required');
 
-		$fields['name']			= strtolower_utf8(lang('form_name'));
-		$fields['url']			= strtolower_utf8(lang('form_url'));
-		$fields['target']		= strtolower_utf8(lang('form_target'));
-		$fields['description']	= strtolower_utf8(lang('form_description'));
-		$fields['visible']		= strtolower_utf8(lang('form_visible'));
-		$this->validation->set_fields($fields);
-			
-		$this->validation->set_error_delimiters('', '<br />');
+		$this->form_validation->set_error_delimiters('', '<br />');
 			
 		$data['link'] = $this->links->get_link($id);
-		$this->validation->name = $data['link']['name'];
-		$this->validation->url = $data['link']['url'];
-		$this->validation->target = $data['link']['target'];
-		$this->validation->description = $data['link']['description'];
-		$this->validation->visible = $data['link']['visible'];
 			
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->links->edit_link($id);
 			$this->session->set_flashdata('message', lang('successfully_edited'));
@@ -92,12 +78,12 @@ class Links extends Controller
 			redirect('admin/links', 'refresh');
 		}
 		
-		$this->template['page']	= "links/edit";
+		$this->_template['page']	= 'links/edit';
 			
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 
-	function delete($id)
+	public function delete($id)
 	{
 		$this->links->delete_link($id);
 		$this->session->set_flashdata('message', lang('successfully_deleted'));

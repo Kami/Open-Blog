@@ -1,0 +1,2 @@
+<h1 id="logo-text"><a href="<?php echo base_url(); ?>"><?php echo $this->system_library->settings['blog_title']; ?></a></h1>		
+<p id="slogan"><?php echo $this->system_library->settings['blog_description']; ?></p>	

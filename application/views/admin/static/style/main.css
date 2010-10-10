@@ -184,6 +184,22 @@ img.middle
 	vertical-align: middle;
 }
 
+.tooltip
+{
+	position: absolute;
+	padding: 10px 13px;
+	z-index: 2;
+
+	display: none;
+	color: #303030;
+	background-color: #F5F5B5;
+	border: 1px solid #DECA7E;
+	font-family: sans-serif;
+	font-size: 12px;
+	line-height: 18px;
+	text-align: center;
+}
+
 /* structure */
 .inner-container
 {

@@ -2,45 +2,49 @@
 
 class Users extends Controller
 {
-	function Users()
+	// Protected or private properties
+	protected $_template;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Controller();
 			
+		// Check if the logged user is an administrator
 		$this->access_library->check_access();
 
+		// Load needed models, libraries, helpers and language files
 		$this->load->module_model('admin', 'users_model', 'users');
 		
 		$this->load->module_language('admin', 'general');
 		$this->load->module_language('admin', 'users');
 	}
 		
-	function index()
+	public function index()
 	{
 		$data['users'] = $this->users->get_users();
 
-		$this->template['page']	= "users/list";
+		$this->_template['page']	= 'users/list';
 
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 	
-	function edit($id = null)
+	public function edit($id = null)
 	{
 		if ($id == null)
 		{
 			$id = $this->input->post('id');
 		}
-			
-		$rules['display_name']			= "max_length[50]";
-		$rules['email']					= "required|valid_email";
-		$rules['level']					= "required";
-		$this->validation->set_rules($rules);
-	
-		$fields['display_name']			= strtolower_utf8(lang('form_display_name'));
-		$fields['email']				= strtolower_utf8(lang('form_email'));
-		$fields['level']				= strtolower_utf8(lang('form_level'));
-		$this->validation->set_fields($fields);
+		
+		$this->form_validation->set_rules('display_name', 'lang:form_display_name', 'max_length[50]');
+		$this->form_validation->set_rules('email', 'lang:form_email', 'required|valid_email');
+		$this->form_validation->set_rules('level', 'lang:form_level', 'required');
+		$this->form_validation->set_rules('website', 'lang:form_website', '');
+		$this->form_validation->set_rules('msn_messenger', 'lang:form_msn_messenger', '');
+		$this->form_validation->set_rules('jabber', 'lang:form_jabber', '');
+		$this->form_validation->set_rules('about_me', 'lang:form_about_me', '');
 				
-		$this->validation->set_error_delimiters('', '<br />');
+		$this->form_validation->set_error_delimiters('', '<br />');
 			
 		$data['user'] = $this->users->get_user($id);
 		$this->validation->username 	= $data['user']['username'];
@@ -52,7 +56,7 @@ class Users extends Controller
 		$this->validation->about_me 	= $data['user']['about_me'];
 		$this->validation->level	 	= $data['user']['level'];
 			
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->users->edit_user($id);
 			$this->session->set_flashdata('message', lang('successfully_edited'));
@@ -60,12 +64,12 @@ class Users extends Controller
 			redirect('admin/users', 'refresh');
 		}
 
-		$this->template['page']	= "users/edit";
+		$this->_template['page']	= 'users/edit';
 			
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 
-	function delete($id)
+	public function delete($id)
 	{
 		$this->users->delete_user($id);
 		$this->session->set_flashdata('message', lang('successfully_deleted'));

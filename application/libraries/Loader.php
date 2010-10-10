@@ -177,18 +177,18 @@ class CI_Loader
 
     //}}}
 
-    // All these are set automatically. Don't mess with them.
-    var $_ci_ob_level;
-    var $_ci_view_path        = '';
-    var $_ci_is_php5        = FALSE;
-    var $_ci_is_instance     = FALSE; // Whether we should use $this or $CI =& get_instance()
-    var $_ci_cached_vars    = array();
-    var $_ci_classes        = array();
-    var $_ci_models            = array();
-    var $_ci_helpers        = array();
-    var $_ci_plugins        = array();
-    var $_ci_scripts        = array();
-    var $_ci_varmap            = array('unit_test' => 'unit', 'user_agent' => 'agent');
+  	// All these are set automatically. Don't mess with them.
+  	var $_ci_ob_level;
+  	var $_ci_view_path		= '';
+  	var $_ci_is_php5		= FALSE;
+  	var $_ci_is_instance 	= FALSE; // Whether we should use $this or $CI =& get_instance()
+  	var $_ci_cached_vars	= array();
+  	var $_ci_classes		= array();
+  	var $_ci_loaded_files	= array();
+  	var $_ci_models			= array();
+  	var $_ci_helpers		= array();
+  	var $_ci_plugins		= array();
+  	var $_ci_varmap			= array('unit_test' => 'unit', 'user_agent' => 'agent');
 
 
     /**
@@ -206,11 +206,11 @@ class CI_Loader
 
         // }}}
 
-        $this->_ci_is_php5 = (floor(phpversion()) >= 5) ? TRUE : FALSE;
-        $this->_ci_view_path = APPPATH.'views/';
-        $this->_ci_ob_level  = ob_get_level();
+    		$this->_ci_is_php5 = (floor(phpversion()) >= 5) ? TRUE : FALSE;
+    		$this->_ci_view_path = APPPATH.'views/';
+    		$this->_ci_ob_level  = ob_get_level();
 
-        log_message('debug', "Loader Class Initialized");
+    		log_message('debug', "Loader Class Initialized");
     }
 
     // --------------------------------------------------------------------
@@ -233,6 +233,11 @@ class CI_Loader
             return FALSE;
         }
 
+        if ( ! is_null($params) AND ! is_array($params))
+    		{
+    			$params = NULL;
+    		}
+    		
         // {{{ Matchbox
 
         $module = $this->_matchbox->argument(2);
@@ -505,19 +510,23 @@ class CI_Loader
      * @param    array
      * @return    void
      */
-    function vars($vars = array())
-    {
-        $vars = $this->_ci_object_to_array($vars);
+ 	function vars($vars = array(), $val = '')
+ 	{
+ 		if ($val != '' AND is_string($vars))
+ 		{
+ 			$vars = array($vars => $val);
+ 		}
 
-        if (is_array($vars) AND count($vars) > 0)
-        {
-            foreach ($vars as $key => $val)
-            {
-                $this->_ci_cached_vars[$key] = $val;
-            }
-        }
-    }
+ 		$vars = $this->_ci_object_to_array($vars);
 
+ 		if (is_array($vars) AND count($vars) > 0)
+ 		{
+ 			foreach ($vars as $key => $val)
+ 			{
+ 				$this->_ci_cached_vars[$key] = $val;
+ 			}
+ 		}
+ 	}
     // --------------------------------------------------------------------
 
     /**
@@ -544,6 +553,8 @@ class CI_Loader
             {
                 continue;
             }
+            
+            //$ext_helper = APPPATH.'helpers/'.config_item('subclass_prefix').$helper.EXT;
 
             // {{{ Matchbox
 
@@ -942,79 +953,105 @@ class CI_Loader
      * @param    mixed    any additional parameters
      * @return     void
      */
-    function _ci_load_class($class, $params = NULL)
-    {
-        // Get the class name
-        $class = str_replace(EXT, '', $class);
+   function _ci_load_class($class, $params = NULL)
+       {
+           // Get the class name, and while we're at it trim any slashes.  
+                   // The directory path can be included as part of the class name,
+                   // but we don't want a leading slash
+                   $class = str_replace(EXT, '', trim($class, '/'));
 
-        // We'll test for both lowercase and capitalized versions of the file name
-        foreach (array(ucfirst($class), strtolower($class)) as $class)
-        {
-            // {{{ Matchbox
+                   // Was the path included with the class name?
+                   // We look for a slash to determine this
+                   $subdir = '';
+                   if (strpos($class, '/') !== FALSE)
+                   {
+                       // explode the path so we can separate the filename from the path
+                       $x = explode('/', $class);    
 
-            $module = $this->_matchbox->argument(2);
+                       // Reset the $class variable now that we know the actual filename
+                       $class = end($x);
 
-            if ($subclass = $this->_matchbox->find('libraries/' . config_item('subclass_prefix') . $class . EXT, $module)) {
+                       // Kill the filename from the array
+                       unset($x[count($x)-1]);
 
-                $baseclass = $this->_matchbox->find('libraries/' . $class . EXT, $module, 2);
+                       // Glue the path back together, sans filename
+                       $subdir = implode($x, '/').'/';
+                   }
 
-                // }}}
+           // We'll test for both lowercase and capitalized versions of the file name
+           foreach (array(ucfirst($class), strtolower($class)) as $class)
+           {
+               // {{{ Matchbox
 
-                if ( ! file_exists($baseclass))
-                {
-                    log_message('error', "Unable to load the requested class: ".$class);
-                    show_error("Unable to load the requested class: ".$class);
-                }
+               $module = $this->_matchbox->argument(2);
 
-                // Safety:  Was the class already loaded by a previous call?
-                if (in_array($subclass, $this->_ci_classes))
-                {
-                    $is_duplicate = TRUE;
-                    log_message('debug', $class." class already loaded. Second attempt ignored.");
-                    return;
-                }
+               if ($subclass = $this->_matchbox->find('libraries/'.$subdir.config_item('subclass_prefix') . $class . EXT, $module)) {
 
-                include($baseclass);
-                include($subclass);
-                $this->_ci_classes[] = $subclass;
+                   $baseclass = $this->_matchbox->find('libraries/'.$class.EXT, $module, 2);
 
-                // {{{ Matchbox
+                   // }}}
 
-                return $this->_ci_init_class($class, config_item('subclass_prefix'), $params, $module);
+                   if ( ! file_exists($baseclass))
+                   {
+                       log_message('error', "Unable to load the requested class: ".$class);
+                       show_error("Unable to load the requested class: ".$class);
+                   }
 
-                // }}}
-            }
+                   // Safety:  Was the class already loaded by a previous call?
+                   if (in_array($subclass, $this->_ci_classes))
+                   {
+                       $is_duplicate = TRUE;
+                       log_message('debug', $class." class already loaded. Second attempt ignored.");
+                       return;
+                   }
 
-            // Lets search for the requested library file and load it.
-            $is_duplicate = FALSE;
+                   include($baseclass);
+                   include($subclass);
+                   $this->_ci_classes[] = $subclass;
 
-            // {{{ Matchbox
+                   // {{{ Matchbox
 
-            if ($filepath = $this->_matchbox->find('libraries/' . $class . EXT, $module, 2)) {
-                if (in_array($class, $this->_ci_classes)) {
-                    $is_duplicate = true;
-                    log_message('debug', $class . ' class already loaded. Second attempt ignored.');
-                    return;
-                }
+                   return $this->_ci_init_class($class, config_item('subclass_prefix'), $params, $module);
 
-                include($filepath);
-                $this->_ci_classes[] = $class;
-                return $this->_ci_init_class($class, '', $params, $module);
-            }
+                   // }}}
+               }
 
-            // }}}
+               // Lets search for the requested library file and load it.
+               $is_duplicate = FALSE;
 
-        } // END FOREACH
+               // {{{ Matchbox
 
-        // If we got this far we were unable to find the requested class.
-        // We do not issue errors if the load call failed due to a duplicate request
-        if ($is_duplicate == FALSE)
-        {
-            log_message('error', "Unable to load the requested class: ".$class);
-            show_error("Unable to load the requested class: ".$class);
-        }
-    }
+               if ($filepath = $this->_matchbox->find('libraries/'.$subdir.$class.EXT, $module, 2)) {
+                   if (in_array($class, $this->_ci_classes)) {
+                       $is_duplicate = true;
+                       log_message('debug', $class . ' class already loaded. Second attempt ignored.');
+                       return;
+                   }
 
+                   include($filepath);
+                   $this->_ci_classes[] = $class;
+                   return $this->_ci_init_class($class, '', $params, $module);
+               }
+
+               // }}}
+
+           } // END FOREACH
+
+                   // One last attempt.  Maybe the library is in a subdirectory, but it wasn't specified?
+                   if ($subdir == '')
+                   {
+                       $path = strtolower($class).'/'.$class;
+                       return $this->_ci_load_class($path, $params);
+                   }
+
+           // If we got this far we were unable to find the requested class.
+           // We do not issue errors if the load call failed due to a duplicate request
+           if ($is_duplicate == FALSE)
+           {
+               log_message('error', "Unable to load the requested class: ".$class);
+               show_error("Unable to load the requested class: ".$class);
+           }
+       }
     // --------------------------------------------------------------------
 
     /**
@@ -1025,46 +1062,124 @@ class CI_Loader
      * @param    string
      * @return    null
      */
-    function _ci_init_class($class, $prefix = '', $config = FALSE)
-    {
-        $class = strtolower($class);
-
-        // Is there an associated config file for this class?
-        // {{{ Matchbox
-
-        $module = $this->_matchbox->argument(3);
-
-        if ($config === null) {
-            if ($filepath = $this->_matchbox->find('config/' . $class . EXT, $module)) {
-                include($filepath);
-            }
+    // function _ci_init_class($class, $prefix = '', $config = FALSE)
+    // {
+    //   
+    //     if ($config === null) {
+    //         if ($filepath = $this->_matchbox->find('config/' . $class . EXT, $module)) {
+    //             include($filepath);
+    //         }
+    //     }
+    // 
+    //     // }}}
+    // 
+    //     if ($prefix == '')
+    //     {
+    //         $name = (class_exists('CI_'.$class)) ? 'CI_'.$class : $class;
+    //     }
+    //     else
+    //     {
+    //         $name = $prefix.$class;
+    //     }
+    // 
+    //     // Set the variable name we will assign the class to
+    //     $classvar = ( ! isset($this->_ci_varmap[$class])) ? $class : $this->_ci_varmap[$class];
+    // 
+    //     // Instantiate the class
+    //     $CI =& get_instance();
+    //     if ($config !== NULL)
+    //     {
+    //         $CI->$classvar = new $name($config);
+    //     }
+    //     else
+    //     {
+    //         $CI->$classvar = new $name;
+    //     }
+    // }
+    
+    
+    function _ci_init_class($class, $prefix = '', $config = FALSE, $object_name = NULL)
+  	{	
+  		// Is there an associated config file for this class?
+  		if ($config === NULL)
+  		{
+  			// We test for both uppercase and lowercase, for servers that
+  			// are case-sensitive with regard to file names
+       if (file_exists(APPPATH.'config/'.strtolower($class).EXT))
+       {
+         include_once(APPPATH.'config/'.strtolower($class).EXT);
+       }
+       else
+       {
+         if (file_exists(APPPATH.'config/'.ucfirst(strtolower($class)).EXT))
+         {
+           include_once(APPPATH.'config/'.ucfirst(strtolower($class)).EXT);
+         }
         }
+  		}
 
-        // }}}
+  		if ($prefix == '')
+  		{			
+  			if (class_exists('CI_'.$class)) 
+  			{
+  				$name = 'CI_'.$class;
+  			}
+  			elseif (class_exists(config_item('subclass_prefix').$class)) 
+  			{
+  				$name = config_item('subclass_prefix').$class;
+  			}
+  			else
+  			{
+  				$name = $class;
+  			}
+  		}
+  		else
+  		{
+  			$name = $prefix.$class;
+  		}
 
-        if ($prefix == '')
-        {
-            $name = (class_exists('CI_'.$class)) ? 'CI_'.$class : $class;
-        }
-        else
-        {
-            $name = $prefix.$class;
-        }
+  		// Is the class name valid?
+  		if ( ! class_exists($name))
+  		{
+  			log_message('error', "Non-existent class: ".$name);
+  			show_error("Non-existent class: ".$class);
+  		}
 
-        // Set the variable name we will assign the class to
-        $classvar = ( ! isset($this->_ci_varmap[$class])) ? $class : $this->_ci_varmap[$class];
+  		// Set the variable name we will assign the class to
+  		// Was a custom class name supplied?  If so we'll use it
+  		$class = strtolower($class);
+  		//$module = $this->_matchbox->argument(3);
+  		
+  		//echo $class;
+  		$classvar = ( ! isset($this->_ci_varmap[$class])) ? $class : $this->_ci_varmap[$class];
+  		//echo $classvar;
+  		
+      // if (is_null($object_name))
+      // {
+      //  $classvar = ( ! isset($this->_ci_varmap[$class])) ? $class : $this->_ci_varmap[$class];
+      // }
+      // else
+      // {
+      // 
+      //  $classvar = $object_name;
+      // 
+      // }
 
-        // Instantiate the class
-        $CI =& get_instance();
-        if ($config !== NULL)
-        {
-            $CI->$classvar = new $name($config);
-        }
-        else
-        {
-            $CI->$classvar = new $name;
-        }
-    }
+  		// Save the class name and object name		
+  		$this->_ci_classes[$class] = $classvar;
+
+  		// Instantiate the class		
+  		$CI =& get_instance();
+  		if ($config !== NULL)
+  		{
+  			$CI->$classvar = new $name($config);
+  		}
+  		else
+  		{		
+  			$CI->$classvar = new $name;
+  		}	
+  	} 	
+  	
 
     // --------------------------------------------------------------------
 

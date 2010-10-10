@@ -1,30 +1,30 @@
 <div class="post">
 		<div class="post_title">
-			<h1><?=lang('edit_category');?></h1>
+			<h1><?php echo lang('edit_category'); ?></h1>
 		</div>
 		<div class="post_body">
-			<p><?=lang('edit_category_description');?></p>
+			<p><?php echo lang('edit_category_description'); ?></p>
 			
-			<? if ($this->validation->error_string != ""): ?>
+			<?php if (validation_errors()): ?>
 				<div class="error">
-				<?=$this->validation->error_string;?>
+				<?php echo validation_errors(); ?>
 				</div>
-			<? endif; ?>
+			<?php endif; ?>
 			
 				<table width="100%">
 				<tr>
 					 <td colspan="2">
 					 	<fieldset id="main">
-					 		<legend><?=lang('form_main');?></legend>
+					 		<legend><?php echo lang('form_main'); ?></legend>
 					 		<table>
 					 			<tr>
-					 				<?=form_open('admin/categories/edit/');?>
-					 				<td width="200px"><?=lang('form_category_name');?></td>
-					 				<td><?=form_input(array('name' => 'name', 'id' => 'name', 'size' => '20', 'class' => 'styled', 'value' => $this->validation->name));?></td>
+					 				<?php echo form_open('admin/categories/edit/'); ?>
+					 				<td width="200px"><?php echo lang('form_category_name'); ?></td>
+					 				<td><?php echo form_input(array('name' => 'name', 'id' => 'name', 'size' => '20', 'class' => 'styled', 'value' => set_value('name', isset($category['name']) ? $category['name'] : ''))); ?></td>
 					 			</tr>
 					 			<tr>
-					 				<td width="200px"><?=lang('form_category_description');?></td>
-					 				<td><?=form_input(array('name' => 'description', 'id' => 'description', 'size' => '40', 'class' => 'styled', 'value' => $this->validation->description));?></td>
+					 				<td width="200px"><?php echo lang('form_category_description'); ?></td>
+					 				<td><?php echo form_input(array('name' => 'description', 'id' => 'description', 'size' => '40', 'class' => 'styled', 'value' => set_value('description', isset($category['description']) ? $category['description'] : ''))); ?></td>
 					 			</tr>
 					 		</table>
 					 	</fieldset>
@@ -35,9 +35,9 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<?=form_hidden('id', $category['id']) ?>
-						<input type="submit" name="submit" value="<?=lang('button_edit');?>" class="styled" />
-						<?=form_close();?>
+						<?php echo form_hidden('id', $category['id']) ?>
+						<input type="submit" name="submit" value="<?php echo lang('button_edit'); ?>" class="styled" />
+						<?php echo form_close(); ?>
 					</td>
 				</tr>
 				</table>

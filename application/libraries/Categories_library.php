@@ -2,22 +2,27 @@
 
 class Categories_library
 {
-	function Categories_library()
+	// Protected or private properties
+	protected $_table;
+	
+	// Constructor
+	public function __construct()
 	{
 		if (!isset($this->CI))
 		{
 			$this->CI =& get_instance();
 		}
 		
-		$this->categories_table = 'categories';
+		$this->_table = $this->CI->config->item('database_tables');
 	}
 		
-	function get_categories()
+	// Public methods
+	public function get_categories()
 	{
 		$this->CI->db->select('id, name, url_name');
 		$this->CI->db->select('(SELECT COUNT(' . $this->CI->db->dbprefix . 'posts.id) FROM ' . $this->CI->db->dbprefix . 'posts WHERE ' . $this->CI->db->dbprefix . 'posts.category_id = ' . $this->CI->db->dbprefix . 'categories.id AND ' . $this->CI->db->dbprefix . 'posts.status = "published") AS posts_count', FALSE); 
 		$this->CI->db->order_by('id', 'ASC'); 
-		$query = $this->CI->db->get($this->categories_table);
+		$query = $this->CI->db->get($this->_table['categories']);
 			
 		if ($query->num_rows() > 0)
 		{			

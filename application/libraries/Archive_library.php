@@ -2,21 +2,26 @@
 
 class Archive_library
 {
-	function Archive_library()
+	// Protected or private properties
+	protected $_table;
+	
+	// Constructor
+	public function __construct()
 	{
 		if (!isset($this->CI))
 		{
 			$this->CI =& get_instance();
 		}
 		
-		$this->posts_table = 'posts';
+		$this->_table = $this->CI->config->item('database_tables');
 	}
 	
-	function get_archive()
+	// Public methods
+	public function get_archive()
 	{
 		$this->CI->db->select('COUNT(' . $this->CI->db->dbprefix . 'posts.id) AS posts_count, ' . $this->CI->db->dbprefix . 'posts.date_posted FROM ' . $this->CI->db->dbprefix . 'posts WHERE ' . $this->CI->db->dbprefix . 'posts.status = \'published\' GROUP BY SUBSTRING(' . $this->CI->db->dbprefix . 'posts.date_posted, 1, 7)', FALSE);
 		$this->CI->db->order_by('date_posted', 'DESC');
-		$this->CI->db->limit($this->CI->system->settings['months_per_archive']);
+		$this->CI->db->limit($this->CI->system_library->settings['months_per_archive']);
 		$query = $this->CI->db->get();
 		
 		if ($query->num_rows() > 0)

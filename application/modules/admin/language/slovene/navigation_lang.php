@@ -32,6 +32,8 @@ $lang['form_example']					= "npr.:";
 
 // Ostalo
 $lang['new_item']						= "Ustvari nov predmet navigacije";
+$lang['move_up']						= "Premakni ta predmet gor";
+$lang['move_down']						= "Premakni ta predmet dol";
 
 /* End of file navigation_lang.php */
 /* Location: ./application/modules/admin/language/slovene/navigation_lang.php */

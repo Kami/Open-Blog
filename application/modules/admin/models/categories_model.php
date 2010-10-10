@@ -2,18 +2,23 @@
 
 class Categories_model extends Model
 {
-	function Categories_model()
+	// Protected or private properties
+	protected $_table;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Model();
 			
-		$this->categories_table = 'categories';
+		$this->_table = $this->config->item('database_tables');
 	}
 
-	function get_categories()
+	// Public methods
+	public function get_categories()
 	{
 		$this->db->select('id, name, description');
 			
-		$query = $this->db->get($this->categories_table);
+		$query = $this->db->get($this->_table['categories']);
 			
 		if ($query->num_rows() > 0)
 		{
@@ -21,12 +26,12 @@ class Categories_model extends Model
 		}
 	}
 
-	function get_category($id)
+	public function get_category($id)
 	{
 		$this->db->select('id, name, description');
 		$this->db->where('id', $id);
 			
-		$query = $this->db->get($this->categories_table, 1);
+		$query = $this->db->get($this->_table['categories'], 1);
 			
 		if ($query->num_rows() > 0)
 		{
@@ -34,7 +39,7 @@ class Categories_model extends Model
 		}
 	}
 
-	function create_category()
+	public function create_category()
 	{
 		$data = array
 					(
@@ -43,10 +48,10 @@ class Categories_model extends Model
 						'description' => $this->input->post('description')
 					);
 
-		$this->db->insert($this->categories_table, $data);
+		$this->db->insert($this->_table['categories'], $data);
 	}
 
-	function edit_category()
+	public function edit_category()
 	{
 		$data = array
 					(
@@ -56,14 +61,14 @@ class Categories_model extends Model
 					);
 
 		$this->db->where('id', $this->input->post('id'));
-		$this->db->update($this->categories_table, $data);
+		$this->db->update($this->_table['categories'], $data);
 	}
 
-	function delete_category($id)
+	public function delete_category($id)
 	{
 		$this->db->where('id', $id);
 			
-		$this->db->delete($this->categories_table);
+		$this->db->delete($this->_table['categories']);
 	}
 }
 

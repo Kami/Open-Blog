@@ -1,5 +1,8 @@
-<? if ($this->archive_library->get_archive()): ?>
-	<? foreach ($this->archive_library->get_archive() as $archive): ?>
-		<li><a href="<?=site_url('/blog/archive/' . $archive['url']);?>"><?=$archive['date_posted'];?></a> (<?=$archive['posts_count'];?>)</li>
-	<? endforeach; ?>
-<? endif; ?>
+<h2><?php echo lang('archives');?></h2>
+<ul>
+	<?php if ($this->archive_library->get_archive()): ?>
+		<?php foreach ($this->archive_library->get_archive() as $archive): ?>
+			<li><a href="<?php echo site_url('/blog/archive/' . $archive['url']); ?>"><?php echo $archive['date_posted']; ?> (<?php echo $archive['posts_count']; ?>)</a></li>
+		<?php endforeach; ?>
+	<? endif; ?>
+</ul>

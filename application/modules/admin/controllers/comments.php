@@ -2,12 +2,18 @@
 
 class Comments extends Controller
 {
-	function Comments()
+	// Protected or private properties
+	protected $_template;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Controller();
-			
+
+		// Check if the logged user is an administrator
 		$this->access_library->check_access();
 			
+		// Load needed models, libraries, helpers and language files
 		$this->load->module_model('admin', 'comments_model', 'comments');
 		$this->load->module_model('blog', 'users_model', 'users');
 		
@@ -15,13 +21,13 @@ class Comments extends Controller
 		$this->load->module_language('admin', 'comments');
 	}
 
-	function index()
+	// Public methods
+	public function index()
 	{
 		$this->load->helper('text');
 		
 		if ($data['comments'] = $this->comments->get_comments())
 		{
-		
 			foreach ($data['comments'] as $key => $comment)
 			{
 				$data['comments'][$key]['post_url'] = date('Y', strtotime($comment['date_posted'])) . '/' . date('m', strtotime($comment['date_posted'])) . '/' . date('d', strtotime($comment['date_posted'])) . '/' .$comment['url_title']  . '#comment-' . $comment['id'];
@@ -34,30 +40,25 @@ class Comments extends Controller
 			}
 		}
 
-		$this->template['page']	= "comments/list";
+		$this->_template['page']	= 'comments/list';
 
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 	
-	function edit($id = null)
+	public function edit($id = null)
 	{
 		if ($id == null)
 		{
 			$id = $this->input->post('id');
 		}
-			
-		$rules['comment']	= "required";
-		$this->validation->set_rules($rules);
-			
-		$fields['comment']	= strtolower_utf8(lang('form_comment'));
-		$this->validation->set_fields($fields);
-			
-		$this->validation->set_error_delimiters('', '<br />');
+
+		$this->form_validation->set_rules('comment', 'lang:form_comment', 'required');
+
+		$this->form_validation->set_error_delimiters('', '<br />');
 			
 		$data['comment'] = $this->comments->get_comment($id);
-		$this->validation->comment = $data['comment']['content'];
 			
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->comments->edit_comment($id);
 			$this->session->set_flashdata('message', lang('successfully_edited'));
@@ -65,13 +66,13 @@ class Comments extends Controller
 			redirect('admin/comments', 'refresh');
 		}
 
-		$this->template['page']	= "comments/edit";
+		$this->_template['page']	= 'comments/edit';
 			
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 
 
-	function delete($id)
+	public function delete($id)
 	{
 		$this->comments->delete_comment($id);
 		$this->session->set_flashdata('message', lang('successfully_deleted'));

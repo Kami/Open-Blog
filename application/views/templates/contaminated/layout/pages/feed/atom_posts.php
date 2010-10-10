@@ -1,28 +1,28 @@
-<?='<?xml version="1.0" encoding="utf-8"?>';?>
+<?php echo'<?xml version="1.0" encoding="utf-8"?>'; ?>
 
 <feed>
-	<title><?=$this->system->settings['blog_title'];?></title>
-	<subtitle><?=$this->system->settings['blog_description'];?></subtitle>
-	<link href="<?=base_url();?>"/>
-	<updated><?=standard_date('DATE_ATOM', time())?></updated>
+	<title><?php echo $this->system_library->settings['blog_title']; ?></title>
+	<subtitle><?php echo $this->system_library->settings['blog_description']; ?></subtitle>
+	<link href="<?php echobase_url(); ?>"/>
+	<updated><?php echostandard_date('DATE_ATOM', time())?></updated>
 	
-	<? if ($posts): ?>
-		<? foreach($posts as $post): ?>
+	<?php if ($posts): ?>
+		<?php foreach($posts as $post): ?>
 		<entry>
-			<title><?=$post['title'];?></title>
-		    <link rel="alternate" type="text/html" href="<?=base_url() . 'blog/post/' . date('Y', strtotime($post['date_posted'])) . '/' . date('m', strtotime($post['date_posted'])) . '/' . date('d', strtotime($post['date_posted'])) . '/' . $post['url_title']  . '/';?>" />
-		    <link rel="service.edit" type="application/atom+xml" href="<?=base_url() . 'blog/post/' . date('Y', strtotime($post['date_posted'])) . '/' . date('m', strtotime($post['date_posted'])) . '/' . date('d', strtotime($post['date_posted'])) . '/' . $post['url_title']  . '/';?>" title="<?=$post['title'];?>" />
-		   	<published><?=standard_date('DATE_ATOM', strtotime($post['date_posted']));?></published>
+			<title><?php echo $post['title']; ?></title>
+		    <link rel="alternate" type="text/html" href="<?php echobase_url() . 'blog/post/' . date('Y', strtotime($post['date_posted'])) . '/' . date('m', strtotime($post['date_posted'])) . '/' . date('d', strtotime($post['date_posted'])) . '/' . $post['url_title']  . '/'; ?>" />
+		    <link rel="service.edit" type="application/atom+xml" href="<?php echobase_url() . 'blog/post/' . date('Y', strtotime($post['date_posted'])) . '/' . date('m', strtotime($post['date_posted'])) . '/' . date('d', strtotime($post['date_posted'])) . '/' . $post['url_title']  . '/'; ?>" title="<?php echo $post['title']; ?>" />
+		   	<published><?php echostandard_date('DATE_ATOM', strtotime($post['date_posted'])); ?></published>
 		   
-		   <summary><![CDATA[<?=strip_tags(word_limiter($post['excerpt'], 100));?>]]></summary>
+		   <summary><![CDATA[<?php echostrip_tags(word_limiter($post['excerpt'], 100)); ?>]]></summary>
 		   <author>
-		       <name><?=$post['display_name'];?></name>
+		       <name><?php echo $post['display_name']; ?></name>
 		   </author>
-		   <content type="html" xml:lang="en" xml:base="<?=base_url();?>">
-		        <![CDATA[<?=$post['excerpt'];?>]]>
+		   <content type="html" xml:lang="en" xml:base="<?php echobase_url(); ?>">
+		        <![CDATA[<?php echo $post['excerpt']; ?>]]>
 		   </content>
 		</entry>
-		<? endforeach; ?>
-	<? endif; ?>
+		<?php endforeach; ?>
+	<?php endif; ?>
 
 </feed>

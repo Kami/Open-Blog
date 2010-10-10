@@ -2,91 +2,93 @@
 
 class Pages extends Controller
 {
-	function Pages()
+	// Protected or private properties
+	protected $_template;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Controller();
-			
+
+		// Check if the logged user is an administrator
 		$this->access_library->check_access();
-			
+
+		// Load needed models, libraries, helpers and language files
 		$this->load->module_model('admin', 'pages_model', 'pages');
+		$this->load->module_model('admin', 'navigation_model', 'navigation');
 		
 		$this->load->module_language('admin', 'general');
 		$this->load->module_language('admin', 'pages');
 	}
 
-	function index()
+	// Public methods
+	public function index()
 	{
-		$data['pages'] = $this->pages->get_pages();
+		$data['pages'] 				= $this->pages->get_pages();
+		
+		$this->_template['page']	= 'pages/list';
 
-		$this->template['page']	= "pages/list";
-
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 
-	function create()
-	{		
-		$rules['title']		= "required|max_length[200]";
-		$rules['content']	= "required";
-		$rules['status']	= "required";
-		$this->validation->set_rules($rules);
+	public function create()
+	{
+		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[200]');
+		$this->form_validation->set_rules('content', 'lang:form_content', 'required');
+		$this->form_validation->set_rules('status', 'lang:form_status', 'required');
 
-		$fields['title']	= strtolower_utf8(lang('form_title'));
-		$fields['content']	= strtolower_utf8(lang('form_content'));
-		$fields['status']	= strtolower_utf8(lang('form_status'));
-		$this->validation->set_fields($fields);
-
-		$this->validation->set_error_delimiters('', '<br />');
+		$this->form_validation->set_error_delimiters('', '<br />');
 			
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->pages->create_page();
+			
+			if ($this->input->post('add_to_navigation'))
+			{
+				$url = 'pages/' . url_title($this->input->post('title'), 'dash', TRUE) . '/';
+				
+				$this->navigation->create_navigation_item($this->input->post('title'), $this->input->post('title'), $url);
+			}
+			
 			$this->session->set_flashdata('message', lang('successfully_created'));
 
 			redirect('admin/pages', 'refresh');
 		}
 			
-		$this->template['page']	= "pages/create";
+		$this->_template['page']	= 'pages/create';
 			
-		$this->system->load($this->template['page'], null, TRUE);
+		$this->system_library->load($this->_template['page'], null, TRUE);
 	}
 
-	function edit($id = null)
+	public function edit($id = null)
 	{
 		if ($id == null)
 		{
 			$id = $this->input->post('id');
 		}
 			
-		$rules['title']		= "required|max_length[200]";
-		$rules['content']	= "required";
-		$rules['status']	= "required";
-		$this->validation->set_rules($rules);
+		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[200]');
+		$this->form_validation->set_rules('content', 'lang:form_content', 'required');
+		$this->form_validation->set_rules('status', 'lang:form_status', 'required');
 
-		$fields['title']	= strtolower_utf8(lang('form_title'));
-		$fields['content']	= strtolower_utf8(lang('form_content'));
-		$fields['status']	= strtolower_utf8(lang('form_status'));
-		$this->validation->set_fields($fields);
-			
-		$this->validation->set_error_delimiters('', '<br />');
+		$this->form_validation->set_error_delimiters('', '<br />');
 			
 		$data['page_data'] = $this->pages->get_page($id);
-		$this->validation->title = $data['page_data']['title'];
-		$this->validation->content = $data['page_data']['content'];
-		$this->validation->status = $data['page_data']['status'];
 			
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->pages->edit_page($id);
 			$this->session->set_flashdata('message', lang('successfully_edited'));
 
 			redirect('admin/pages', 'refresh');
 		}
-		$this->template['page']	= "pages/edit";
+		
+		$this->_template['page']	= 'pages/edit';
 			
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 
-	function delete($id)
+	public function delete($id)
 	{
 		$this->pages->delete_page($id);
 		$this->session->set_flashdata('message', lang('successfully_deleted'));

@@ -2,7 +2,7 @@
 
 // General
 $lang['categories']						= "Categories";
-$lang['categories_description'] 		= "Manage categories";
+$lang['categories_description'] 		= "Here you can manage categories.";
 
 $lang['create_category']				= "Create a category";
 $lang['create_category_description'] 	= "Here you can create a new category.";

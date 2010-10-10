@@ -1,4 +1,7 @@
-<li><a href="<?=site_url('feed/rss/posts');?>">RSS (<?=lang('feeds_posts');?>)</a></li>
-<li><a href="<?=site_url('feed/rss/comments');?>">RSS (<?=lang('feeds_comments');?>)</a></li>
-<li><a href="<?=site_url('feed/atom/posts');?>">ATOM (<?=lang('feeds_posts');?>)</a></li>
-<li><a href="<?=site_url('feed/atom/comments');?>">ATOM (<?=lang('feeds_comments');?>)</a></li>
+<h2><?php echo lang('feeds'); ?></h2>
+<ul class="block">
+	<li><a href="<?php echo site_url('feed/rss/posts'); ?>">RSS (<?php echo lang('feeds_posts'); ?>)</a></li>
+	<li><a href="<?php echo site_url('feed/rss/comments'); ?>">RSS (<?php echo lang('feeds_comments'); ?>)</a></li>
+	<li><a href="<?php echo site_url('feed/atom/posts'); ?>">Atom (<?php echo lang('feeds_posts'); ?>)</a></li>
+	<li><a href="<?php echo site_url('feed/Atom/comments'); ?>">Atom (<?php echo lang('feeds_comments'); ?>)</a></li>
+</ul>

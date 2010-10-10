@@ -2,21 +2,25 @@
 
 class Comments_model extends Model
 {
-	function Comments_model()
+	// Protected or private properties
+	protected $_table;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Model();
 			
-		$this->comments_table = 'comments';
-		$this->posts_table = 'posts';
+		$this->_table = $this->config->item('database_tables');
 	}
 
-	function get_comments($limit = 30)
+	// Public methods
+	public function get_comments($limit = 30)
 	{
 		$this->db->select('comments.id, comments.post_id, comments.user_id, comments.author, comments.content, comments.date, posts.title, posts.url_title, posts.date_posted');
-		$this->db->join($this->posts_table, 'comments.post_id = posts.id');
+		$this->db->join($this->_table['posts'], 'comments.post_id = posts.id');
 		$this->db->order_by('id', 'DESC');
 			
-		$query = $this->db->get($this->comments_table);
+		$query = $this->db->get($this->_table['comments']);
 			
 		if ($query->num_rows() > 0)
 		{
@@ -26,12 +30,12 @@ class Comments_model extends Model
 		}
 	}
 	
-	function get_comment($id)
+	public function get_comment($id)
 	{
 		$this->db->select('id, content');
 		$this->db->where('id', $id);
 			
-		$query = $this->db->get($this->comments_table, 1);
+		$query = $this->db->get($this->_table['comments'], 1);
 			
 		if ($query->num_rows() > 0)
 		{
@@ -39,7 +43,7 @@ class Comments_model extends Model
 		}
 	}
 	
-	function edit_comment()
+	public function edit_comment()
 	{
 		$data = array
 					(
@@ -47,14 +51,14 @@ class Comments_model extends Model
 					);
 
 		$this->db->where('id', $this->input->post('id'));
-		$this->db->update($this->comments_table, $data);
+		$this->db->update($this->_table['comments'], $data);
 	}
 
-	function delete_comment($id)
+	public function delete_comment($id)
 	{
 		$this->db->where('id', $id);
 			
-		$this->db->delete($this->comments_table);
+		$this->db->delete($this->_table['comments']);
 	}
 }
 

@@ -3,13 +3,15 @@
 <head>
 <title>
 	<? $this->load->module_language('admin', 'header');?> 
-	<?=$this->system->settings['blog_title'];?> - <?=lang('header_admin_panel');?>
+	<?=$this->system_library->settings['blog_title'];?> - <?=lang('header_admin_panel');?>
 </title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 <link rel="stylesheet" type="text/css" href="<?=base_url();?>application/views/admin/static/style/main.css" media="screen"/>
 <!--[if lt IE 7.]>
 <script defer type="text/javascript" src="<?=base_url();?>application/views/admin/static/javascript/pngfix.js"></script>
 <![endif]-->
+<script type="text/javascript" src="<?php echo base_url(); ?>application/views/admin/static/javascript/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>application/views/admin/static/javascript/main.js"></script>
 </head>
 <body>
 <div class="outer-container">

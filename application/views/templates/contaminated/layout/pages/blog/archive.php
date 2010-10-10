@@ -1,12 +1,17 @@
-<? foreach ($posts as $post): ?>
+<?php foreach ($posts as $post): ?>
 	<div class="post">
-		<h2><a href="<?=site_url('blog/post/' . $post['url']);?>"><?=$post['title'];?></a></h2>
-		<div class="descr"><?=strftime('%B %d, %Y', strtotime($post['date_posted']));?> <?=lang('by');?> <?=$post['display_name'];?></div>
-		<?=$post['excerpt'];?>
+		<h2><a href="<?php echo site_url('blog/post/' . $post['url']);?>"><?php echo $post['title'];?></a></h2>
+		<div class="descr"><?php echo strftime('%B %d, %Y', strtotime($post['date_posted']));?> <?php echo lang('by');?> <?php echo $post['display_name'];?></div>
+		<?php echo $post['excerpt'];?>
 		
-		<? if ($post['content']): ?>
-			<br /><br /><a href="<?=site_url('blog/post/' . $post['url']);?>"><?=lang('read_more');?></a><br /><br />
-		<? endif; ?>
-		<p class="info"><?=lang('posted_in');?> <a href="<?=site_url('blog/category/' . $post['url_name']);?>"><?=$post['name'];?></a> | <a href="<?=site_url('blog/post/' . $post['url']);?>#comments"><?=$post['comment_count'];?> <?=lang('comments');?> »</a></p>
+		<?php if ($post['content']): ?>
+			<br /><br /><a href="<?php echo site_url('blog/post/' . $post['url']);?>"><?php echo lang('read_more');?></a><br /><br />
+		<?php endif; ?>
+		<p class="info">
+			<?php if ($links = $this->system_library->generate_social_bookmarking_links(site_url('blog/post/' . $post['url']), $post['title'])): ?>
+				<?php echo lang('add_to'); ?> <?php echo $links; ?><br />
+			<?php endif; ?>
+			<?php echo lang('posted_in');?> <a href="<?php echo site_url('blog/category/' . $post['url_name']);?>"><?php echo $post['name'];?></a> | <a href="<?php echo site_url('blog/post/' . $post['url']);?>#comments"><?php echo $post['comment_count'];?> <?php echo lang('comments');?> »</a>
+		</p>
 	</div>
-<? endforeach; ?>
+<?php endforeach; ?>

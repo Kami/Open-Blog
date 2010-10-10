@@ -1,5 +1,8 @@
-<? if ($this->categories_library->get_categories()): ?>
-	<? foreach ($this->categories_library->get_categories() as $category): ?>
-		<li><a href="<?=site_url('/blog/category/' . $category['url_name']);?>"> <?=$category['name'];?> (<?=$category['posts_count'];?>)</a></li>
-	<? endforeach; ?>
-<? endif; ?>
+<h2><?php echo lang('categories'); ?></h2>
+<ul class="block">
+	<?php if ($this->categories_library->get_categories()): ?>
+		<?php foreach ($this->categories_library->get_categories() as $category): ?>
+			<li><a href="<?php echo site_url('/blog/category/' . $category['url_name']); ?>"> <?php echo $category['name']; ?> (<?php echo $category['posts_count']; ?>)</a></li>
+		<?php endforeach; ?>
+	<?php endif; ?>
+</ul>

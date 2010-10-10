@@ -2,44 +2,59 @@
 
 class Navigation extends Controller
 {
-	function Navigation()
+	// Protected or private properties
+	protected $_template;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Controller();
-			
+
+		// Check if the logged user is an administrator
 		$this->access_library->check_access();
 		
+		// Load needed models, libraries, helpers and language files
 		$this->load->module_model('admin', 'navigation_model', 'navigation');
 		
 		$this->load->module_language('admin', 'general');
 		$this->load->module_language('admin', 'navigation');
 	}
 
-	function index()
+	// Public methods
+	public function index()
 	{
 		$data['navigation'] = $this->navigation->get_navigation();
 
-		$this->template['page']	= "navigation/list";
+		$this->_template['page']	= 'navigation/list';
 
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
+	}
+	
+	public function move_navigation_item()
+	{
+		$item = $this->input->post('item');
+		$item_id = explode('_', $item);
+		$action = $this->input->post('action');
+		
+		if ($action == 'up')
+		{
+			$this->navigation->move_item_up($item_id[1]);
+		}
+		else if ($action == 'down')
+		{
+			$this->navigation->move_item_down($item_id[1]);
+		}
 	}
 
-	function create()
+	public function create()
 	{	
-		$rules['title']			= "required|max_length[50]";
-		$rules['url']			= "required";
-		$rules['description']	= "required|max_length[100]";
-		$rules['position']		= "required|numeric";
-		$this->validation->set_rules($rules);
+		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[50]');
+		$this->form_validation->set_rules('url', 'lang:form_url', 'required');
+		$this->form_validation->set_rules('description', 'lang:form_description', 'required|max_length[100]');
 
-		$fields['title']		= strtolower_utf8(lang('form_title'));
-		$fields['url']			= strtolower_utf8(lang('form_url'));
-		$fields['description']	= strtolower_utf8(lang('form_description'));
-		$fields['position']		= strtolower_utf8(lang('form_position'));
-		$this->validation->set_fields($fields);
-
-		$this->validation->set_error_delimiters('', '<br />');
+		$this->form_validation->set_error_delimiters('', '<br />');
 			
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->navigation->create_navigation_item();
 			$this->session->set_flashdata('message', lang('successfully_created'));
@@ -47,39 +62,27 @@ class Navigation extends Controller
 			redirect('admin/navigation', 'refresh');
 		}
 			
-		$this->template['page']	= "navigation/create";
+		$this->_template['page']	= 'navigation/create';
 			
-		$this->system->load($this->template['page'], null, TRUE);
+		$this->system_library->load($this->_template['page'], null, TRUE);
 	}
 
-	function edit($id = null)
+	public function edit($id = null)
 	{
 		if ($id == null)
 		{
 			$id = $this->input->post('id');
 		}
 			
-		$rules['title']			= "required|max_length[50]";
-		$rules['url']			= "required";
-		$rules['description']	= "required|max_length[100]";
-		$rules['position']		= "required|numeric";
-		$this->validation->set_rules($rules);
+		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[50]');
+		$this->form_validation->set_rules('url', 'lang:form_url', 'required');
+		$this->form_validation->set_rules('description', 'lang:form_description', 'required|max_length[100]');
 
-		$fields['title']		= strtolower_utf8(lang('form_title'));
-		$fields['url']			= strtolower_utf8(lang('form_url'));
-		$fields['description']	= strtolower(lang('form_description'));
-		$fields['position']		= strtolower_utf8(lang('form_position'));
-		$this->validation->set_fields($fields);
-			
-		$this->validation->set_error_delimiters('', '<br />');
+		$this->form_validation->set_error_delimiters('', '<br />');
 			
 		$data['navigation'] = $this->navigation->get_navigation_item($id);
-		$this->validation->title = $data['navigation']['title'];
-		$this->validation->url = $data['navigation']['url'];
-		$this->validation->description = $data['navigation']['description'];
-		$this->validation->position = $data['navigation']['position'];
 			
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->navigation->edit_navigation_item($id);
 			$this->session->set_flashdata('message', lang('successfully_edited'));
@@ -87,12 +90,12 @@ class Navigation extends Controller
 			redirect('admin/navigation', 'refresh');
 		}
 		
-		$this->template['page']	= "navigation/edit";
+		$this->_template['page']	= 'navigation/edit';
 			
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 
-	function delete($id)
+	public function delete($id)
 	{
 		$this->navigation->delete_navigation_item($id);
 		$this->session->set_flashdata('message', lang('successfully_deleted'));

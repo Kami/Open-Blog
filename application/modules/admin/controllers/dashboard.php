@@ -2,20 +2,34 @@
 
 class Dashboard extends Controller
 {
-	function Dashboard()
+	// Protected or private properties
+	protected $_template;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Controller();
 
+		// Check if the logged user is an administrator
 		$this->access_library->check_access();
+		
+		// Load needed models, libraries, helpers and language files
+		$this->load->module_model('admin', 'information_model', 'information');
 		
 		$this->load->module_language('admin', 'dashboard');
 	}
 
-	function index()
+	// Public methods
+	public function index()
 	{
-		$this->template['page']	= "dashboard";
+		$this->config->load('open_blog');
+		
+		$data['website_url']		= $this->config->item('website_url');
+		$data['new_version'] 		= $this->information->check_for_upgrade();
+		
+		$this->_template['page']	= 'dashboard';		
 			
-		$this->system->load($this->template['page'], null, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 }
 

@@ -2,19 +2,24 @@
 
 class Backup extends Controller
 {
-	function Backup()
+	// Constructor
+	public function __construct()
 	{
 		parent::Controller();
-			
+		
+		// Check if the logged user is an administrator
 		$this->access_library->check_access();
-	}
-
-	function index()
-	{
+		
+		// Load needed models, libraries, helpers and language files
 		$this->load->dbutil();
 		$this->load->helper('download');
+	}
+
+	// Public methods
+	public function index()
+	{
 		$backup =& $this->dbutil->backup(); 
-		$file_name = "database-" . date("Y-m-d") . ".sql.gz";
+		$file_name = 'database-' . date('Y-m-d') . '.sql.gz';
 		
 		force_download($file_name, $backup); 	
 	}

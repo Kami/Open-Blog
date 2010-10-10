@@ -2,19 +2,24 @@
 
 class Pages_model extends Model
 {
-	function Pages_model()
+	// Protected or private properties
+	protected $_table;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Model();
 			
-		$this->pages_table = 'pages';
+		$this->_table = $this->config->item('database_tables');
 	}
 
-	function get_pages()
+	// Public methods
+	public function get_pages()
 	{
 		$this->db->select('id, title, url_title, date, status');
 		$this->db->order_by('id', 'ASC');
 			
-		$query = $this->db->get($this->pages_table);
+		$query = $this->db->get($this->_table['pages']);
 			
 		if ($query->num_rows() > 0)
 		{
@@ -22,12 +27,12 @@ class Pages_model extends Model
 		}
 	}
 
-	function get_page($id)
+	public function get_page($id)
 	{
 		$this->db->select('id, title, content, status');
 		$this->db->where('id', $id);
 			
-		$query = $this->db->get($this->pages_table, 1);
+		$query = $this->db->get($this->_table['pages'], 1);
 			
 		if ($query->num_rows() == 1)
 		{
@@ -35,42 +40,42 @@ class Pages_model extends Model
 		}
 	}
 
-	function create_page()
+	public function create_page()
 	{
 		$data = array
 					(
 						'author' => $this->session->userdata('user_id'),
 						'date' => date("Y-m-d"),
 						'title' => $this->input->post('title'),
-						'url_title' => url_title($this->input->post('title')),
+						'url_title' => url_title($this->input->post('title'), 'dash', TRUE),
 						'content' => $this->input->post('content'),
 						'status' => $this->input->post('status')
 					);
 			
-		$this->db->insert($this->pages_table, $data);
+		$this->db->insert($this->_table['pages'], $data);
 	}
 
-	function edit_page()
+	public function edit_page()
 	{
 		$data = array
 					(
 						'author' => $this->session->userdata('user_id'),
 						'date' => date("Y-m-d"),
 						'title' => $this->input->post('title'),
-						'url_title' => url_title($this->input->post('title')),
+						'url_title' => url_title($this->input->post('title'), 'dash', TRUE),
 						'content' => $this->input->post('content'),
 						'status' => $this->input->post('status')
 					);
 			
 		$this->db->where('id', $this->input->post('id'));
-		$this->db->update($this->pages_table, $data);
+		$this->db->update($this->_table['pages'], $data);
 	}
 
-	function delete_page($id)
+	public function delete_page($id)
 	{
 		$this->db->where('id', $id);
 			
-		$this->db->delete($this->pages_table);
+		$this->db->delete($this->_table['pages']);
 	}
 }
 

@@ -2,29 +2,32 @@
 
 class Templates extends Controller
 {
-	function Templates()
+	// Protected or private properties
+	protected $_template;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Controller();
 			
+		// Check if the logged user is an administrator
 		$this->access_library->check_access();
 		
+		// Load needed models, libraries, helpers and language files
 		$this->load->module_language('admin', 'general');
 		$this->load->module_language('admin', 'templates');
 	}
 
-	function index()
+	// Public methods
+	public function index()
 	{
 		$this->load->module_model('admin', 'settings_model', 'settings');
-			
-		$rules['template']	= "required|numeric";
-		$this->validation->set_rules($rules);
+
+		$this->form_validation->set_rules('template', 'lang:form_template', 'required|numeric');
+
+		$this->form_validation->set_error_delimiters('', '<br />');
 		
-		$fields['template']	= strtolower_utf8(lang('form_template'));
-		$this->validation->set_fields($fields);
-		
-		$this->validation->set_error_delimiters('', '<br />');
-		
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->settings->set_default_template();
 			$this->session->set_flashdata('message', lang('successfully_set'));
@@ -43,9 +46,9 @@ class Templates extends Controller
 				$data['templates'][$key]['checked'] = FALSE;
 		}
 
-		$this->template['page']	= "templates/edit";
+		$this->_template['page']	= 'templates/edit';
 
-		$this->system->load($this->template['page'], $data, TRUE);
+		$this->system_library->load($this->_template['page'], $data, TRUE);
 	}
 }
 

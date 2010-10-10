@@ -1,8 +1,8 @@
 <?='<?xml version="1.0" encoding="utf-8"?>';?>
 
 <feed>
-	<title><?=$this->system->settings['blog_title'];?></title>
-	<subtitle><?=$this->system->settings['blog_description'];?></subtitle>
+	<title><?=$this->system_library->settings['blog_title'];?></title>
+	<subtitle><?=$this->system_library->settings['blog_description'];?></subtitle>
 	<link href="<?=base_url();?>"/>
 	<updated><?=standard_date('DATE_ATOM', time())?></updated>
 	

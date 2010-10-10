@@ -1,12 +1,12 @@
-<h2><?=lang('user_profile');?> - <?=$user['username'];?></h2>
+<h2><?php echo lang('user_profile'); ?> - <?php echo $user['username']; ?></h2>
 <p>
-	<strong><?=lang('nickname');?></strong> <?=$user['username'];?><br />
-	<strong><?=lang('display_name');?></strong> <?=$user['display_name'];?><br />
-	<strong><?=lang('date_registered');?></strong> <?=date('Y-m-d', strtotime($user['registered']));?><br />
-	<? if($user['website'] != ""): ?>
-		<strong><?=lang('website');?></strong> <a href="<?=$user['website'];?>" target="_blank"><?=$user['website'];?></a><br />
-	<? endif; ?>
-	<? if($user['about_me'] != ""): ?>
-		<br /><strong><?=lang('about_me');?></strong><br /><br /> <?=$user['about_me'];?><br />
-	<? endif; ?>
+	<strong><?php echo lang('nickname'); ?></strong> <?php echo$user['username']; ?><br />
+	<strong><?php echo lang('display_name'); ?></strong> <?php echo$user['display_name']; ?><br />
+	<strong><?php echo lang('date_registered'); ?></strong> <?php echodate('Y-m-d', strtotime($user['registered'])); ?><br />
+	<?php if($user['website'] != ""): ?>
+		<strong><?php echo lang('website'); ?></strong> <a href="<?php echo$user['website']; ?>" target="_blank"><?php echo$user['website']; ?></a><br />
+	<?php endif; ?>
+	<?php if($user['about_me'] != ""): ?>
+		<br /><strong><?php echo lang('about_me'); ?></strong><br /><br /> <?php echo$user['about_me']; ?><br />
+	<?php endif; ?>
 </p>

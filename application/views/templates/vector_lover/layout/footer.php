@@ -1,0 +1,1 @@
+<p><?php echo lang('footer_powered_by'); ?> <a href="http://www.open-blog.info" target="_blank">Open Blog</a> | <?php echo lang('footer_template_by'); ?> <a href="http://www.styleshout.com" target="_blank">styleshout</a></p>

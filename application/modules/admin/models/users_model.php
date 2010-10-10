@@ -2,18 +2,23 @@
 
 class Users_model extends Model
 {
-	function Users_model()
+	// Protected or private properties
+	protected $_table;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Model();
 			
-		$this->users_table = 'users';
+		$this->_table = $this->config->item('database_tables');
 	}
 
-	function get_users()
+	// Public methods
+	public function get_users()
 	{
 		$this->db->select('id, username, email, registered, level, last_login');
 			
-		$query = $this->db->get($this->users_table);
+		$query = $this->db->get($this->_table['users']);
 			
 		if ($query->num_rows() > 0)
 		{
@@ -21,12 +26,12 @@ class Users_model extends Model
 		}
 	}
 	
-	function get_user($id)
+	public function get_user($id)
 	{
 		$this->db->select('id, username, email, website, msn_messenger, jabber, display_name, about_me, registered, level');
 		$this->db->where('id', $id);
 			
-		$query = $this->db->get($this->users_table, 1);
+		$query = $this->db->get($this->_table['users'], 1);
 			
 		if ($query->num_rows() == 1)
 		{
@@ -34,7 +39,7 @@ class Users_model extends Model
 		}
 	}
 	
-	function edit_user($id)
+	public function edit_user($id)
 	{
 		$data = array
 					(
@@ -48,14 +53,14 @@ class Users_model extends Model
 					);
 			
 		$this->db->where('id', $id);
-		$this->db->update($this->users_table, $data);
+		$this->db->update($this->_table['users'], $data);
 	}
 
-	function delete_user($id)
+	public function delete_user($id)
 	{
 		$this->db->where('id', $id);
 			
-		$this->db->delete($this->users_table);
+		$this->db->delete($this->_table['users']);
 	}
 }
 

@@ -2,18 +2,23 @@
 
 class Links_model extends Model
 {
-	function Links_model()
+	// Protected or private properties
+	protected $_table;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Model();
 			
-		$this->links_table = 'links';
+		$this->_table = $this->config->item('database_tables');
 	}
 
-	function get_links()
+	// Public methods
+	public function get_links()
 	{
 		$this->db->select('id, name, description, url, visible');
 			
-		$query = $this->db->get($this->links_table);
+		$query = $this->db->get($this->_table['links']);
 			
 		if ($query->num_rows() > 0)
 		{
@@ -21,12 +26,12 @@ class Links_model extends Model
 		}
 	}
 
-	function get_link($id)
+	public function get_link($id)
 	{
 		$this->db->select('id, name, url, target, description, visible');
 		$this->db->where('id', $id);
 			
-		$query = $this->db->get($this->links_table, 1);
+		$query = $this->db->get($this->_table['links'], 1);
 			
 		if ($query->num_rows() == 1)
 		{
@@ -34,7 +39,7 @@ class Links_model extends Model
 		}
 	}
 
-	function create_link()
+	public function create_link()
 	{
 		$data = array
 					(
@@ -45,10 +50,10 @@ class Links_model extends Model
 						'visible' => $this->input->post('visible'),
 					);
 			
-		$this->db->insert($this->links_table, $data);
+		$this->db->insert($this->_table['links'], $data);
 	}
 
-	function edit_link($id)
+	public function edit_link($id)
 	{
 		$data = array
 					(
@@ -60,14 +65,14 @@ class Links_model extends Model
 					);
 			
 		$this->db->where('id', $id);
-		$this->db->update($this->links_table, $data);
+		$this->db->update($this->_table['links'], $data);
 	}
 
-	function delete_link($id)
+	public function delete_link($id)
 	{
 		$this->db->where('id', $id);
 			
-		$this->db->delete($this->links_table);
+		$this->db->delete($this->_table['links']);
 	}
 }
 

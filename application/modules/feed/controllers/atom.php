@@ -2,31 +2,42 @@
 
 class Atom extends Controller
 {
-	function Atom()
+	// Constructor
+	public function __construct()
 	{
 		parent::Controller();
 		
+		// Load needed models, libraries, helpers and language files
 		$this->load->module_model('blog', 'blog_model', 'blog');
 		$this->load->module_model('blog', 'comments_model', 'comments');
 		$this->load->module_model('blog', 'users_model', 'users');
+		
 		$this->load->module_language('feed', 'feed');
+		
 		$this->load->helper('text');
 	}
 	
-	function posts()
+	// Public methods
+	public function posts()
 	{
-		if ($this->system->settings['enable_atom'] == 1)
+		if ($this->system_library->settings['enable_atom_posts'] == 1)
 		{
 			$data['posts'] = $this->blog->get_posts();
 			
 			header("Content-Type: application/xml");
-			$this->system->load_normal('feed/atom_posts', $data);
+			$this->system_library->load_normal('feed/atom_posts', $data);
+		}
+		else
+		{
+			$this->_template['page']	= 'errors/feed_disabled';
+			
+			$this->system_library->load($this->_template['page']);
 		}
 	}
 
-	function comments()
+	public function comments()
 	{
-		if ($this->system->settings['enable_atom'] == 1)
+		if ($this->system_library->settings['enable_atom_comments'] == 1)
 		{
 			if ($data['comments'] = $this->comments->get_latest_comments())
 			{
@@ -45,7 +56,13 @@ class Atom extends Controller
 			}
 			
 			header("Content-Type: application/xml");
-			$this->system->load_normal('feed/atom_comments', $data);
+			$this->system_library->load_normal('feed/atom_comments', $data);
+		}
+		else
+		{
+			$this->_template['page']	= 'errors/feed_disabled';
+			
+			$this->system_library->load($this->_template['page']);
 		}
 	}
 }

@@ -154,10 +154,8 @@ class CI_DB_mysql_forge extends CI_DB_forge {
 		if (count($primary_keys) > 0)
 		{
 			$key_name = $this->db->_protect_identifiers(implode('_', $primary_keys));
-			/*dbforge patch */
-			$primary_keys = $this->db->_protect_identifiers(implode(', ', $primary_keys));
-			$sql .= ",\n\tPRIMARY KEY ".$key_name." (" . $primary_keys . ")";
-			/*dbforge patch */
+			$primary_keys = $this->db->_protect_identifiers($primary_keys);
+			$sql .= ",\n\tPRIMARY KEY ".$key_name." (" . implode(', ', $primary_keys) . ")";
 		}
 
 		if (is_array($keys) && count($keys) > 0)

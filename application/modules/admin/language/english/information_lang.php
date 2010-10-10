@@ -1,18 +1,16 @@
 <?php
 
 // General
-$lang['upgrade_check']				= "Upgrade check";
-$lang['upgrade_check_description'] 	= "Here you can check if new version of Open Blog is available for download.";
-
-// Messages
-$lang['check_failed']				= "Check for upgrade failed for unknown reasons.";
-$lang['no_upgrades']				= "You are running the latest version of Open Blog";
-$lang['upgrades_available']			= "A new version of Open Blog has been released. You can download the latest version at <a href=\"%s\" target=\"_blank\">official website</a>.";
+$lang['information']					= "Information";
+$lang['information_description'] 		= "Here you view general information about your Open Blog installation.";
 
 // Content
-$lang['current_version']			= "Current version:";
-$lang['latest_version']				= "Latest version:";
-$lang['status']						= "Status:";
+$lang['version']						= "Version:";
+$lang['check_for_upgrades']				= "upgrade check";
+$lang['author']							= "Author:";
+$lang['official_website']				= "Official website:";
+$lang['documentation']					= "Documentation:";
+$lang['bugtracker']						= "Bug tracker:";
 
-/* End of file information_lang.php */
-/* Location: ./application/modules/admin/language/english/information_lang.php */
+/* End of file information.php */
+/* Location: ./application/modules/admin/language/english/information.php */

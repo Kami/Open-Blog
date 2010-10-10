@@ -5,6 +5,7 @@ $lang['read_more'] 						= "Read more ...";
 $lang['older_entries']					= "&laquo; Older Entries";
 $lang['newer_entries']					= "Newer Entries &raquo;";
 
+$lang['add_to']							= "Add to:";
 $lang['posted_in']						= "Posted in";
 $lang['in']								= "in";
 $lang['by'] 							= "by";

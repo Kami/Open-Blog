@@ -1,3 +1,3 @@
 <div class="left">
-	<?=$this->system->settings['blog_title'];?><br />
+	<?php echo $this->system_library->settings['blog_title']; ?><br />
 </div>

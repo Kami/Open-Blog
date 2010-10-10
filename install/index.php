@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
-<title>Open Blog Installation</title>
+<title>Open Blog Installation / update script</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 <link rel="stylesheet" type="text/css" href="includes/style/main.css" media="screen"/>
 </head>
@@ -12,47 +12,13 @@
 		<?php include('header.php'); ?>
 	</div>
 		
-	<div class="top">
-		<?php
-			require('includes/functions.php');
-	
-			$step = (int)$_GET['step'];
-			
-			switch ($step)
-			{
-				case 1:
-				{
-					$title = 'Step 1 / 3';
-					$file = 'pages/step_1.php';
-					break;
-				}
-				
-				case 2:
-				{
-					$title = 'Step 2 / 3';
-					$file = 'pages/step_2.php';
-					break;
-				}
-				
-				case 3:
-				{
-					$title = 'Step 3 / 3';
-					$file = 'pages/step_3.php';
-					break;
-				}
-				
-				default :
-				{
-					$title = 'Welcome to installation';
-					$file = 'pages/index.php';
-				}
-			}
-		?>
-   		<?php echo $title; ?>
-    </div>
+	<div class="top">Welcome to Open Blog installation / update script</div>
 	
 	<div class="main">
-			<?php include($file); ?>
+		<p>Please choose what you would like to do: <br /><br />
+			<a href="install.php">Install Open Blog</a> - choose this option, if you would like to install Open Blog 1.1.0<br />
+			<a href="update.php">Update Open Blog</a> - choose this option, if you would like to update your existing Open Blog 1.0.0 installation to 1.1.0
+		</p>
 	</div>
 	
 	<div class="footer">

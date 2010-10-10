@@ -1,35 +1,43 @@
 <div class="post">
 		<div class="post_title">
-			<h1><?=lang('feed_settings');?></h1>
+			<h1><?php echo lang('feed_settings'); ?></h1>
 		</div>
 		<div class="post_body">
-			<p><?=lang('feed_settings_description');?></p>
+			<p><?php echo lang('feed_settings_description'); ?></p>
 				
-				<? if ($this->validation->error_string != ""): ?>
+				<?php if (validation_errors()): ?>
 					<div class="error">
-					<?=$this->validation->error_string;?>
+					<?php echo validation_errors(); ?>
 					</div>
-				<? endif; ?>
+				<?php endif; ?>
 				
-				<? if($this->session->flashdata('message')): ?>
+				<?php if($this->session->flashdata('message')): ?>
 				<div class="message">
-					<?=$this->session->flashdata('message');?>
+					<?php echo $this->session->flashdata('message'); ?>
 				</div>
-				<? endif; ?>
+				<?php endif; ?>
 				<table width="100%">
 				<tr>
 					 <td colspan="2">
 					 	<fieldset id="edit">
-					 		<legend><?=lang('feed_settings');?></legend>
+					 		<legend><?php echo lang('feed_settings'); ?></legend>
 					 		<table>
 					 			<tr>
-					 				<?=form_open('admin/feeds');?>
-					 				<td width="200px"><?=lang('form_enable_rss');?></td>
-					 				<td><?=form_checkbox('enable_rss', 1, $settings['enable_rss_status']); ?></td>
+					 				<?php echo form_open('admin/feeds'); ?>
+					 				<td width="200px"><?php echo lang('form_enable_rss_posts'); ?></td>
+					 				<td><?php echo form_checkbox('enable_rss_posts', 1, $settings['enable_rss_posts']); ?></td>
 					 			</tr>
 					 			<tr>
-					 				<td width="200px"><?=lang('form_enable_atom');?></td>
-					 				<td><?=form_checkbox('enable_atom', 1, $settings['enable_atom_status']); ?></td>
+					 				<td width="200px"><?php echo lang('form_enable_rss_comments'); ?></td>
+					 				<td><?php echo form_checkbox('enable_rss_comments', 1, $settings['enable_rss_comments']); ?></td>
+					 			</tr>
+					 			<tr>
+					 				<td width="200px"><?php echo lang('form_enable_atom_posts'); ?></td>
+					 				<td><?php echo form_checkbox('enable_atom_posts', 1, $settings['enable_atom_posts']); ?></td>
+					 			</tr>
+					 			<tr>
+					 				<td width="200px"><?php echo lang('form_enable_atom_comments'); ?></td>
+					 				<td><?php echo form_checkbox('enable_atom_comments', 1, $settings['enable_atom_comments']); ?></td>
 					 			</tr>
 					 		</table>
 					 	</fieldset>
@@ -40,8 +48,8 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="submit" name="submit" value="<?=lang('button_save');?>" class="styled" />
-						<?=form_close();?>
+						<input type="submit" name="submit" value="<?php echo lang('button_save'); ?>" class="styled" />
+						<?php echo form_close(); ?>
 					</td>
 				</tr>
 				</table>

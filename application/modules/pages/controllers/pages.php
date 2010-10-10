@@ -2,28 +2,35 @@
 
 class Pages extends Controller
 {
-	function Pages()
+	// Protected or private properties
+	protected $_template;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Controller();
-			
+
+		// Load needed models, libraries, helpers and language files
 		$this->load->module_model('pages', 'pages_model', 'pages');
+		
 		$this->load->module_language('blog', 'general');
 	}
 
-	function page($url_title)
+	// Public methods
+	public function page($url_title)
 	{
 		$data['page_data'] = $this->pages->get_page_by_url($url_title);
 			
 		if ($data['page_data'] != "")
 		{
-			$this->template['page']	= "pages/page";
+			$this->_template['page']	= 'pages/page';
 		}
 		else
 		{
-			$this->template['page']	= "errors/404";
+			$this->_template['page']	= 'errors/404';
 		}
 			
-		$this->system->load($this->template['page'], $data);
+		$this->system_library->load($this->_template['page'], $data);
 	}
 }
 

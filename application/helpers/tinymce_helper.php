@@ -10,15 +10,14 @@ function initialize_tinymce()
 				// General options
 				mode : "textareas",
 				theme : "advanced",
-				plugins : "emotions",
+				plugins : "emotions, insertdatetime",
 				relative_urls : false,
 				remove_script_host : false,
 				document_base_url : "' . base_url() . '",
-				theme_advanced_buttons3_add : "emotions",
 				theme_advanced_toolbar_location : "top",
 				theme_advanced_toolbar_align : "left",
-				theme_advanced_buttons1 : "bold, italic, underline, strikethrough, justifyleft, justifycenter, justifyright, justifyfull, bullist, numlist, link, unlink, emotions",
-				theme_advanced_buttons2: "",
+				theme_advanced_buttons1 : "bold, italic, underline, strikethrough, |, justifyleft, justifycenter, justifyright, justifyfull, |, formatselect, fontselect, fontsizeselect",
+				theme_advanced_buttons2: "bullist, numlist, outdent, indent, blockquote, |, link, unlink, image, emotions, cleanup, code, |, insertdate, inserttime, |, undo, redo, removeformat",
 				theme_advanced_buttons3 : ""	
 			});
 		</script>

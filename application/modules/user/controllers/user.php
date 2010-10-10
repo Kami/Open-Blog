@@ -2,44 +2,42 @@
 
 class User extends Controller
 {
-	function User()
+	// Protected or private properties
+	protected $_template;
+	
+	// Constructor
+	public function __construct()
 	{
 		parent::Controller();
 
+		// Load needed models, libraries, helpers and language files
 		$this->load->module_model('user', 'user_model', 'user');
 		
 		$this->load->module_language('blog', 'general');
 	}
 
-	function register()
+	// Public methods
+	public function register()
 	{
 		$this->load->module_language('user', 'registration');
 		
 		if (!$this->access_library->is_logged_in())
 		{
-			if ($this->system->settings['allow_registrations'] == 1)
+			if ($this->system_library->settings['allow_registrations'] == 1)
 			{
-				$rules['username']				= "required|max_length[50]|callback_username_check";
-				$rules['display_name']			= "max_length[50]";
-				$rules['password']				= "required|matches[password_retype]";
-				$rules['password_retype']		= "required";
-				$rules['email']					= "required|valid_email|callback_email_check";
-				$this->validation->set_rules($rules);
-		
-				$fields['username']			= strtolower_utf8(lang('form_username'));
-				$fields['display_name']		= strtolower_utf8(lang('form_display_name'));
-				$fields['password']			= strtolower_utf8(lang('form_password'));
-				$fields['password_retype']	= strtolower_utf8(lang('form_retype_password'));
-				$fields['email']			= strtolower_utf8(lang('form_email'));
-				$fields['website']			= strtolower_utf8(lang('form_website'));
-				$fields['msn_messenger']	= strtolower_utf8(lang('form_msn_messenger'));
-				$fields['jabber']			= strtolower_utf8(lang('form_jabber'));
-				$fields['about_me']			= strtolower_utf8(lang('form_about_me'));
-				$this->validation->set_fields($fields);
+				$this->form_validation->set_rules('username', 'lang:form_username', 'required|max_length[50]|callback_username_check');
+				$this->form_validation->set_rules('display_name', 'lang:form_display_name', 'max_length[50]');
+				$this->form_validation->set_rules('password', 'lang:form_password', 'required|matches[password_retype]');
+				$this->form_validation->set_rules('password_retype', 'lang:form_retype_password', 'required');
+				$this->form_validation->set_rules('email', 'lang:form_email', 'required|valid_email|callback_email_check');
+				$this->form_validation->set_rules('website', 'lang:form_website', '');
+				$this->form_validation->set_rules('msn_messenger', 'lang:form_msn_messenger', '');
+				$this->form_validation->set_rules('jabber', 'lang:form_jabber', '');
+				$this->form_validation->set_rules('about_me', 'lang:form_about_me', '');				
+
+				$this->form_validation->set_error_delimiters('', '<br />');
 					
-				$this->validation->set_error_delimiters('', '<br />');
-					
-				if ($this->validation->run() == TRUE)
+				if ($this->form_validation->run() == TRUE)
 				{
 					$this->user->create_user();
 					$this->session->set_flashdata('message', lang('successfully_created'));
@@ -48,35 +46,63 @@ class User extends Controller
 				}
 			}
 					
-			$this->template['page']	= "user/registration";
+			$this->_template['page']	= 'user/registration';
 					
-			$this->system->load($this->template['page']);
+			$this->system_library->load($this->_template['page']);
 		}
 		else
 		{
 			redirect('blog', 'refresh');
 		}
 	}
-	
-	function username_check($username)
+
+	public function forgotten_password()
 	{
-		if ($this->user->validation_check(array('username' => $username)))
+		$this->load->module_language('user', 'forgotten_password');
+		
+		$key = $this->uri->segment(4);
+		$email = $this->uri->segment(6);
+		
+		if ($key == null && $email == null)
 		{
-			$this->validation->set_message('username_check', lang('username_already_exists'));
-			return FALSE;
+			$this->form_validation->set_rules('username', 'lang:form_username', 'required|callback_user_existence');
+			$this->form_validation->set_rules('email', 'lang:form_email', 'required|valid_email|callback_email_existence');
+						
+			$this->form_validation->set_error_delimiters('', '<br />');
+			
+			if ($this->form_validation->run() == TRUE)
+			{
+				$this->user->forgotten_password();
+				
+				$this->session->set_flashdata('message', lang('email_successfully_sent'));
+				
+				redirect('user/forgotten_password', 'refresh');	
+			}
+			
+			$this->_template['page']	= 'user/forgotten_password';
+			
+			$this->system_library->load($this->_template['page']);
+		}
+		else
+		{
+			if ($this->user->check_secret_key($key, $email))
+			{
+				$this->user->reset_password($key, $email);
+
+				$this->session->set_flashdata('message', lang('successfully_reset'));
+				
+				redirect('user/forgotten_password', 'refresh');
+			}
+			else 
+			{
+				$this->_template['page']	= 'errors/invalid_secret_key';
+				
+				$this->system_library->load($this->_template['page']);
+			}
 		}
 	}
 	
-	function email_check($email)
-	{
-		if ($this->user->validation_check(array('email' => $email)))
-		{
-			$this->validation->set_message('email_check', lang('email_already_exists'));
-			return FALSE;
-		}
-	}
-	
-	function view($nickname = null)
+	public function view($nickname = null)
 	{
 		$this->load->module_language('user', 'view');
 		
@@ -84,48 +110,34 @@ class User extends Controller
 		
 		if ($data['user'] = $this->user->get_user_by_nickname($nickname))
 		{
-			$this->template['page']	= "user/view";
+			$this->_template['page']	= 'user/view';
 		}
 		else
 		{
-			$this->template['page']	= "errors/404";
+			$this->_template['page']	= 'errors/404';
 		}
 				
-		$this->system->load($this->template['page'], $data);
+		$this->system_library->load($this->_template['page'], $data);
 	}
 	
-	function profile()
+	public function profile()
 	{
 		$this->load->module_language('user', 'profile');
 		
 		$this->access_library->check_logged_in();
 		
 		$id = $this->session->userdata('user_id');
-			
-		$rules['display_name']			= "max_length[50]";
-		$rules['password']				= "matches[password_retype]";
-		$rules['password_retype']		= "";
-		$rules['email']					= "required|valid_email";
-		$this->validation->set_rules($rules);
-	
-		$fields['display_name']		= strtolower_utf8(lang('form_display_name'));
-		$fields['password']			= strtolower_utf8(lang('form_password'));
-		$fields['password_retype']	= strtolower_utf8(lang('form_retype_password'));
-		$fields['email']			= strtolower_utf8(lang('form_email'));
-		$this->validation->set_fields($fields);
+
+		$this->form_validation->set_rules('display_name', 'lang:form_display_name', 'max_length[50]');
+		$this->form_validation->set_rules('password', 'lang:form_password', 'matches[password_retype]');
+		$this->form_validation->set_rules('password_retype', 'lang:form_retype_password', '');
+		$this->form_validation->set_rules('email', 'lang:form_email', 'required|valid_email');
 				
-		$this->validation->set_error_delimiters('', '<br />');
+		$this->form_validation->set_error_delimiters('', '<br />');
 				
 		$data['user'] = $this->user->get_user($id);
-		$this->validation->username 	= $data['user']['username'];
-		$this->validation->display_name = $data['user']['display_name'];
-		$this->validation->email 		= $data['user']['email'];
-		$this->validation->website 		= $data['user']['website'];
-		$this->validation->msn_messenger = $data['user']['msn_messenger'];
-		$this->validation->jabber 		= $data['user']['jabber'];
-		$this->validation->about_me 	= $data['user']['about_me'];
 
-		if ($this->validation->run() == TRUE)
+		if ($this->form_validation->run() == TRUE)
 		{
 			$this->user->edit_profie($id);
 				
@@ -140,13 +152,13 @@ class User extends Controller
 			redirect('user/profile', 'refresh');
 		}
 				
-		$this->template['page']	= "user/profile";
+		$this->_template['page']	= 'user/profile';
 	
-		$this->system->load($this->template['page'], $data);
+		$this->system_library->load($this->_template['page'], $data);
 	}
 	
 
-	function login()
+	public function login()
 	{
 		$this->load->module_language('user', 'login');
 		
@@ -168,9 +180,9 @@ class User extends Controller
 			}
 			else
 			{
-				$this->template['page']	= "user/login";
+				$this->_template['page']	= 'user/login';
 					
-				$this->system->load($this->template['page']);
+				$this->system_library->load($this->_template['page']);
 			}
 		}
 		else
@@ -179,7 +191,7 @@ class User extends Controller
 		}
 	}
 
-	function logout()
+	public function logout()
 	{
 		if ($this->access_library->is_logged_in())
 		{
@@ -190,6 +202,63 @@ class User extends Controller
 		else
 		{
 			redirect('blog', 'refresh');
+		}
+	}
+	
+	// Custom validation methods
+	public function username_check($username)
+	{
+		if ($this->user->validation_check(array('username' => $username)))
+		{
+			$this->form_validation->set_message('username_check', lang('username_already_exists'));
+			
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
+	
+	public function email_check($email)
+	{
+		if ($this->user->validation_check(array('email' => $email)))
+		{
+			$this->form_validation->set_message('email_check', lang('email_already_exists'));
+			
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
+	
+	public function user_existence($username)
+	{
+		if (!$this->user->validation_check(array('username' => $username)))
+		{
+			$this->form_validation->set_message('user_existence', lang('user_existence'));
+			
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
+	
+	public function email_existence($email)
+	{
+		if (!$this->user->validation_check(array('email' => $email)))
+		{
+			$this->form_validation->set_message('email_existence', lang('email_existence'));
+			
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
 		}
 	}
 }
