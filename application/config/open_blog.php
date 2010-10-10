@@ -8,7 +8,7 @@
 |
 */
 
-$config['version'] = '1.2.0';
+$config['version'] = '1.2.1';
 $config['author'] = 'Tomaž Muraus';
 $config['author_email'] = 'kami@open-blog.info';
 $config['version_check_url'] = 'http://update.open-blog.info/';

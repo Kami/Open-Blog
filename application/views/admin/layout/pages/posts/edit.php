@@ -25,11 +25,11 @@
 					 			</tr>
 					 			<tr>
 					 				<td width="150px" valign="top"><?php echo lang('form_excerpt'); ?></td>
-					 				<td><?php echo form_textarea(array('name' => 'excerpt', 'id' => 'excerpt', 'rows' => '10', 'cols' => '100', 'value' => set_value('excerpt', isset($post['excerpt']) ? $post['excerpt'] : ''))); ?></td>
+					 				<td><?php echo form_textarea(array('name' => 'excerpt', 'id' => 'excerpt', 'rows' => '10', 'cols' => '100', 'value' => set_value('excerpt', isset($post['excerpt']) ? htmlentities($post['excerpt']) : ''))); ?></td>
 					 			</tr>
 					 			<tr>
 					 				<td width="150px" valign="top"><?php echo lang('form_content'); ?></td>
-					 				<td><?php echo form_textarea(array('name' => 'content', 'id' => 'content', 'rows' => '20', 'cols' => '100', 'value' => set_value('content', isset($post['content']) ? $post['content'] : ''))); ?></td>
+					 				<td><?php echo form_textarea(array('name' => 'content', 'id' => 'content', 'rows' => '20', 'cols' => '100', 'value' => set_value('content', isset($post['content']) ? htmlentities($post['content']) : ''))); ?></td>
 					 			</tr>
 					 		</table>
 					 	</fieldset>

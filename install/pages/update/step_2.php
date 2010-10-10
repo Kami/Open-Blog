@@ -35,7 +35,7 @@ if (is_installed())
 		unlink('../.htaccess');
 	}
 	
-	echo 'Open Blog has been successfully updated to version 1.2.0.<br /><br />
+	echo 'Open Blog has been successfully updated to version 1.2.1.<br /><br />
 	Before you can start using your blog, you must delete the <strong>install/</strong> directory.<br /><br />
 	When you are done, go to your <a href="' . $config['base_url'] . '" target="_blank">blog home page</a>.';
 }

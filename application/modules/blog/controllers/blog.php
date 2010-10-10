@@ -182,7 +182,7 @@ class Blog extends Controller
 
 	public function search()
 	{
-		$data['search_term'] = $this->input->post('term');
+		$data['search_term'] = $this->input->post('term', TRUE);
 			
 		if ($data['search_term'] != "")
 		{
@@ -216,7 +216,7 @@ class Blog extends Controller
 		if ($this->session->userdata('logged_in') == FALSE)
 		{
 			$this->form_validation->set_rules('nickname', 'lang:nickname', 'required|max_length[50]|xss_clean');
-			$this->form_validation->set_rules('email', 'lang:email', 'required|valid_email|xss_clean');
+			$this->form_validation->set_rules('email', 'lang:email', 'required|valid_email');
 			
 			if ($this->system_library->settings['enable_captcha'] == 1)
 			{
@@ -225,7 +225,7 @@ class Blog extends Controller
 		}
 		
 		$this->form_validation->set_rules('website', 'lang:website', 'xss_clean');
-		$this->form_validation->set_rules('comment', 'lang:comment', 'required|max_length[400]|xss_clean');
+		$this->form_validation->set_rules('comment', 'lang:comment', 'required|max_length[400]|htmlentities');
 			
 		$this->form_validation->set_error_delimiters('', '<br />');
 

@@ -26,15 +26,15 @@ class User extends Controller
 		{
 			if ($this->system_library->settings['allow_registrations'] == 1)
 			{
-				$this->form_validation->set_rules('username', 'lang:form_username', 'required|max_length[50]|callback_username_check');
-				$this->form_validation->set_rules('display_name', 'lang:form_display_name', 'max_length[50]');
+				$this->form_validation->set_rules('username', 'lang:form_username', 'required|max_length[50]|callback_username_check|xss_clean');
+				$this->form_validation->set_rules('display_name', 'lang:form_display_name', 'max_length[50]|xss_clean');
 				$this->form_validation->set_rules('password', 'lang:form_password', 'required|matches[password_retype]');
 				$this->form_validation->set_rules('password_retype', 'lang:form_retype_password', 'required');
 				$this->form_validation->set_rules('email', 'lang:form_email', 'required|valid_email|callback_email_check');
-				$this->form_validation->set_rules('website', 'lang:form_website', '');
-				$this->form_validation->set_rules('msn_messenger', 'lang:form_msn_messenger', '');
-				$this->form_validation->set_rules('jabber', 'lang:form_jabber', '');
-				$this->form_validation->set_rules('about_me', 'lang:form_about_me', '');				
+				$this->form_validation->set_rules('website', 'lang:form_website', 'xss_clean');
+				$this->form_validation->set_rules('msn_messenger', 'lang:form_msn_messenger', 'xss_clean');
+				$this->form_validation->set_rules('jabber', 'lang:form_jabber', 'xss_clean');
+				$this->form_validation->set_rules('about_me', 'lang:form_about_me', 'xss_clean');			
 
 				$this->form_validation->set_error_delimiters('', '<br />');
 					
@@ -157,10 +157,14 @@ class User extends Controller
 		
 		$id = $this->session->userdata('user_id');
 
-		$this->form_validation->set_rules('display_name', 'lang:form_display_name', 'max_length[50]');
+		$this->form_validation->set_rules('display_name', 'lang:form_display_name', 'max_length[50]|xss_clean');
 		$this->form_validation->set_rules('password', 'lang:form_password', 'matches[password_retype]');
 		$this->form_validation->set_rules('password_retype', 'lang:form_retype_password', '');
 		$this->form_validation->set_rules('email', 'lang:form_email', 'required|valid_email');
+		$this->form_validation->set_rules('website', 'lang:form_website', 'xss_clean');
+		$this->form_validation->set_rules('msn_messenger', 'lang:form_msn_messenger', 'xss_clean');
+		$this->form_validation->set_rules('jabber', 'lang:form_jabber', 'xss_clean');
+		$this->form_validation->set_rules('about_me', 'lang:form_about_me', 'xss_clean');	
 				
 		$this->form_validation->set_error_delimiters('', '<br />');
 				

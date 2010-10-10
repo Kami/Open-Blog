@@ -36,13 +36,13 @@ class Users extends Controller
 			$id = $this->input->post('id');
 		}
 		
-		$this->form_validation->set_rules('display_name', 'lang:form_display_name', 'max_length[50]');
+		$this->form_validation->set_rules('display_name', 'lang:form_display_name', 'max_length[50]|xss_clean');
 		$this->form_validation->set_rules('email', 'lang:form_email', 'required|valid_email');
-		$this->form_validation->set_rules('level', 'lang:form_level', 'required');
-		$this->form_validation->set_rules('website', 'lang:form_website', '');
-		$this->form_validation->set_rules('msn_messenger', 'lang:form_msn_messenger', '');
-		$this->form_validation->set_rules('jabber', 'lang:form_jabber', '');
-		$this->form_validation->set_rules('about_me', 'lang:form_about_me', '');
+		$this->form_validation->set_rules('level', 'lang:form_level', 'required|xss_clean');
+		$this->form_validation->set_rules('website', 'lang:form_website', 'xss_clean');
+		$this->form_validation->set_rules('msn_messenger', 'lang:form_msn_messenger', 'xss_clean');
+		$this->form_validation->set_rules('jabber', 'lang:form_jabber', 'xss_clean');
+		$this->form_validation->set_rules('about_me', 'lang:form_about_me', 'xss_clean');
 				
 		$this->form_validation->set_error_delimiters('', '<br />');
 			

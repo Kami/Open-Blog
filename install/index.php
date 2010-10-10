@@ -16,8 +16,8 @@
 	
 	<div class="main">
 		<p>Please choose what you would like to do: <br /><br />
-			<a href="install.php">Install Open Blog</a> - choose this option, if you would like to install Open Blog 1.2.0<br />
-			<a href="update.php">Update Open Blog</a> - choose this option, if you would like to update your existing 1.1.0 installation to 1.2.0<br />
+			<a href="install.php">Install Open Blog</a> - choose this option, if you would like to install Open Blog 1.2.1<br />
+			<a href="update.php">Update Open Blog</a> - choose this option, if you would like to update your existing 1.1.0 installation to 1.2.1<br />
 			<a href="migrate.php">Migrate from Wordpress</a> - choose this option, if you would like to migrate from Wordpress 2.x
 		</p>
 	</div>

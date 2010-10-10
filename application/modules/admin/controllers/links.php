@@ -32,11 +32,11 @@ class Links extends Controller
 
 	public function create()
 	{
-		$this->form_validation->set_rules('name', 'lang:form_name', 'required|max_length[50]');
-		$this->form_validation->set_rules('url', 'lang:form_url', 'required');
-		$this->form_validation->set_rules('target', 'lang:form_target', 'required');
-		$this->form_validation->set_rules('description', 'lang:form_description', 'required|max_length[100]');
-		$this->form_validation->set_rules('visible', 'lang:form_visible', 'required');
+		$this->form_validation->set_rules('name', 'lang:form_name', 'required|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('url', 'lang:form_url', 'required|xss_clean');
+		$this->form_validation->set_rules('target', 'lang:form_target', 'required|xss_clean');
+		$this->form_validation->set_rules('description', 'lang:form_description', 'required|max_length[100]|xss_clean');
+		$this->form_validation->set_rules('visible', 'lang:form_visible', 'required|xss_clean');
 
 		$this->form_validation->set_error_delimiters('', '<br />');
 			
@@ -60,11 +60,11 @@ class Links extends Controller
 			$id = $this->input->post('id');
 		}
 			
-		$this->form_validation->set_rules('name', 'lang:form_name', 'required|max_length[50]');
-		$this->form_validation->set_rules('url', 'lang:form_url', 'required');
-		$this->form_validation->set_rules('target', 'lang:form_target', 'required');
-		$this->form_validation->set_rules('description', 'lang:form_description', 'required|max_length[100]');
-		$this->form_validation->set_rules('visible', 'lang:form_visible', 'required');
+		$this->form_validation->set_rules('name', 'lang:form_name', 'required|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('url', 'lang:form_url', 'required|xss_clean');
+		$this->form_validation->set_rules('target', 'lang:form_target', 'required|xss_clean');
+		$this->form_validation->set_rules('description', 'lang:form_description', 'required|max_length[100]|xss_clean');
+		$this->form_validation->set_rules('visible', 'lang:form_visible', 'required|xss_clean');
 
 		$this->form_validation->set_error_delimiters('', '<br />');
 			

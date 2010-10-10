@@ -33,14 +33,14 @@ class Posts extends Controller
 
 	public function create()
 	{
-		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[200]');
-		$this->form_validation->set_rules('excerpt', 'lang:form_excerpt', 'required');
-		$this->form_validation->set_rules('content', 'lang:form_content', '');
+		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[200]|xss_clean');
+		$this->form_validation->set_rules('excerpt', 'lang:form_excerpt', 'required|prep_for_form');
+		$this->form_validation->set_rules('content', 'lang:form_content', 'prep_for_form');
 		$this->form_validation->set_rules('categories', 'lang:form_categories', 'required');
-		$this->form_validation->set_rules('tags', 'lang:form_tags', '');
-		$this->form_validation->set_rules('status', 'lang:form_status', 'required');
-		$this->form_validation->set_rules('allow_comments', 'lang:form_allow_comments', '');
-		$this->form_validation->set_rules('sticky', 'lang:form_sticky', '');
+		$this->form_validation->set_rules('tags', 'lang:form_tags', 'xss_clean');
+		$this->form_validation->set_rules('status', 'lang:form_status', 'required|xss_clean');
+		$this->form_validation->set_rules('allow_comments', 'lang:form_allow_comments', 'numeric');
+		$this->form_validation->set_rules('sticky', 'lang:form_sticky', 'numeric');
 
 		$this->form_validation->set_error_delimiters('', '<br />');
 		
@@ -83,12 +83,13 @@ class Posts extends Controller
 		}
 			
 		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[200]');
-		$this->form_validation->set_rules('excerpt', 'lang:form_excerpt', 'required');
-		$this->form_validation->set_rules('content', 'lang:form_content', '');
-		$this->form_validation->set_rules('categories', 'lang:form_categories', 'required');
-		$this->form_validation->set_rules('tags', 'lang:form_tags', '');
-		$this->form_validation->set_rules('status', 'lang:form_status', 'required');
-		$this->form_validation->set_rules('allow_comments', 'lang:form_allow_comments', '');
+		$this->form_validation->set_rules('excerpt', 'lang:form_excerpt', 'required|prep_for_form');
+		$this->form_validation->set_rules('content', 'lang:form_content', 'prep_for_form');
+		$this->form_validation->set_rules('categories', 'lang:form_categories', 'required|xss_clean');
+		$this->form_validation->set_rules('tags', 'lang:form_tags', 'xss_clean');
+		$this->form_validation->set_rules('status', 'lang:form_status', 'required|xss_clean');
+		$this->form_validation->set_rules('allow_comments', 'lang:form_allow_comments', 'numeric');
+		$this->form_validation->set_rules('sticky', 'lang:form_sticky', 'numeric');
 		
 		$this->form_validation->set_error_delimiters('', '<br />');
 			

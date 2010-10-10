@@ -23,9 +23,9 @@ class Settings extends Controller
 	{
 		$this->load->module_model('admin', 'settings_model', 'settings');
 
-		$this->form_validation->set_rules('blog_title', 'lang:form_blog_title', 'required');
-		$this->form_validation->set_rules('blog_description', 'lang:form_blog_description', 'required');
-		$this->form_validation->set_rules('meta_keywords', 'lang:form_meta_keywords', 'required');
+		$this->form_validation->set_rules('blog_title', 'lang:form_blog_title', 'required|xss_clean');
+		$this->form_validation->set_rules('blog_description', 'lang:form_blog_description', 'required|xss_clean');
+		$this->form_validation->set_rules('meta_keywords', 'lang:form_meta_keywords', 'required|xss_clean');
 		$this->form_validation->set_rules('admin_email', 'lang:form_admin_email', 'required|valid_email');
 		$this->form_validation->set_rules('allow_registrations', 'lang:form_allow_registrations', 'numeric');
 		$this->form_validation->set_rules('enable_captcha', 'lang:form_enable_captcha', 'numeric');
@@ -36,7 +36,7 @@ class Settings extends Controller
 		$this->form_validation->set_rules('posts_per_page', 'lang:form_posts_per_page', 'required|numeric');
 		$this->form_validation->set_rules('links_per_box', 'lang:form_links_per_box', 'required|numeric');
 		$this->form_validation->set_rules('months_per_archive', 'lang:form_months_per_archive', 'required|numeric');
-		$this->form_validation->set_rules('offline_reason', 'lang:form_offline_reason', '');
+		$this->form_validation->set_rules('offline_reason', 'lang:form_offline_reason', 'xss_clean');
 		
 		if ($this->input->post('enabled') == 0)
 		{

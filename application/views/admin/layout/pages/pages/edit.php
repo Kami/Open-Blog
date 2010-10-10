@@ -25,7 +25,7 @@
 					 			</tr>
 					 			<tr>
 					 				<td width="150px" valign="top"><?php echo lang('form_content'); ?></td>
-					 				<td><?php echo form_textarea(array('name' => 'content', 'id' => 'content', 'rows' => '20', 'cols' => '100', 'value' => set_value('content', isset($page_data['content']) ? $page_data['content'] : ''))); ?></td>
+					 				<td><?php echo form_textarea(array('name' => 'content', 'id' => 'content', 'rows' => '20', 'cols' => '100', 'value' => set_value('content', isset($page_data['content']) ? htmlentities($page_data['content']) : ''))); ?></td>
 					 			</tr>
 					 		</table>
 					 	</fieldset>

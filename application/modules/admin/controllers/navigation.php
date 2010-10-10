@@ -48,9 +48,9 @@ class Navigation extends Controller
 
 	public function create()
 	{	
-		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[50]');
-		$this->form_validation->set_rules('url', 'lang:form_url', 'required');
-		$this->form_validation->set_rules('description', 'lang:form_description', 'required|max_length[100]');
+		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('url', 'lang:form_url', 'required|xss_clean');
+		$this->form_validation->set_rules('description', 'lang:form_description', 'required|max_length[100]|xss_clean');
 
 		$this->form_validation->set_error_delimiters('', '<br />');
 			
@@ -74,9 +74,9 @@ class Navigation extends Controller
 			$id = $this->input->post('id');
 		}
 			
-		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[50]');
-		$this->form_validation->set_rules('url', 'lang:form_url', 'required');
-		$this->form_validation->set_rules('description', 'lang:form_description', 'required|max_length[100]');
+		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[50]|xss_clean');
+		$this->form_validation->set_rules('url', 'lang:form_url', 'required|xss_clean');
+		$this->form_validation->set_rules('description', 'lang:form_description', 'required|max_length[100]|xss_clean');
 
 		$this->form_validation->set_error_delimiters('', '<br />');
 			

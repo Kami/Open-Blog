@@ -32,8 +32,8 @@ class Categories extends Controller
 
 	public function create()
 	{
-		$this->form_validation->set_rules('name', 'lang:form_category_name', 'required|max_length[60]');
-		$this->form_validation->set_rules('description', 'lang:form_category_description', 'required|max_length[200]');
+		$this->form_validation->set_rules('name', 'lang:form_category_name', 'required|max_length[60]|xss_clean');
+		$this->form_validation->set_rules('description', 'lang:form_category_description', 'required|max_length[200]|xss_clean');
 
 		$this->form_validation->set_error_delimiters('', '<br />');
 
@@ -57,8 +57,8 @@ class Categories extends Controller
 			$id = $this->input->post('id');
 		}
 			
-		$this->form_validation->set_rules('name', 'lang:form_category_name', 'required|max_length[60]');
-		$this->form_validation->set_rules('description', 'lang:form_category_description', 'required|max_length[200]');
+		$this->form_validation->set_rules('name', 'lang:form_category_name', 'required|max_length[60]|xss_clean');
+		$this->form_validation->set_rules('description', 'lang:form_category_description', 'required|max_length[200]|xss_clean');
 
 		$this->form_validation->set_error_delimiters('', '<br />');
 			

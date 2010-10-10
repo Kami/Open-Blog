@@ -52,7 +52,7 @@ class Comments extends Controller
 			$id = $this->input->post('id');
 		}
 
-		$this->form_validation->set_rules('comment', 'lang:form_comment', 'required');
+		$this->form_validation->set_rules('comment', 'lang:form_comment', 'required|xss_clean');
 
 		$this->form_validation->set_error_delimiters('', '<br />');
 			

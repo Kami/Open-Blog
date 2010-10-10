@@ -33,9 +33,9 @@ class Pages extends Controller
 
 	public function create()
 	{
-		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[200]');
-		$this->form_validation->set_rules('content', 'lang:form_content', 'required');
-		$this->form_validation->set_rules('status', 'lang:form_status', 'required');
+		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[200]|xss_clean');
+		$this->form_validation->set_rules('content', 'lang:form_content', 'required|prep_for_form');
+		$this->form_validation->set_rules('status', 'lang:form_status', 'required|xss_clean');
 
 		$this->form_validation->set_error_delimiters('', '<br />');
 			
@@ -67,9 +67,9 @@ class Pages extends Controller
 			$id = $this->input->post('id');
 		}
 			
-		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[200]');
-		$this->form_validation->set_rules('content', 'lang:form_content', 'required');
-		$this->form_validation->set_rules('status', 'lang:form_status', 'required');
+		$this->form_validation->set_rules('title', 'lang:form_title', 'required|max_length[200]|xss_clean');
+		$this->form_validation->set_rules('content', 'lang:form_content', 'required|prep_for_form');
+		$this->form_validation->set_rules('status', 'lang:form_status', 'required|xss_clean');
 
 		$this->form_validation->set_error_delimiters('', '<br />');
 			
