@@ -1,0 +1,228 @@
+/*
+Template name: Contaminated
+Template URI: http://templates.arcsin.se/contaminated-website-template/
+Release date: 2007-01-04
+Description: A trash style website template
+Author: Viktor Persson
+Author URI: http://arcsin.se/
+
+This template is licensed under a Creative Commons Attribution 2.5 License:
+http://templates.arcsin.se/license/
+*/
+
+/* standard elements */
+html {min-height: 100%;}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {color: #FF3;}
+a:hover {color: #AA3;}
+
+body {
+	background: #111 url('../images/bg.jpg') repeat-x;
+	color: #DDD;
+	font: normal 62.5% "Trebuchet MS",Verdana,sans-serif;
+}
+
+p,code,ul {padding-bottom: 1.2em;}
+
+h1 {
+	font: normal 1.8em Tahoma,sans-serif;
+	margin-bottom: 4px;
+}
+
+h2 {background: url('../images/stripes.gif') repeat-x left bottom; color: #CCC; font: normal 2em Impact,sans-serif; margin-bottom: 8px; padding-bottom: 11px; letter-spacing: 1px;}
+
+blockquote {
+	color: #CCA;
+	display: block;
+	font-weight: bold;
+	padding-left: 28px;
+}
+
+h1,h2 {padding-top: 6px;}
+
+/* misc */
+.clearer {
+	clear: both;
+	font-size: 0;
+}
+.left {float: left;}
+.right {float: right;}
+
+input, textarea {
+	border: 1px solid #778844;
+	padding: 2px;
+}
+
+input.search
+{
+	width: 125px;
+}
+
+fieldset
+{
+	border: 1px solid #4c4c4c;
+	padding: 3px 7px 10px;
+}
+
+fieldset legend
+{
+	color: #778844;
+	font-size: 11px;
+	padding: 0.1em 0.3em;
+}
+
+.post h2 a:hover
+{
+text-decoration:underline;
+}
+
+.post h2 a, post h2 a:visited
+{
+color:#CCCCCC;
+text-decoration:none;
+}
+
+.post .info {
+background-color:#111111;
+color:#8DC63F;
+font-size:0.9em;
+}
+
+.post .info a, .post .info a:hover, .post .info a:visited {
+color:#8DC63F;
+text-decoration:underline;
+}
+
+div.message
+{
+	border-style: solid;
+	border-width: 1px;
+	margin: 0 0 16px 8px;
+	padding: 6px;
+	color: #000000;
+	background-color: #cedfb8;
+	border-color: #778844;
+}
+
+div.error
+{
+	border-style: solid;
+	border-width: 1px;
+	margin: 0 0 16px 8px;
+	padding: 6px;
+	color: #000000;
+	background-color: #FFEBE8;
+	border-color: #CC0000;
+}
+
+input.login
+{
+	width: 70px;
+ 	margin-left: 12px;
+ 	margin-top: 3px;
+ 	margin-bottom: 2px;
+}
+
+div.login
+{
+	width: 350px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+table.login
+{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td.login
+{
+	text-align: center;
+}
+
+/* structure */
+.wrapper {
+	font-size: 1.3em;
+	margin: 0 auto;
+	width: 780px;
+}
+.container {background: url('../images/header.gif') no-repeat center top;}
+
+/* title */
+.title {
+	font: normal 3em Tahoma,sans-serif;
+}
+
+.title a
+{
+	color: #dddddd;
+	text-decoration:none;
+}
+
+.title a:hover
+{
+	text-decoration: underline;
+}
+
+.olive {color: #CCA;}
+
+/* sub navigation */
+.sidenav {
+	background: url('../images/sidenav.gif') no-repeat right top;
+	padding-top: 126px;
+	float: right;
+	width: 210px;
+}
+.sidenav h2 {
+	color: #9A3;
+	font-size: 1.4em;
+	line-height: 30px;
+	margin: 0;
+}
+.sidenav ul {padding: 0.5em 0 0 0.5em;}
+.sidenav li {list-style: none;}
+.sidenav li a {
+	font-size: 1.1em;
+	line-height: 1.5em;
+	color: #777;
+	text-decoration: none;
+}
+.sidenav li a:hover {color: #8DCA3F;}
+
+/* content */
+.content {
+	float: left;
+	margin: 10px 0;
+	padding-top: 32px;
+	width: 531px;
+}
+.content .descr {
+	color: #8DC63F;
+	margin-bottom: 6px;
+}
+.content li {margin-left: 18px;}
+
+/* footer */
+.footer {
+	background: url('../images/bgfooter.gif') repeat-x;
+	border-top: 1px dashed #333;
+	color: #777;
+	font: normal 0.9em sans-serif;
+}
+.footer a {
+	color: #784;
+	text-decoration: none;
+}
+.footer a:hover {
+	color: #AA3;
+	text-decoration: underline;
+}
+.footer .left, .footer .right {padding: 10px 0;}
+.footer .right, .footer .right a {color: #555;}
+.footer .right a:hover {color: #999;}

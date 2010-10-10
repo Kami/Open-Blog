@@ -1,0 +1,267 @@
+/*
+Template name: Natural Essence
+Template URI: http://templates.arcsin.se/natural-essence-website-template/
+Release date: 2007-02-20
+Description: Soft and natural single/two-column template.
+Author: Viktor Persson
+Author URI: http://arcsin.se/
+
+This template is licensed under a Creative Commons Attribution 2.5 License:
+http://templates.arcsin.se/license/
+*/
+
+
+/* default elements */
+* {margin: 0; padding: 0;}
+
+body {
+	background: #7C6F5C url('../images/bg.jpg');
+	color: #222;
+	font: normal 62.5% sans-serif;
+	padding: 2% 0;
+}
+
+a {color: #642;}
+a:hover {color: #963;}
+
+big {font-size: 1.1em;}
+
+h1,h2,h3 {color: #442; padding: 8px 0 2px;}
+
+h1 {font: normal 2.4em serif,sans-serif;}
+h1 a {text-decoration: none;}
+h1 a:hover {text-decoration: underline;}
+
+h2 {font: normal 1.6em serif,sans-serif;}
+h3 {font: bold 1.2em serif,sans-serif;}
+
+blockquote {
+	background: url('/application/views/templates/natural_essence/static/images/quote.gif') no-repeat;
+	display: block;
+	font: normal 1.1em Georgia,serif;
+	padding-left: 26px
+}
+
+form,table {margin-bottom: 1.2em;}
+img {border: none;}
+label {display: block;}
+li {line-height: 1.5em;}
+p {padding: 2px 0 10px;}
+small,.small {font: normal 0.9em sans-serif;}
+ul {padding: 0 2em 1.2em;}
+
+/* structure */
+#wrapper {
+	background: #332 url('../images/wrapper.gif') no-repeat left bottom;
+	margin: 0 auto;
+	width: 762px;
+}
+#container {
+	background: #FBF9F4;
+	border-top: 6px solid #332;
+	font-size: 1.3em;
+	line-height: 1.3em;
+	margin: 0 auto;
+	width: 750px;
+}
+
+/* header */
+.title {
+	background: #E2DED4;
+	border-top: 1px solid #996;
+}
+.title h1 {
+	color: #441;
+	font: normal 2.2em Georgia,"Trebuchet MS",sans-serif;
+	padding: 10px 0 10px 18px;
+}
+
+.header {
+	border-top: 2px solid #663;
+	background: #DAD7C5 url('../images/header.jpg') no-repeat left bottom;
+	height: 220px;
+}
+
+/* navigation */
+.navigation {
+	background: #DED9D0 url('../images/nav.gif') repeat-x; height: 41px;
+	border-top: 1px solid #996;
+}
+.navigation a {
+	background: #FFF url('../images/nav.gif') repeat-x;
+	border-right: 1px solid #C9C6B3;
+	color: #553;
+	float: left;
+	font: bold 1em Tahoma,sans-serif;
+	padding: 0 14px;
+	line-height: 41px;
+	text-align: center;
+	text-decoration: none;
+}
+.navigation a:hover,.navigation a#active {background-position: left bottom; color: #331;}
+
+/* main */
+.main#two-columns {background: #FFF url('../images/two-columns.gif') repeat-y;}
+
+/* footer */
+.footer {
+	background: #332;
+	color: #EED;
+	padding: 10px;
+}
+.footer .left {width: 66%;}
+.footer .right {
+	width: 33%;
+	text-align: right;
+}
+.footer a {
+	color: #FFF;
+	text-decoration: none;
+}
+.footer a:hover {
+	color: #FFF;
+	text-decoration: underline;
+}
+
+/* gallery */
+.gallery td {
+	vertical-align: top;
+	text-align: center;
+}
+.gallery em {display: block;}
+
+/* misc */
+.clear,.clearer {clear: both;} 
+.clearer {font-size: 0;}
+.col2 .left {width: 64%;}
+.col2 .right .content {background: #FFF;}
+.col2 .right {width: 33%;}
+.content {padding: 18px 20px;}
+.left {float: left;}
+.right {float: right;}
+.right .content {padding: 18px 12px 12px;}
+
+.descr {
+	color: #630;
+	font-size: 0.9em;
+	margin: 2px 0 4px;
+}
+
+.info{
+	border-top: 1px dashed #AAAA9A;
+	color: #222;
+	font-size: 0.9em;
+	font-weight: bold;
+	margin: 4px 0 8px;
+	padding: 8px 0;
+}
+
+ol
+{
+	list-style: none;
+}
+
+.comments li 
+{
+	margin: 0;
+	padding: 1em;			
+	border-bottom: #ddd 1px solid;
+	font-size: 0.9em;
+}
+
+div.message
+{
+	border-style: solid;
+	border-width: 1px;
+	margin: 0 0 16px 8px;
+	padding: 6px;
+	background-color: #f1efea;
+	border-color: #c9c6b3;
+}
+
+div.error
+{
+	border-style: solid;
+	border-width: 1px;
+	margin: 0 0 16px 8px;
+	padding: 6px;
+	background-color: #FFEBE8;
+	border-color: #CC0000;
+}
+
+fieldset
+{
+	border: 1px solid #eaeada;
+	padding: 3px 7px 10px;
+}
+
+fieldset legend
+{
+	color: #474634;
+	font-size: 11px;
+	padding: 0.1em 0.3em;
+}
+
+input, textarea {
+	border: 1px solid #c9c6b3;
+	padding: 2px;
+}
+
+input.login
+{
+	width: 70px;
+ 	margin-left: 12px;
+ 	margin-top: 3px;
+ 	margin-bottom: 2px;
+}
+
+div.login
+{
+	width: 350px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+table.login
+{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td.login
+{
+	text-align: center;
+}
+
+/* block list */
+ul.block {
+	border-top: 1px dashed #BCBAAC;
+	margin: 4px 0;
+	padding: 0;
+	width: 90%;
+}
+.block li {
+	border-bottom: 1px dashed #BCBAAC;
+	list-style: none;
+}
+.block li a,.block li em {
+	color: #553;
+	display: block;
+}
+.block li em {
+	font-size: 0.9em;
+	font-style: normal;
+}
+.block li a {
+	padding: 4px 3%;
+	text-decoration: none;
+	width: 94%;
+}
+.block li a span {font-weight: bold;}
+.block li a:hover {
+	background: #D2D0C0;
+	color: #553;
+}
+
+.right .block,.right .block li {border-color: #DCDACC;}
+.right .block li a:hover {background: #F2F0EA;}

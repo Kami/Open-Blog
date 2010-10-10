@@ -1,0 +1,295 @@
+/*
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+body {
+	margin: 0px;
+	padding: 0px;
+	background: #3D5D68 url('../images/img01.jpg') repeat-x;
+	font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: #333333;
+}
+
+h1, h2, h3 {
+	font: 1.82em;
+	font-weight: normal;
+	font-family: Arial, Helvetica, sans-serif;
+	letter-spacing: -1px;
+	color: #514F42;
+}
+
+p, ol, ul {
+	line-height: 1.67em;
+}
+
+a {
+	color: #669900;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+hr {
+	display: none;
+}
+
+/* Floats */
+.left {float: left;}
+.right {float: right;}
+.center {text-align: center;}
+
+/* Header */
+
+#header {
+	width: 940px;
+	height: 270px;
+	margin: 0px auto;
+}
+
+/* Logo */
+
+#logo {
+	float: left;
+	padding: 40px 0 0 0;
+}
+
+#logo h1 {
+	margin: 0;
+	height: 160px;
+	padding: 40px 0 0 170px;
+	background: url('../images/img04.jpg') no-repeat left top;
+	text-transform: lowercase;
+	letter-spacing: -2px;
+	font-size: 4em;
+	font-weight: normal;
+	color: #FFFFFF;
+}
+
+#logo h1 a {
+	display: block;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+#logo p {
+	margin: -113px 0 0 173px;
+	text-transform: uppercase;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 11px;
+}
+
+#logo a {
+	display: block;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+/* Menu */
+
+#menu {
+	float: right;
+}
+
+#menu ul {
+	margin: 0px;
+	padding: 176px 0px 0px 0px;
+	list-style: none;
+}
+
+#menu li {
+	display: inline;
+}
+
+#menu a {
+	display: block;
+	float: left;
+	margin-left: 5px;
+	padding: 5px 20px;
+	background: #FFFFFF;
+	text-decoration: none;
+	text-transform: uppercase;
+	border-top: 2px solid #EBEAD1;
+	font-family: Arial, Helvetica, sans-serif; 
+	font-weight: bold;
+	font-size: 11px;
+	color: #182C33;
+}
+
+#menu a:hover, .active a {
+}
+
+/* Page */
+
+#wrapper {
+	background: #EBEAD1 url('../images/img02.jpg') repeat-x left bottom;
+}
+
+#page {
+	width: 940px;
+	margin: 0px auto;
+	padding: 0;
+}
+
+/* Content */
+
+#content {
+	float: left;
+	width: 650px;
+	margin-bottom: 50px;
+}
+
+/* Post */
+
+.post {
+	margin-top: 20px;
+}
+
+.post .date {
+	float: left;
+	width: 76px;
+	height: 58px;
+	margin: 0;
+	margin-right: 20px;
+	padding-top: 2px;
+	background: #514F42;
+	line-height: normal;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 10px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+.post .date b {
+	margin: 0;
+	padding: 0;
+	display: block;
+	margin-top: -5px;
+	font-size: 40px;
+}
+
+.post .title {
+	margin: 0;
+	padding: 0px 0 0 0;
+	margin-left: 10px;
+	padding-left: 50px;
+	font-size: 1.8em;
+}
+
+.post .title h2 {
+	padding: 0;
+	margin: 0;
+}
+
+.post .hr1 {
+}
+
+.post .meta {
+	margin: 0 0 30px 20px;
+	padding: 0;
+	color: #979680;
+	line-height:normal;
+}
+
+.post .meta a {
+	color: #828170;
+}
+
+.post .entry {
+	margin: 0;
+	padding: 0 0 20px 0;
+	border-bottom: 1px dashed #666633;
+}
+
+/* Sidebar */
+
+#sidebar {
+	float: right;
+	width: 240px;
+	margin-bottom: 20px;
+}
+
+#sidebar ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#sidebar li {
+	margin-bottom: 10px;
+}
+
+#sidebar li ul {
+	border-top: 1px dashed #666633;
+}
+
+#sidebar li li {
+	margin: 0;
+	padding: 4px 0 4px 0;
+}
+
+#sidebar li li a {
+}
+
+#sidebar h2 {
+	padding: 0;
+	margin: 0 0 6px 0;
+}
+
+#sidebar a {
+	text-decoration: none;
+}
+
+#sidebar a:hover {
+	text-decoration: underline;
+}
+
+/* Other */
+
+div.message
+{
+	border-style: solid;
+	border-width: 1px;
+	margin: 0 0 16px 8px;
+	padding: 6px;
+	background-color: #e6e4cb;
+	border-color: #d2d0b7;
+}
+
+div.error
+{
+	border-style: solid;
+	border-width: 1px;
+	margin: 0 0 16px 8px;
+	padding: 6px;
+	background-color: #FFEBE8;
+	border-color: #CC0000;
+}
+
+
+/* Footer */
+
+#wrapper2 {
+	background: #422C21;
+}
+
+#legal {
+	clear: both;
+	margin: 0;
+	padding: 10px 0;
+	text-align: center;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #525252;
+	background: black;
+}
+
+#legal a {
+	border-bottom: 1px dotted #939393;
+	text-decoration: none;
+	color: #939393;
+}

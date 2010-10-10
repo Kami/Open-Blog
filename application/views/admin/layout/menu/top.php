@@ -1,0 +1,1 @@
+<?=lang('top_logged_in_as');?> <a href="<?=base_url();?>user/view/<?=$this->session->userdata('username');?>"><?=$this->session->userdata('username');?></a> (<?=$this->session->userdata('level');?>) | <a href="<?=base_url();?>"><?=lang('top_view_site');?></a> | <a href="<?=base_url();?>user/logout"><?=lang('top_logout');?></a>

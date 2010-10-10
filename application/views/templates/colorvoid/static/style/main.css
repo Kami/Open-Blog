@@ -1,0 +1,534 @@
+/*  
+Template name: Colorvoid
+Template URI: http://templates.arcsin.se/colorvoid-website-template/
+Release date: 2008-04-25
+Description: Soft and natural, gray and blue two-column template.
+Author: Viktor Persson
+Author URI: http://arcsin.se/
+
+This template is licensed under a Creative Commons Attribution 2.5 License:
+http://templates.arcsin.se/license/
+*/
+
+/* ----------------------------------------
+   Standard Elements
+------------------------------------------- */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	height: 100%;
+	padding-bottom: 1px; /* force scrollbars */
+}
+
+body {
+	background: #404040 url('../images/body.jpg');
+	font: normal 13px Verdana,sans-serif;
+	color: #345;
+	padding-bottom: 1em;
+}
+
+a {color: #06A;}
+a:hover {color: #036;}
+
+p {padding: 0.1em 0 0.8em;}
+
+h1 {font: normal 1.8em Georgia,Tahoma,sans-serif;}
+h2 {font: normal 1.5em Georgia,sans-serif;}
+h3 {font: bold 1em Tahoma,sans-serif;}
+
+blockquote {
+	background: #FFF url('../images/quote.gif') no-repeat;
+	border: 1px solid #EAEAEA;
+	color: #555;
+	display: block;
+	font: normal 1em sans-serif;
+	margin-bottom: 1em;
+	padding: 10px 1em 0.2em 42px;
+}
+
+code {
+	display: block;
+	background: #FFFFFA;
+	color: #335;
+	border: 1px solid #E8E8D5;
+	padding: 5px 10px;
+	overflow: auto;
+	margin: 1em 0;
+	font-size: 0.9em;
+	line-height: 1.5em;
+}
+
+ul,ol {margin: 0 0 1em 1.6em;}
+ul ul, ol ol {margin: 0.3em 0 0.3em 1em;}
+
+img {border: none;}
+img.bordered {background: #FFF; padding: 5px; border: 1px solid #DDD;}
+img.left {margin-right: 1em;}
+img.right {margin-left: 1em;}
+
+small,.small {font-size: 0.8em;}
+big,.big {font-size: 1.2em;}
+
+/* ----------------------------------------
+  Forms
+------------------------------------------- */
+
+/* Inputs */
+input#s, textarea, input.styled {
+	border: 1px solid #BBB;
+	padding: 2px;
+	font: normal 1em Verdana,sans-serif;
+}
+
+input#term
+{
+	border: 1px solid #BBB;
+	padding: 2px;
+	width: 160px;
+	font: normal 1em Verdana,sans-serif;
+}
+
+select
+{
+	border: 1px solid #BBB;
+	padding: 2px;
+	font: normal 1em Verdana,sans-serif;
+}
+
+select option
+{
+	padding: 0 5px;
+	}
+
+
+/*textarea {width: 440px;}*/
+#searchsubmit {
+	border: 1px solid #BBB;
+	background: #EEE;
+	font: normal 0.9em Verdana,sans-serif;
+	padding: 2px 3px;
+}
+
+/* Seachform */
+table.search {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.feed {
+  padding: 0 0 0 19px;
+  background: url('../images/feed-icon-14x14.png') no-repeat 0 50%;
+} 
+
+
+/* ----------------------------------------
+   Layout
+------------------------------------------- */
+
+/* Main */
+#layout_wrapper {
+	margin: 40px auto 0;
+	width: 780px;	
+}
+#layout_container {
+	background: #FFF;
+	padding: 0 5px;
+}
+#layout_edgetop, #layout_edgebottom {
+	background: url('../images/layout_edges.gif') no-repeat left top;
+	display: block;
+	height: 10px;	
+	font-size: 0;
+	line-height: 0;
+}
+#layout_edgebottom {background-position: left bottom;}
+
+/* Site Title */
+#site_title {
+	background: #C5DEF0 url('../images/site_title.jpg') repeat-x left top;
+	padding: 6px 18px;
+}
+#site_title h1 {
+	font: normal 2.4em sans-serif;
+	letter-spacing: -1px;
+}
+#site_title h1,#site_title h1 a {color: #507A9A;}
+#site_title h1 a {text-decoration: none;}
+#site_title h1 a:hover {color: #305A7A}
+#site_title h2 {
+	padding-top: 1.4em;
+	font: normal 1.1em sans-serif;
+	color: #679;
+}
+
+#top_separator {
+	background: url('../images/top_separator.gif') repeat-x left top;
+	display: block;
+	font-size: 0;
+	height: 3px;
+	line-height: 0;
+}
+
+/* Navigation */
+#navigation {
+	background: #739CBA url('../images/navigation.jpg') no-repeat left bottom;
+	padding: 82px 10px 0;
+}
+
+/* Tabs */
+#tabs ul {
+	margin: 0;
+	padding: 0;
+}
+#tabs li {
+	display:inline;
+	list-style:none;
+}
+#tabs a {
+	background: url('../images/tableftC.gif') no-repeat left top;
+	float: left;
+	font: bold 0.9em sans-serif;
+	margin-right: 3px;
+	padding-left: 4px;
+	text-decoration: none;
+}
+#tabs a span {
+	float: left;
+	display: block;
+	background: url('../images/tabrightC.gif') no-repeat right top;
+	padding: 5px 10px 5px 6px;
+	color: #608AAA;
+}
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+#tabs a span {float: none;}
+/* End IE5-Mac hack */
+
+#tabs a:hover span {color: #608AAA;}
+#tabs a:hover {background-position: 0% -42px;}
+#tabs a:hover span {background-position:100% -42px;}
+
+#tabs li.current_page_item a {color: #47A; background-position: 0% -42px;}
+#tabs li.current_page_item a span {background-position:100% -42px;}
+
+/* Main Layout */
+#main_left {width: 545px;}
+#main_right {width: 220px;}
+
+/* Footer */
+#footer {
+	background: #A3B5C1 url('../images/footer.gif') no-repeat left top;
+	padding: 8px 12px 2px;
+	font-size: 0.85em;
+	color: #FAFCFF;
+}
+
+/* ----------------------------------------
+   Miscellaneous
+------------------------------------------- */
+
+/* Images */
+img.bordered {
+	border: 1px solid #DDD;
+	background: #FFF;
+	padding: 5px;
+}
+
+/* Tables */
+
+fieldset
+{
+	background-color: #FFFFFF;
+	border: 1px solid #CCCCCC;
+	padding: 3px 7px 10px;
+}
+
+fieldset legend
+{
+	color: #739cba;
+	font-size: 11px;
+	padding: 0.1em 0.3em;
+	text-transform: capitalize;
+}
+
+table.admin
+{
+
+	width: 100%;
+}
+
+th.admin
+{
+	text-align: left;
+	color: #739cba;
+	font-weight: normal;
+	border-bottom:2px solid #DEDEDE;
+}
+
+td.admin
+{
+	border-bottom:1px solid #DEDEDE;
+}
+
+div.login
+{
+	width: 350px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.message
+{
+	border-style: solid;
+	border-width: 1px;
+	margin: 0 0 16px 8px;
+	padding: 6px;
+	background-color: #dae3e9;
+	border-color: #c6d2db;
+}
+
+div.error
+{
+	border-style: solid;
+	border-width: 1px;
+	margin: 0 0 16px 8px;
+	padding: 6px;
+	background-color: #FFEBE8;
+	border-color: #CC0000;
+}
+
+table.login
+{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td.login
+{
+	text-align: center;
+}
+
+input.login
+{
+	width: 70px;
+ 	margin-left: 12px;
+ 	margin-top: 3px;
+ 	margin-bottom: 2px;
+}
+
+/* Text */
+.bold {font-weight: bold;}
+.tright {text-align: right;}
+.tcenter {text-align: center;}
+.tright {text-align: right;}
+
+/* Floats */
+.left {float: left;}
+.right {float: right;}
+.center {text-align: center;}
+
+/* Clear */
+.clear,.clearer {clear: both;}
+.clearer,.spacer {
+	display: block;
+	font-size: 0;
+	line-height: 0;
+}
+
+/* Icons */
+span.comment {
+	background: url('../images/icon_comment.gif') no-repeat left center;
+	padding-left: 18px;
+}
+
+/* ----------------------------------------
+   Post, page
+------------------------------------------- */
+
+.post {
+	margin-bottom: 5px;
+	color: #444;
+}
+.post_title {
+	background: #E8E8E8 url('../images/post/title.gif') no-repeat left top;
+	padding: 6px 12px 5px;
+}
+.post_title h1 {font: bold 0.9em Verdana,sans-serif;}
+.post_title h1 a {color: #444;}
+.post_title h1 a:hover {
+	color: #469;
+	text-decoration: underline;
+}
+.post_title h1.left {width: 380px}
+.post_date {
+	color: #999;
+	padding-top: 1px;
+	font-size: 0.85em;
+}
+.post_metadata {
+	margin-top: 5px;
+	padding: 0 5px;
+	background: #F5F5F5;
+}
+.post_metadata .content {
+	border-top: 1px solid #E5E5E5;
+	padding: 8px 5px 6px;
+	font-size: 0.8em;
+	color: #666;
+}
+.post_metadata .content a {color: #567;}
+.post_metadata .content a:hover {color: #002;}
+
+.post_body {
+	background: #F5F5F5 url('../images/post/body.gif') repeat-x left top;
+	padding: 10px 10px 1px;
+}
+/*.post_body img {
+	border: 1px solid #CCC;
+	background: #FFF;
+	padding: 3px;
+}*/
+.post_bottom {
+	background: url('../images/post/bottom.gif') no-repeat left top;
+	display: block;
+	height: 5px;
+	font-size: 0;
+	line-height: 0;
+}
+.post_search_text {
+	font-size: 0.85em;
+	padding: 2px 0;
+}
+p.read_more {
+	font-size: 0.8em;
+}
+p.read_more a {color: #567;}
+p.read_moret a:hover {color: #002;}
+
+/* ----------------------------------------
+   Sidebar box
+------------------------------------------- */
+
+.box {margin-bottom: 5px;}
+.box_title {
+	background: #C6D2DB url('../images/box/title.gif') no-repeat left top;
+	padding: 6px 10px 5px;
+	font-weight: bold;
+	font-size: 0.9em;
+	color: #505E69;
+}
+.box_body {
+	background: #DAE3E9 url('../images/box/body.gif') repeat-x left top;
+	padding: 8px 10px 1px;
+	font-size: 0.9em;
+}
+.box_bottom {
+	background: url('../images/box/bottom.gif') no-repeat left top;
+	display: block;
+	height: 5px;
+	font-size: 0;
+	line-height: 0;
+}
+
+.box ul {
+	margin-left: 0;
+	border-bottom: 1px solid #E2ECF2;
+}
+.box li:first-child {border-top: none;}
+.box ul li {
+	list-style: none;
+	padding: 4px;
+	border-top: 1px solid #E2ECF2;
+	border-bottom: 1px solid #D0D8DE;
+}
+.box ul a {text-decoration: none;}
+.box ul a:hover {text-decoration: underline;}
+
+/* ----------------------------------------
+   Lists
+------------------------------------------- */
+
+.nicelist {
+	padding: 1px 0 0;
+}
+.nicelist ol {margin: 0;}
+.nicelist ol li {
+	list-style: none;
+	padding: 8px 10px 1px;
+	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #CCC;
+}
+.nicelist li.alt {background: #EEE;}
+.nicelist .body {padding-top: 5px;}
+.nicelist .date {
+	color: #888;
+	padding-top: 4px;
+	font-size: 0.85em;
+}
+.nicelist .date a {
+	color: #567;
+	text-decoration: none;
+}
+.nicelist .date a:hover {
+	color: #002;
+	text-decoration: underline;
+}
+
+/* ----------------------------------------
+   Archives
+------------------------------------------- */
+
+.archive_title {font: normal 1.4em sans-serif;}
+.archive_title a {text-decoration: none;}
+.archive_title a:hover {text-decoration: underline;}
+.archive_postinfo {
+	font: normal 1em sans-serif;
+	padding-bottom: 6px;
+}
+
+/* ----------------------------------------
+   Comments
+------------------------------------------- */
+
+.comment_gravatar {width: 48px;}
+.comment_gravatar img {padding: 2px;}
+.comment_author {padding-top: 2px;}
+
+/* ----------------------------------------
+   Pagination
+------------------------------------------- */
+
+.pagenavigation {
+	background: #DDEBF4 url('../images/pagenav_top.gif') no-repeat;
+	margin-bottom: 5px;
+}
+.pagenav_bottom {
+	display: block;
+	font-size: 0;
+	line-height: 0;
+	height: 5px;
+	background: url('../images/pagenav_bottom.gif') no-repeat;
+}
+.pagenav {
+	font-size: 0.85em;
+	padding: 5px 8px 0;
+}
+.pagenav a {
+	color: #6A7DA4;
+	text-decoration: none;
+}
+.pagenav a:hover {
+	color: #002;
+	text-decoration: underline;
+}
+
+/* ----------------------------------------
+   Width, height, margin, padding
+------------------------------------------- */
+
+.h5 {height: 5px;}
+.p5 {padding: 5px;}
+.p10 {padding: 10px;}
