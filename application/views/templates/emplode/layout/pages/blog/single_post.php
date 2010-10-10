@@ -1,6 +1,6 @@
 <div class="post">
 	<div class="post_title"><h2><?php echo $post['title']; ?></h2></div>
-	<div class="post_date"><?php echo strftime('%B %d, %Y', strtotime($post['date_posted'])); ?> <?php echo lang('in'); ?> <a href="<?php echo site_url('blog/category/' . $post['url_name']); ?>"><?php echo $post['name']; ?></a> <?php echo lang('by'); ?> <?php echo $post['display_name']; ?></div>
+	<div class="post_date"><?php echo strftime('%B %d, %Y', strtotime($post['date_posted'])); ?> <?php echo lang('by'); ?> <?php echo $post['display_name']; ?></div>
 	<div class="post_body">
 		<?php echo $post['excerpt']; ?>
 
@@ -9,12 +9,12 @@
 		<?php endif; ?>
 	</div>
 	
-	<?php if ($links = $this->system_library->generate_social_bookmarking_links(site_url('blog/post/' . $post['url']), $post['title'])): ?>
+	<?php if ($links = $this->system_library->generate_social_bookmarking_links(post_url($post['url_title'], $post['date_posted']), $post['title'])): ?>
 		<p><?php echo lang('add_to'); ?> <?php echo $links; ?></p>
 	<?php endif; ?>
 			
 	<div class="post_meta">
-		<?php echo lang('posted_in'); ?>: <a href="<?php echo site_url('blog/category/' . $post['url_name']); ?>"><?php echo $post['name']; ?></a>
+		<?php echo lang('posted_in'); ?>: <?php echo categories_url($post['categories']); ?>
 	</div>
 </div>
 
@@ -63,7 +63,7 @@
 			</div>
 		<?php endif; ?>	
 
-		<form action="<?php echo site_url('blog/post/' . $post['url']); ?>" method="post">	
+		<form action="<?php echo post_url($post['url_title'], $post['date_posted']); ?>" method="post">	
 			<?php if ($this->session->userdata('logged_in') == false): ?>
 				<div class="form_row">
 					<div class="form_property form_required"><?php echo lang('nickname'); ?></div>
@@ -83,6 +83,20 @@
 		
 					<div class="clearer">&nbsp;</div>
 				</div>
+				<?php if ($this->system_library->settings['enable_captcha'] == 1): ?>
+					<div class="form_row">
+						<div class="form_property form_required"><?php echo lang('confirmation_image'); ?></div>
+						<div class="form_value"><img src="<?php echo site_url('blog/captcha/normal'); ?>/<?php echo uniqid(time()); ?>" /></div>
+			
+						<div class="clearer">&nbsp;</div>
+					</div>
+					<div class="form_row">
+						<div class="form_property form_required"><?php echo lang('confirmation_code'); ?></div>
+						<div class="form_value"><input name="confirmation_code" id="confirmation_code" type="text" value="<?php echo set_value('confirmation_code'); ?>" size="22" /></div>
+			
+						<div class="clearer">&nbsp;</div>
+					</div>
+				<?php endif; ?>
 			<?php else: ?>
 				<div class="form_row">
 					<div class="form_property form_required"><?php echo lang('nickname'); ?></div>

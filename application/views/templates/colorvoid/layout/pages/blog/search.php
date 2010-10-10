@@ -13,11 +13,11 @@
 					<li>
 				<?php endif; ?>
 					<div class="archive_title">
-						<a href="<?php echo site_url('blog/post/' . $post['url']); ?>"><?php echo $post['title']; ?></a>
+						<a href="<?php echo post_url($post['url_title'], $post['date_posted']); ?>"><?php echo $post['title']; ?></a>
 					</div>
 					
 					<div class="archive_postinfo">
-						<div class="date"><?php echo strftime('%B %d, %Y', strtotime($post['date_posted'])); ?> <?php echo lang('in'); ?> <a href="<?php echo site_url('blog/category/' . $post['url_name']); ?>"><?php echo $post['name']; ?></a> - <a href="<?php echo site_url('blog/post/' . $post['url']); ?>#comments"><?php echo lang('comments'); ?> (<?php echo $post['comment_count']; ?>)</a></div>
+						<div class="date"><?php echo strftime('%B %d, %Y', strtotime($post['date_posted'])); ?> <?php echo lang('in'); ?> <?php echo categories_url($post['categories']); ?> - <a href="<?php echo post_url($post['url_title'], $post['date_posted']); ?>#comments"><?php echo lang('comments'); ?> (<?php echo $post['comment_count']; ?>)</a></div>
 					</div>
 				</li>
 				<?php $i++; ?>

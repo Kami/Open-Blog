@@ -45,7 +45,7 @@ class Pages extends Controller
 			
 			if ($this->input->post('add_to_navigation'))
 			{
-				$url = 'pages/' . url_title($this->input->post('title'), 'dash', TRUE) . '/';
+				$url = 'pages/' . url_title($this->input->post('title')) . '/';
 				
 				$this->navigation->create_navigation_item($this->input->post('title'), $this->input->post('title'), $url);
 			}

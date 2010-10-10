@@ -23,6 +23,7 @@ class Links_library
 		$this->CI->db->where('visible', 'yes'); 
 		$this->CI->db->order_by('id', 'ASC'); 
 		$this->CI->db->limit($this->CI->system_library->settings['links_per_box']);
+		
 		$query = $this->CI->db->get($this->_table['links']);
 		
 		if ($query->num_rows() > 0)

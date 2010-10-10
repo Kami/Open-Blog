@@ -22,6 +22,7 @@ class Archive_library
 		$this->CI->db->select('COUNT(' . $this->CI->db->dbprefix . 'posts.id) AS posts_count, ' . $this->CI->db->dbprefix . 'posts.date_posted FROM ' . $this->CI->db->dbprefix . 'posts WHERE ' . $this->CI->db->dbprefix . 'posts.status = \'published\' GROUP BY SUBSTRING(' . $this->CI->db->dbprefix . 'posts.date_posted, 1, 7)', FALSE);
 		$this->CI->db->order_by('date_posted', 'DESC');
 		$this->CI->db->limit($this->CI->system_library->settings['months_per_archive']);
+		
 		$query = $this->CI->db->get();
 		
 		if ($query->num_rows() > 0)

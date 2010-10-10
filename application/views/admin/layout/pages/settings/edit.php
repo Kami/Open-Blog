@@ -38,11 +38,19 @@
 					 			</tr>
 					 			<tr>
 					 				<td width="200px"><?php echo lang('form_admin_email'); ?></td>
-					 				<td><?php echo form_input(array('name' => 'admin_email', 'id' => 'admin_email', 'size' => '50', 'class' => 'styled', 'value' => set_value('admin_email', isset($settings['admin_email']) ? $settings['admin_email'] : ''))); ?></td>
+					 				<td><?php echo form_input(array('name' => 'admin_email', 'id' => 'admin_email', 'size' => '50', 'class' => 'styled', 'value' => set_value('admin_email', isset($settings['admin_email']) ? $settings['admin_email'] : ''))); ?> <a title="<?php echo lang('form_admin_email_title'); ?>|<?php echo lang('form_admin_email_hint'); ?>" class="tip">[?]</a></td>
 					 			</tr>
 					 			<tr>
 					 				<td width="200px"><?php echo lang('form_allow_registrations'); ?></td>
-					 				<td><?php echo form_checkbox('allow_registrations', 1, set_value('allow_registrations', isset($settings['allow_registrations']) ? $settings['allow_registrations'] : '')); ?></td>
+					 				<td><?php echo form_checkbox('allow_registrations', 1, set_value('allow_registrations', isset($settings['allow_registrations']) ? $settings['allow_registrations'] : '')); ?> <a title="<?php echo lang('form_allow_registrations_title'); ?>|<?php echo lang('form_allow_registrations_hint'); ?>" class="tip">[?]</a></td>
+					 			</tr>
+					 			<tr>
+					 				<td width="200px"><?php echo lang('form_enable_captcha'); ?></td>
+					 				<td><?php echo form_checkbox('enable_captcha', 1, set_value('enable_captcha', isset($settings['enable_captcha']) ? $settings['enable_captcha'] : '')); ?> <a title="<?php echo lang('form_enable_captcha_title'); ?>|<?php echo lang('form_enable_captcha_hint'); ?>" class="tip">[?]</a></td>
+					 			</tr>
+					 			<tr>
+					 				<td width="200px"><?php echo lang('form_recognize_user_agent'); ?></td>
+					 				<td><?php echo form_checkbox('recognize_user_agent', 1, set_value('recognize_user_agent', isset($settings['recognize_user_agent']) ? $settings['recognize_user_agent'] : '')); ?> <a title="<?php echo lang('form_recognize_user_agent_title'); ?>|<?php echo lang('form_recognize_user_agent_hint'); ?>" class="tip">[?]</a></td>
 					 			</tr>
 					 		</table>
 					 	</fieldset>
@@ -62,7 +70,7 @@
 					 			</tr>
 					 			<tr class="offline_reason">
 					 				<td width="200px"><?php echo lang('form_offline_reason'); ?></td>
-					 				<td><?php echo form_input(array('name' => 'offline_reason', 'id' => 'offline_reason', 'size' => '50', 'class' => 'styled', 'value' => set_value('offline_reason', isset($settings['offline_reason']) ? $settings['offline_reason'] : ''))); ?> (<?php echo lang('form_offline_reason_tip'); ?>)</td>
+					 				<td><?php echo form_input(array('name' => 'offline_reason', 'id' => 'offline_reason', 'size' => '50', 'class' => 'styled', 'value' => set_value('offline_reason', isset($settings['offline_reason']) ? $settings['offline_reason'] : ''))); ?> <a title="<?php echo lang('form_site_status_title'); ?>|<?php echo lang('form_site_status_hint'); ?>" class="tip">[?]</a</td>
 					 			</tr>
 					 		</table>
 					 	</fieldset>
@@ -85,16 +93,16 @@
 					 				<td><?php echo form_dropdown('language', $languages, set_value('language', isset($settings['language']) ? $settings['language'] : '')); ?></td>
 					 			</tr>
 					 			<tr>
-					 				<td width="200px"><?php echo lang('form_posts_per_site'); ?></td>
-					 				<td><?php echo form_input(array('name' => 'posts_per_site', 'id' => 'posts_per_site', 'size' => '1', 'class' => 'styled', 'value' => set_value('posts_per_site', isset($settings['posts_per_site']) ? $settings['posts_per_site'] : ''))); ?> (<?php echo lang('form_default'); ?> = 5)</td>
+					 				<td width="200px"><?php echo lang('form_posts_per_page'); ?></td>
+					 				<td><?php echo form_input(array('name' => 'posts_per_page', 'id' => 'posts_per_page', 'size' => '1', 'class' => 'styled', 'value' => set_value('posts_per_page', isset($settings['posts_per_page']) ? $settings['posts_per_page'] : ''))); ?> (<?php echo lang('form_default'); ?> = 5) <a title="<?php echo lang('form_posts_per_page_title'); ?>|<?php echo lang('form_posts_per_page_hint'); ?>" class="tip">[?]</a></td>
 					 			</tr>
 					 			<tr>
 					 				<td width="200px"><?php echo lang('form_links_per_box'); ?></td>
-					 				<td><?php echo form_input(array('name' => 'links_per_box', 'id' => 'links_per_box', 'size' => '1', 'class' => 'styled', 'value' => set_value('links_per_box', isset($settings['links_per_box']) ? $settings['links_per_box'] : ''))); ?> (<?php echo lang('form_default'); ?> = 5)</td>
+					 				<td><?php echo form_input(array('name' => 'links_per_box', 'id' => 'links_per_box', 'size' => '1', 'class' => 'styled', 'value' => set_value('links_per_box', isset($settings['links_per_box']) ? $settings['links_per_box'] : ''))); ?> (<?php echo lang('form_default'); ?> = 5) <a title="<?php echo lang('form_links_per_box_title'); ?>|<?php echo lang('form_links_per_box_hint'); ?>" class="tip">[?]</a></td>
 					 			</tr>
 					 			<tr>
 					 				<td width="200px"><?php echo lang('form_months_per_archive'); ?></td>
-					 				<td><?php echo form_input(array('name' => 'months_per_archive', 'id' => 'months_per_archive', 'size' => '1', 'class' => 'styled', 'value' => set_value('months_per_archive', isset($settings['months_per_archive']) ? $settings['months_per_archive'] : ''))); ?> (<?php echo lang('form_default'); ?> = 8)</td>
+					 				<td><?php echo form_input(array('name' => 'months_per_archive', 'id' => 'months_per_archive', 'size' => '1', 'class' => 'styled', 'value' => set_value('months_per_archive', isset($settings['months_per_archive']) ? $settings['months_per_archive'] : ''))); ?> (<?php echo lang('form_default'); ?> = 8) <a title="<?php echo lang('form_months_per_archive_title'); ?>|<?php echo lang('form_months_per_archive_hint'); ?>" class="tip">[?]</a></td>
 					 			</tr>
 					 		</table>
 					 	</fieldset>

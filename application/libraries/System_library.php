@@ -15,10 +15,11 @@ class System_library
 			$this->CI =& get_instance();
 		}
 		
+		// Load needed models, libraries, helpers and language files
+		$this->CI->load->library('user_agent');
 		$this->CI->config->load('database_tables', TRUE);
 		
 		$this->_table = $this->CI->config->item('database_tables');
-		
 		$this->CI->config->set_item('language', $this->get_default_language());
 		
 		$this->get_site_info();
@@ -29,6 +30,7 @@ class System_library
 	{
 		$this->CI->db->select('path');
 		$this->CI->db->where('is_default', '1');
+		
 		$query = $this->CI->db->get($this->_table['templates'], 1);
 		
 		if ($query->num_rows() == 1)
@@ -43,6 +45,7 @@ class System_library
 	{
 		$this->CI->db->select('language');
 		$this->CI->db->where('is_default', '1');
+		
 		$query = $this->CI->db->get($this->_table['languages'], 1);
 		
 		if ($query->num_rows() == 1)
@@ -56,6 +59,7 @@ class System_library
 	public function get_site_info()
 	{
 		$this->CI->db->select('name, value');
+		
 		$query = $this->CI->db->get($this->_table['settings']);
 		
 		if ($query->num_rows() > 0)
@@ -73,6 +77,7 @@ class System_library
 	{
 		$this->CI->db->select('name, value');
 		$this->CI->db->where('name', 'enabled');
+		
 		$query = $this->CI->db->get($this->_table['settings'], 1);
 		
 		if ($query->num_rows() == 1)
@@ -131,19 +136,48 @@ class System_library
 		return $links;
 	}
 	
-	public function load($page, $data = null, $admin = FALSE)
+	public function load($page, $data = NULL, $admin = FALSE)
 	{
 		$data['page'] = $page;
-		
-		if ($admin == TRUE)
+
+		if ($this->settings['recognize_user_agent'] == 1)
 		{
-			$this->CI->load->view('admin/layout/container', $data);
+			if ($admin == TRUE)
+			{
+				$this->CI->load->view('admin/layout/container', $data);
+			}
+			else if ($this->CI->agent->is_mobile())
+			{
+				$user_agent = $this->CI->agent->mobile();
+
+				// iPhone or iPod Touch
+				if ($user_agent == 'Apple iPhone' || $user_agent == 'Apple iPod Touch')
+				{
+					$this->CI->load->view('iphone/layout/container', $data);
+				}
+				else // Mobile phone or PDA
+				{
+					$this->CI->load->view('mobile/layout/container', $data);
+				}
+				
+			}
+			else
+			{
+				$template = $this->get_default_template();
+				$this->CI->load->view('templates/' . $template . '/layout/container', $data);
+			}
 		}
 		else
 		{
-			$template = $this->get_default_template();
-			
-			$this->CI->load->view('templates/' . $template . '/layout/container', $data);
+			if ($admin == TRUE)
+			{
+				$this->CI->load->view('admin/layout/container', $data);
+			}
+			else
+			{
+				$template = $this->get_default_template();
+				$this->CI->load->view('templates/' . $template . '/layout/container', $data);
+			}
 		}
 	}
 	

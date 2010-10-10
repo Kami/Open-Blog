@@ -1,7 +1,7 @@
 <div class="box">
 	<div class="box_title"><?php echo lang('search'); ?></div>
 	<div class="box_body">
-		<form method="post" id="searchform" action="<?php echo base_url(); ?>blog/search">
+		<form method="post" id="searchform" action="<?php echo site_url('search'); ?>">
 			<div>
 				<table class="search">
 					<tr>

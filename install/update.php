@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
-<title>Open Blog update to 1.1.0</title>
+<title>Open Blog update to 1.2.0</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 <link rel="stylesheet" type="text/css" href="includes/style/main.css" media="screen"/>
 </head>
@@ -14,6 +14,7 @@
 		
 	<div class="top">
 		<?php
+			require('includes/functions_common.php');
 			require('includes/functions_update.php');
 	
 			$step = (int)$_GET['step'];

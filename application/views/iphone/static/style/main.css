@@ -1,0 +1,45 @@
+/*
+Theme Name: pda-theme
+Theme URI: http://imthi.com/wp-pda/
+Description: A theme especially designed for embedded devices (PDA,WAP)
+Version: 1.0
+Author: Imthiaz
+Author URI: http://imthi.com/
+
+The CSS, XHTML and design is released under GPL:
+http://www.opensource.org/licenses/gpl-license.php
+
+$Id: style.css 8 2007-03-05 04:48:43Z imthiaz $
+
+*/
+body {
+    font-size: 12px;
+}
+
+body > ul > li {
+    font-size: 16px;
+}
+
+body > ul > li > a {
+    min-height: 20px;
+}
+
+h2 {
+    margin: 10px;
+    color: slateblue;
+    font-size: 14px;
+}
+
+p {
+    margin: 10px;
+}
+div.sociable{
+    display:none;
+}
+
+div.content img{
+	max-width: 98%;
+	margin:1px;
+	text-align:middle !important;
+	
+}

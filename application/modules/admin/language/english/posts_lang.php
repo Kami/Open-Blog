@@ -20,7 +20,7 @@ $lang['successfully_deleted']			= "Post has been successfully deleted";
 // Table header
 $lang['th_date_posted']					= "Date posted";
 $lang['th_title']						= "Title";
-$lang['th_category']					= "Category";
+$lang['th_categories']					= "Categories";
 $lang['th_comments']					= "Comments";
 $lang['th_status']						= "Status";
 $lang['th_actions']						= "Actions";
@@ -31,12 +31,33 @@ $lang['form_title']						= "Title";
 $lang['form_excerpt']					= "Excerpt";
 $lang['form_content']					= "Content";
 $lang['form_settings']					= "Settings";
-$lang['form_category']					= "Category";
+$lang['form_categories']				= "Categories";
+$lang['form_tags']						= "Tags";
+$lang['form_publish_date']				= "Publish date";
 $lang['form_status']					= "Status";
-$lang['form_allow_coments']				= "Allow comments";
+$lang['form_allow_comments']			= "Allow comments";
+$lang['form_sticky']					= "Sticky";
 
 $lang['draft']							= "Draft";
 $lang['published']						= "Published";
+
+// Form hints
+$lang['form_tags_title']				= "Post tags";
+$lang['form_tags_hint']					= "Think of a tag as a simple category name. Tags make your posts more easy to find and recognize.<br /><br />
+
+Tags must be seperated with commas, for example: <strong>blog</strong>, <strong>php</strong>, <strong>codeigniter</strong>";
+$lang['form_publish_date_title']		= "Publish date";
+$lang['form_publish_date_hint']			= "You can set the publish date here.<br /><br />
+
+If you set the date in the future, the post won't be visible until then.";
+$lang['form_status_title']				= "Post status";
+$lang['form_status_hint']				= "Your post can be in two different states:<br /><br />
+<strong>Published</strong> - post is published and visible on the website<br />
+<strong>Draft</strong> - post is saved as a draft and not visible on the website";
+$lang['form_allow_comments_title']		= "Allow comments";
+$lang['form_allow_comments_hint']		= "If you want to allow users to comment this post, leave this check box <strong>checked</strong>, else <strong>uncheck</strong> it.";
+$lang['form_sticky_title']				= "Sticky post";
+$lang['form_sticky_hint']				= "If you check this check box, your post will become a sticky. This means it will always be displayed first and a little icon will be shown next to the title.";
 
 // Other
 $lang['new_post']						= "Create a new post";

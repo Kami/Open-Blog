@@ -1,0 +1,1 @@
+Date.format="mm/dd/yyyy";$(function(){$(".date_current").datePicker().val(new Date().asString()).trigger("change");$(".date").datePicker()});

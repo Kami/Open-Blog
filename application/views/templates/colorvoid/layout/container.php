@@ -6,7 +6,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="<?php echo $this->system_library->settings['blog_description']; ?>" />
 <meta name="keywords" content="<?php echo $this->system_library->settings['meta_keywords']; ?>" /> 
-<title><?php echo $this->system_library->settings['blog_title']; ?> - <?php echo $this->system_library->settings['blog_description']; ?></title>
+<title>
+	<?php if (isset($post['title'])): ?>
+		<?php echo $post['title']; ?> 
+	<?php elseif (isset($page_data['title'])): ?>
+		<?php echo $page_data['title']; ?> 
+	<?php else: ?>
+		<?php echo $this->system_library->settings['blog_title']; ?> - <?php echo $this->system_library->settings['blog_description']; ?>
+	<?php  endif; ?>
+</title>
 <link rel="stylesheet" href="<?php echo base_url(); ?>application/views/templates/colorvoid/static/style/main.css" type="text/css" media="screen" />
 <script type="text/javascript" src="<?php echo base_url(); ?>application/views/admin/static/javascript/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>application/views/admin/static/javascript/main.js"></script>

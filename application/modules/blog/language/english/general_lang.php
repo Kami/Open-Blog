@@ -21,8 +21,13 @@ $lang['at']								= "at";
 $lang['nickname']						= "Nickname";
 $lang['email']							= "Email";
 $lang['website']						= "Website";
+$lang['confirmation_image']				= "Confirmation image";
+$lang['confirmation_code']				= "Confirmation code";
 $lang['comment']						= "Comment";
 $lang['submit']							= "Submit";
+
+// Tags
+$lang['posts_tagged_with']				= "Posts tagged with";
 
 // Search
 $lang['search_results_for']				= "Search results for";
@@ -33,7 +38,9 @@ $lang['in']								= "in";
 $lang['error']							= "Error";
 $lang['not_found']						= "Not found.";
 $lang['no_posts_for_this_date']			= "There are no posts for this date.";
+$lang['no_posts_for_this_tag']			= "There are no posts with this tag.";
 $lang['blog_no_posts']					= "This blog has no posts.";
+$lang['invalid_confirmation_code']		= "The Confirmation code you have entered is invalid.";
 
 /* End of file general_lang.php */
 /* Location: ./application/modules/blog/language/english/general_lang.php */

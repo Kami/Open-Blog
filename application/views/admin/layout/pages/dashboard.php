@@ -9,26 +9,26 @@
 	
 	<table class="dashboard">
 	  <tr>
-	    <td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/settings.png" border="0"><br /><?php echo anchor('admin/settings', lang('settings')); ?></td>
-	    <td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/templates.png" border="0"><br /><?php echo anchor('admin/templates', lang('templates')); ?></td>
-	    <td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/sidebar.png" border="0"><br /><?php echo anchor('admin/sidebar', lang('sidebar')); ?></td>
-	    <td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/languages.png" border="0"><br /><?php echo anchor('admin/languages', lang('languages')); ?></td>
+	    <td><a href="<?php echo site_url('admin/settings'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/settings.png" class="dashboard"><?php echo lang('settings'); ?></a></td>
+	    <td><a href="<?php echo site_url('admin/templates'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/templates.png" class="dashboard"><?php echo lang('templates'); ?></td>
+	    <td><a href="<?php echo site_url('admin/sidebar'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/sidebar.png" class="dashboard"><?php echo lang('sidebar'); ?></td>
+	    <td><a href="<?php echo site_url('admin/languages'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/languages.png" class="dashboard"><?php echo lang('languages'); ?></td>
 	  </tr>
 	  <tr>
-	  	<td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/feeds.png" border="0"><br /><?php echo anchor('admin/feeds', lang('feeds')); ?></td>
-	    <td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/social_bookmarking.png" border="0"><br /><?php echo anchor('admin/social_bookmarking', lang('social_bookmarking')); ?></td>
-	  	<td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/categories.png" border="0"><br /><?php echo anchor('admin/categories', lang('categories')); ?></td>
-	   	<td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/posts.png" border="0"><br /><?php echo anchor('admin/posts', lang('posts')); ?></td>
+	  	<td><a href="<?php echo site_url('admin/feeds'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/feeds.png" class="dashboard"><?php echo lang('feeds'); ?></td>
+	    <td><a href="<?php echo site_url('admin/social_bookmarking'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/social_bookmarking.png" class="dashboard"><?php echo  lang('social_bookmarking'); ?></td>
+	  	<td><a href="<?php echo site_url('admin/categories'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/categories.png" class="dashboard"><?php echo lang('categories'); ?></td>
+	   	<td><a href="<?php echo site_url('admin/posts'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/posts.png" class="dashboard"><?php echo lang('posts'); ?></td>
 	  </tr>
 	  <tr>
-	   	<td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/comments.png" border="0"><br /><?php echo anchor('admin/comments', lang('comments')); ?></td>
-	    <td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/pages.png" border="0"><br /><?php echo anchor('admin/pages', lang('pages')); ?></td>
-	  	<td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/users.png" border="0"><br /><?php echo anchor('admin/users', lang('users')); ?></td>
-	  	<td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/navigation.png" border="0"><br /><?php echo anchor('admin/navigation', lang('navigation')); ?></td>
+	   	<td><a href="<?php echo site_url('admin/comments'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/comments.png" class="dashboard"><?php echo lang('comments'); ?></td>
+	    <td><a href="<?php echo site_url('admin/pages'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/pages.png" class="dashboard"><?php echo lang('pages'); ?></td>
+	  	<td><a href="<?php echo site_url('admin/users'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/users.png" class="dashboard"><?php echo lang('users'); ?></td>
+	  	<td><a href="<?php echo site_url('admin/navigation'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/navigation.png" class="dashboard"><?php echo lang('navigation'); ?></td>
 	  <tr>
-	  	<td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/links.png" border="0"><br /><?php echo anchor('admin/links', lang('links')); ?></td>
-	  	<td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/database.png" border="0"><br /><?php echo anchor('admin/backup', lang('database_backup')); ?></td>
-	  	<td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/statistics.png" border="0"><br /><?php echo anchor('admin/statistics', lang('statistics')); ?></td>
-	  	<td><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/info.png" border="0"><br /><?php echo anchor('admin/information', lang('information')); ?></td>
+	  	<td><a href="<?php echo site_url('admin/links'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/links.png" class="dashboard"><?php echo lang('links'); ?></td>
+	  	<td><a href="<?php echo site_url('admin/backup'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/database.png" class="dashboard"><?php echo lang('database_backup'); ?></td>
+	  	<td><a href="<?php echo site_url('admin/statistics'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/statistics.png" class="dashboard"><?php echo lang('statistics'); ?></td>
+	  	<td><a href="<?php echo site_url('admin/information'); ?>"><img src="<?php echo base_url(); ?>application/views/admin/static/images/icons/info.png" class="dashboard"><?php echo lang('information'); ?></td>
 	  </tr>
 	</table>

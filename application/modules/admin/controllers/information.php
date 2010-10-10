@@ -55,8 +55,8 @@ class Information extends Controller
 			$latest_version = @file_get_contents($this->config->item('version_check_url'));
 			
 			$latest_version 			= explode('|', $latest_version);
-			$latest_version['version']	= @$latest_version[0];
-			$latest_version['state'] 	= @$latest_version[1];
+			$latest_version['version']	= $latest_version[0];
+			$latest_version['state'] 	= $latest_version[1];
 			
 			$data['latest_version'] 	= $latest_version['version'];
 			

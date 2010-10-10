@@ -2,9 +2,9 @@
 	<div class="box_title"><?php echo lang('archives');?></div>
 	<div class="box_content">
 		<ul>
-			<?php if ($this->archive_library->get_archive()): ?>
-				<?php foreach ($this->archive_library->get_archive() as $archive): ?>
-					<li><a href="<?php echo site_url('/blog/archive/' . $archive['url']); ?>"><?php echo $archive['date_posted']; ?> (<?php echo $archive['posts_count']; ?>)</a></li>
+			<?php if (($archive = $this->archive_library->get_archive())):  ?>
+				<?php foreach ($archive as $archive_item): ?>
+					<li><a href="<?php echo archive_url($archive_item['url']); ?>"><?php echo $archive_item['date_posted']; ?> (<?php echo $archive_item['posts_count']; ?>)</a></li>
 				<?php endforeach; ?>
 			<? endif; ?>
 		</ul>

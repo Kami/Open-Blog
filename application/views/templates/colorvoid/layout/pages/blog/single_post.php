@@ -12,10 +12,10 @@
 		<div class="post_metadata">
 			<div class="content">
 				<div class="left">
-					<?php if ($links = $this->system_library->generate_social_bookmarking_links(site_url('blog/post/' . $post['url']), $post['title'])): ?>
+					<?php if ($links = $this->system_library->generate_social_bookmarking_links(post_url($post['url_title'], $post['date_posted']), $post['title'])): ?>
 							<?php echo lang('add_to'); ?> <?php echo $links; ?><br />
 						<?php endif; ?>
-					<?php echo lang('posted_in'); ?> <a href="<?php echo site_url('blog/category/' . $post['url_name']); ?>"><?php echo $post['name']; ?></a> <?php echo lang('by'); ?> <?php echo $post['display_name']; ?>
+					<?php echo lang('posted_in'); ?> <?php echo categories_url($post['categories']); ?> <?php echo lang('by'); ?> <?php echo $post['display_name']; ?>
 				</div>
 				<div class="right"><br /><span class="comment"><a href="#respond"><?php echo lang('leave_reply'); ?></a></span></div>
 				<div class="clearer">&nbsp;</div>												
@@ -78,23 +78,33 @@
 				<tr>
 					 <td colspan="2">
 					 		<table>
-					 			<form action="<?php echo site_url('blog/post/' . $post['url']); ?>" method="post">	
+					 			<form action="<?php echo post_url($post['url_title'], $post['date_posted']); ?>" method="post">	
 					 			<?php if ($this->session->userdata('logged_in') == FALSE): ?>
 						 			<tr>
-						 				<td width="80px"><?php echo lang('nickname'); ?></td>
+						 				<td width="120px"><?php echo lang('nickname'); ?></td>
 						 				<td><input name="nickname" id="nickname" type="text" value="<?php echo set_value('nickname'); ?>" size="22" class="styled" /></td>
 						 			</tr>
 						 			<tr>
-						 				<td width="80px"><?php echo lang('email'); ?></td>
+						 				<td width="110px"><?php echo lang('email'); ?></td>
 						 				<td><input name="email" id="email" type="text" value="<?php echo set_value('email'); ?>" size="22" class="styled" /></td>
 						 			</tr>
 						 			<tr>
-						 				<td width="80px"><?php echo lang('website'); ?></td>
+						 				<td width="110px"><?php echo lang('website'); ?></td>
 						 				<td><input name="website" id="website" type="text" value="<?php echo set_value('website'); ?>" size="22" class="styled" /></td>
 						 			</tr>
+						 			<?php if ($this->system_library->settings['enable_captcha'] == 1): ?>
+							 			<tr>
+							 				<td width="110px" valign="top"><?php echo lang('confirmation_image'); ?></td>
+							 				<td><img src="<?php echo site_url('blog/captcha/normal'); ?>/<?php echo uniqid(time()); ?>" /></td>
+							 			</tr>
+							 			<tr>
+							 				<td width="110px"><?php echo lang('confirmation_code'); ?></td>
+							 				<td><input name="confirmation_code" id="confirmation_code" type="text" value="<?php echo set_value('confirmation_code'); ?>" size="22" class="styled" /></td>
+							 			</tr>
+						 			<?php endif; ?>
 					 			<?php else: ?>
 						 			<tr>
-						 				<td width="80px"><?php echo lang('nickname'); ?></td>
+						 				<td width="110px"><?php echo lang('nickname'); ?></td>
 							 			<td><input name="nickname" id="nickname" type="text" value="<?php echo $this->session->userdata('username'); ?>" size="22" class="styled" disabled /></td>
 						 			</tr>
 					 			<?php endif; ?>

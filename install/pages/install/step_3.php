@@ -12,6 +12,9 @@ if ($_POST['submit'] != "")
 	// blog url
 	$blog['url'] = $_POST['blog_url'];
 	
+	// SEO URL's
+	$blog['enable_seo_urls'] = $_POST['enable_seo_urls'];
+	
 	// blog details
 	$blog['title'] = $_POST['blog_title'];
 	$blog['description'] = $_POST['blog_description'];
@@ -28,6 +31,11 @@ if ($_POST['submit'] != "")
 	$administrator['password'] = $_POST['admin_password'];
 	$administrator['email'] = $_POST['admin_email'];
 	
+	if (empty($blog['enable_seo_urls']))
+	{
+		$blog['enable_seo_urls'] = 0;
+	}
+
 	if (empty($database['prefix']))
 	{
 		$database['prefix'] = 'ob_';
@@ -53,7 +61,7 @@ if ($_POST['submit'] != "")
 		$blog['months_per_archive'] = 8;
 	}
 	
-	if (strpos($database['prefix'], '_') === false)
+	if (strpos($database['prefix'], '_') === FALSE)
 	{
 		$database['prefix'] .= '_';
 	}
@@ -92,10 +100,23 @@ if ($_POST['submit'] != "")
 			mysql_close();
 			
 			// write main config file
-			write_main_config($blog['url']);
+			if ($blog['enable_seo_urls'] == TRUE)
+			{
+				write_main_config($blog['url'], TRUE);
+			}
+			else
+			{
+				write_main_config($blog['url'], FALSE);
+				
+				// delete the .htaccess file
+				unlink('../.htaccess');
+			}
 			
 			// write database config file
 			write_database_config($database['hostname'], $database['username'], $database['password'], $database['name'], $database['prefix']);
+			
+			// send welcome email
+			send_welcome_email($administrator['email'], $blog['url'], $administrator['username'], $administrator['password']);
 			
 			echo 'Open Blog has been successfully installed.<br /><br />
 			Before you can start using your blog, you must delete the <strong>install/</strong> directory.<br /><br />

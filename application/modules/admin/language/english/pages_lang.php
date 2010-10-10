@@ -34,6 +34,14 @@ $lang['form_add_to_navigation']			= "Add to navigation";
 $lang['active']							= "active";
 $lang['inactive']						= "inactive";
 
+// Form hints
+$lang['form_status_title']				= "Page status";
+$lang['form_status_hint']				= "The page can be in two different states:<br /><br />
+<strong>active</strong> - page is visible on the website<br />
+<strong>inactive</strong> - page isn't visible on the website";
+$lang['form_add_to_navigation_title']	= "Add this page to the navigation";
+$lang['form_add_to_navigation_hint']	= "If you check this check box, this page will automatically be added to the navigation.";
+
 // Other
 $lang['new_page']						= "Create a new page";
 

@@ -18,10 +18,6 @@ $lang['form_email']						= "E-mail";
 
 $lang['send']							= "Send";
 
-// Errors
-$lang['invalid_secret_key']				= "Invalid secret key";
-$lang['invalid_secret_key_description']	= "The secret key you have provided is not valid.";
-
 // Email templates
 $lang['forgotten_password_subject']		= "Forgotten password request";
 $lang['forgotten_password_body']		= "<p>Hello,</p>
@@ -33,7 +29,7 @@ a new browser window instead.</p>
 <p>Please disregard this message if you did not make a password reset request.</p>
 <p>This is an automatically generated message. Replies are not monitored or<br>
 answered.</p>
-<p>Sincerely,<br />Open Blog team</p>";
+<p>Sincerely,<br />the Open Blog team</p>";
 
 $lang['new_password_subject']			= "New password";
 $lang['new_password_body']				= "<p>Hello,</p>
@@ -42,7 +38,7 @@ $lang['new_password_body']				= "<p>Hello,</p>
 <p>You can now <a href='%s'>login</a> with the new password provided above.</p>
 <p>This is an automatically generated message. Replies are not monitored or<br>
 answered.</p>
-<p>Sincerely,<br />Open Blog team</p>";
+<p>Sincerely,<br />The Open Blog team</p>";
 
 /* End of file forgotten_password_lang.php */
 /* Location: ./application/modules/user/language/english/forgotten_password_lang.php */

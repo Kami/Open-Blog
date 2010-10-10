@@ -2,7 +2,7 @@
 
 if (is_installed() === TRUE)
 {
-	echo '<h1>Open Blog already installed</h1>
+	echo '<h1>Open Blog is already installed</h1>
 	<p>It looks like Open Blog is already installed.<br /><br />
 	Please delete the <strong>install/</strong> directory and then visit your blog home page.</p>
 	<p>If you think you didn\'t install the Blog and you got this message as an error, go to the <a href="http://www.open-blog.info" target="_blank">official website</a> and report this bug.</p>';

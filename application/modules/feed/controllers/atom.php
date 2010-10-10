@@ -25,7 +25,7 @@ class Atom extends Controller
 			$data['posts'] = $this->blog->get_posts();
 			
 			header("Content-Type: application/xml");
-			$this->system_library->load_normal('feed/atom_posts', $data);
+			$this->load->view('feed/atom_posts', $data);
 		}
 		else
 		{
@@ -56,7 +56,7 @@ class Atom extends Controller
 			}
 			
 			header("Content-Type: application/xml");
-			$this->system_library->load_normal('feed/atom_comments', $data);
+			$this->load->view('feed/atom_comments', $data);
 		}
 		else
 		{

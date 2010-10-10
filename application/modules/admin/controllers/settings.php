@@ -28,10 +28,12 @@ class Settings extends Controller
 		$this->form_validation->set_rules('meta_keywords', 'lang:form_meta_keywords', 'required');
 		$this->form_validation->set_rules('admin_email', 'lang:form_admin_email', 'required|valid_email');
 		$this->form_validation->set_rules('allow_registrations', 'lang:form_allow_registrations', 'numeric');
+		$this->form_validation->set_rules('enable_captcha', 'lang:form_enable_captcha', 'numeric');
+		$this->form_validation->set_rules('recognize_user_agent', 'lang:form_recognize_user_agent', 'numeric');
 		$this->form_validation->set_rules('enabled', 'lang:form_enabled', 'numeric');
 		$this->form_validation->set_rules('template', 'lang:form_template', 'required|numeric');
 		$this->form_validation->set_rules('language', 'lang:form_language', 'required|numeric');
-		$this->form_validation->set_rules('posts_per_site', 'lang:form_posts_per_site', 'required|numeric');
+		$this->form_validation->set_rules('posts_per_page', 'lang:form_posts_per_page', 'required|numeric');
 		$this->form_validation->set_rules('links_per_box', 'lang:form_links_per_box', 'required|numeric');
 		$this->form_validation->set_rules('months_per_archive', 'lang:form_months_per_archive', 'required|numeric');
 		$this->form_validation->set_rules('offline_reason', 'lang:form_offline_reason', '');

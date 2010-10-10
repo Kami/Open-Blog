@@ -36,6 +36,14 @@ $lang['form_visible']					= "Visible";
 $lang['form_yes']						= "Yes";
 $lang['form_no']						= "No";
 
+// Form hints
+$lang['form_target_title']				= "Link target";
+$lang['form_target_hint']				= "The target attribute defines where the link will be opened. You can choose from two different target attributes:<br /><br />
+<strong>blank</strong> - link will open in a new window<br />
+<strong>self</strong> - link will open in the current window (same if you wouldn't define the target attribute)";
+$lang['form_visible_title']				= "Link visibility";
+$lang['form_visible_hint']				= "If the link visibility is set to <strong>yes</strong>, the link will be visible in the sidebar, otherwise it will not.";
+
 // Other
 $lang['new_link']						= "Create a new link";
 

@@ -31,44 +31,6 @@ function is_installed()
 	}
 }
 
-function check_for_new_version()
-{
-	require('../application/config/open_blog.php');
-	
-	$current_version = $config['version'];
-	$latest_version = file_get_contents($config['version_check_url']);
-	$latest_version = explode('|', $latest_version);
-	$latest_version['version'] = $latest_version[0];
-	
-	if ($latest_version['version'] == "")
-	{
-		return 3;
-	}
-	else
-	{	
-		if ($current_version >= $latest_version['version'])
-		{
-			return 1;
-		}
-		else
-		{
-			return 2;
-		}
-	}
-}
-
-function test_database_connection($hostname, $username, $password, $database)
-{
-	$error = FALSE;
-	
-	$connection = @mysql_connect($hostname, $username, $password) or $error = TRUE;
-	@mysql_select_db($database) or $error = TRUE;
-	
-	@mysql_close($connection);
-	
-	return $error;
-}
-
 function check_for_database_tables($hostname, $username, $password, $database, $tables_prefix)
 {
 	$connection = @mysql_connect($hostname, $username, $password) or $error = TRUE;
@@ -76,7 +38,7 @@ function check_for_database_tables($hostname, $username, $password, $database, $
 	
 	$query = mysql_query("SHOW TABLES LIKE '" . $tables_prefix . "%'");
 	
-	if (mysql_num_rows($query) == 10)
+	if (mysql_num_rows($query) == 11)
 	{
 		return TRUE;
 	}
@@ -90,7 +52,16 @@ function check_for_database_tables($hostname, $username, $password, $database, $
 
 function get_data($tables_prefix)
 {
-	$data['settings'] = mysql_fetch_assoc(mysql_query("SELECT * FROM " . $tables_prefix . "settings"));
+	$data['settings']['blog_title'] = mysql_result(mysql_query("SELECT value FROM " . $tables_prefix . "settings WHERE name = 'blog_title'"), 0);
+	$data['settings']['blog_description'] = mysql_result(mysql_query("SELECT value FROM " . $tables_prefix . "settings WHERE name = 'blog_description'"), 0);
+	$data['settings']['meta_keywords'] = mysql_result(mysql_query("SELECT value FROM " . $tables_prefix . "settings WHERE name = 'meta_keywords'"), 0);
+	$data['settings']['allow_registrations'] = mysql_result(mysql_query("SELECT value FROM " . $tables_prefix . "settings WHERE name = 'allow_registrations'"), 0);
+	$data['settings']['posts_per_site'] = mysql_result(mysql_query("SELECT value FROM " . $tables_prefix . "settings WHERE name = 'posts_per_site'"), 0);
+	$data['settings']['links_per_box'] = mysql_result(mysql_query("SELECT value FROM " . $tables_prefix . "settings WHERE name = 'links_per_box'"), 0);
+	$data['settings']['months_per_archive'] = mysql_result(mysql_query("SELECT value FROM " . $tables_prefix . "settings WHERE name = 'months_per_archive'"), 0);
+	$data['settings']['enabled'] = mysql_result(mysql_query("SELECT value FROM " . $tables_prefix . "settings WHERE name = 'enabled'"), 0);
+	$data['settings']['offline_reason'] = mysql_result(mysql_query("SELECT value FROM " . $tables_prefix . "settings WHERE name = 'offline_reason'"), 0);
+	$data['settings']['admin_email'] = mysql_result(mysql_query("SELECT value FROM " . $tables_prefix . "settings WHERE name = 'admin_email'"), 0);
 	$data['default_template'] = mysql_result(mysql_query("SELECT id FROM " . $tables_prefix . "templates WHERE is_default = '1'"), 0);
 	$data['languages'] = mysql_query("SELECT * FROM " . $tables_prefix . "languages");
 	$data['links'] = mysql_query("SELECT * FROM " . $tables_prefix . "links");
@@ -114,6 +85,7 @@ function drop_old_tables($tables_prefix)
 	mysql_query("DROP TABLE " . $tables_prefix . "pages");
 	mysql_query("DROP TABLE " . $tables_prefix . "posts");
 	mysql_query("DROP TABLE " . $tables_prefix . "settings");
+	mysql_query("DROP TABLE " . $tables_prefix . "sidebar");
 	mysql_query("DROP TABLE " . $tables_prefix . "templates");
 	mysql_query("DROP TABLE " . $tables_prefix . "users");
 }
@@ -145,6 +117,8 @@ function insert_data($tables_prefix, $data)
 	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('blog_description', '" . $data['settings']['blog_description'] . "')");
 	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('meta_keywords', '" . $data['settings']['meta_keywords'] . "')");
 	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('allow_registrations', '" . $data['settings']['allow_registrations'] . "')");
+	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('enable_captcha', '1')");
+	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('recognize_user_agent', '1')");
 	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('enable_rss_posts', '1')");
 	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('enable_rss_comments', '1')");
 	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('enable_atom_posts', '1')");
@@ -155,12 +129,12 @@ function insert_data($tables_prefix, $data)
 	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('enable_stumbleupon', '1')");
 	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('enable_furl', '1')");
 	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('enable_reddit', '1')");
-	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('posts_per_site', '" . $data['settings']['posts_per_site'] . "')");
+	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('posts_per_page', '" . $data['settings']['posts_per_site'] . "')");
 	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('links_per_box', '" . $data['settings']['links_per_box'] . "')");
 	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('months_per_archive', '" . $data['settings']['months_per_archive'] . "')");
 	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('enabled', '" . $data['settings']['enabled'] . "')");
 	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('offline_reason', '" . $data['settings']['offline_reason'] . "')");
-	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('admin_email', '" . $data['users']['email'] . "')");
+	mysql_query("INSERT INTO " . $tables_prefix . "settings (name, value) VALUES ('admin_email', '" . $data['settings']['admin_email'] . "')");
 	
 	// set the default template
 	mysql_query("UPDATE " . $tables_prefix . "templates SET is_default = '0'") or die (mysql_error());
@@ -184,16 +158,24 @@ function insert_data($tables_prefix, $data)
 		mysql_query("INSERT INTO " . $tables_prefix . "categories (id, name, url_name, description) VALUES('" . $row[id] . "', '" . $row[name] . "', '" . $row[url_name] . "', '" . $row[description] . "')") or die (mysql_error());
 	}
 	
-	// posts
+	// posts and posts_to_categories
 	while ($row = mysql_fetch_assoc($data['posts']))
 	{
-		mysql_query("INSERT INTO " . $tables_prefix . "posts (id, author, date_posted, title, url_title, category_id, excerpt, content, allow_comments, status) VALUES('" . $row[id] . "', '" . $row[author] . "', '" . $row[date_posted] . "', '" . $row[title] . "', '" . $row[url_title] . "', '" . $row[category_id] . "', '" . mysql_real_escape_string($row[excerpt]) . "', '" . mysql_real_escape_string($row[content]) . "', '" . $row[allow_comments] . "', '" . $row[status] . "')") or die (mysql_error());
+		mysql_query("INSERT INTO " . $tables_prefix . "posts (id, author, date_posted, title, url_title, excerpt, content, allow_comments, status) VALUES('" . $row[id] . "', '" . $row[author] . "', '" . $row[date_posted] . "', '" . $row[title] . "', '" . $row[url_title] . "', '" . mysql_real_escape_string($row[excerpt]) . "', '" . mysql_real_escape_string($row[content]) . "', '" . $row[allow_comments] . "', '" . $row[status] . "')") or die (mysql_error());
+		mysql_query("INSERT INTO " . $tables_prefix . "posts_to_categories (post_id, category_id) VALUES('" . $row[id] . "', '" . $row[category_id] . "')");
 	}
 	
 	// comments
 	while ($row = mysql_fetch_assoc($data['comments']))
 	{
-		mysql_query("INSERT INTO " . $tables_prefix . "comments (id, post_id, user_id, author, author_email, author_website, author_ip, content, date) VALUES('" . $row[id] . "', '" . $row[post_id] . "', '" . $row[user_id] . "', '" . $row[author] . "', '" . $row[author_email] . "', '" . $row[author_website] . "', '" . $row[author_ip] . "', '" . mysql_real_escape_string($row[content]) . "', '" . $row[date] . "')") or die (mysql_error());
+		$user_id = $row['user_id'];
+		
+		if ($user_id == 0)
+		{
+			$user_id = 'NULL';
+		}
+		
+		mysql_query("INSERT INTO " . $tables_prefix . "comments (id, post_id, user_id, author, author_email, author_website, author_ip, content, date) VALUES('" . $row[id] . "', '" . $row[post_id] . "', " . $user_id . ", '" . $row[author] . "', '" . $row[author_email] . "', '" . $row[author_website] . "', '" . $row[author_ip] . "', '" . mysql_real_escape_string($row[content]) . "', '" . $row[date] . "')") or die (mysql_error());
 	}
 	
 	// pages
@@ -213,28 +195,6 @@ function insert_data($tables_prefix, $data)
 	{
 		mysql_query("INSERT INTO " . $tables_prefix . "users (id, username, password, secret_key, email, website, msn_messenger, jabber, display_name, about_me, registered, last_login, level, status) VALUES('" . $row[id] . "', '" . $row[username] . "', '" . $row[password] . "', '', '" . $row[email] . "', '" . $row[website] . "', '" . $row[msn_messenger] . "', '" . $row[jabber] . "', '" . $row[display_name] . "', 'about_me', '" . $row[registered] . "', '" . $row[last_login] . "', '" . $row[level] . "', '" . $row[status] . "')") or die (mysql_error());;
 	}
-}
-
-function write_main_config($base_url)
-{
-	$sample_config['path'] 		= 'includes/files/config.sample.php';
-	$sample_config['handle'] 	= fopen($sample_config['path'], 'r');
-	
-	$main_config['path'] 		= '../application/config/config.php';
-	$main_config['handle'] 		= fopen($main_config['path'], 'w');
-		
-	$sample_config['content'] = fread($sample_config['handle'], filesize($sample_config['path']));
-
-	$find = array('__url__');
-	$replace = array($base_url);
-		
-	$main_config['content'] = str_replace($find, $replace, $sample_config['content']);
-		
-	fwrite($main_config['handle'], $main_config['content']);
-	chmod($main_config['path'], 0777);
-		
-	fclose($sample_config['handle']);
-	fclose($main_config['handle']);
 }
 
 ?>

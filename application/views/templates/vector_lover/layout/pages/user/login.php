@@ -1,30 +1,24 @@
-<div class="post">
-		<div class="post_title">
-			<h1><?php echo lang('login'); ?></h1>
+<h1><?php echo lang('login'); ?></h1>
+<p>
+	<div class="login">
+		<?php if($this->session->flashdata('message')): ?>
+			<div class="message">
+				<?php echo $this->session->flashdata('message'); ?>
+			</div>
+		<?php endif; ?>
+		
+		<?php if($this->session->flashdata('error')): ?>
+		<div class="error">
+			<?php echo $this->session->flashdata('error'); ?>
 		</div>
-		<div class="post_body">
-			<p>
-				<div class="login">
-					<?php if($this->session->flashdata('message')): ?>
-					<div class="message">
-						<?php echo $this->session->flashdata('message'); ?>
-					</div>
-					<?php endif; ?>
-					
-					<?php if($this->session->flashdata('error')): ?>
-					<div class="error">
-						<?php echo $this->session->flashdata('error'); ?>
-					</div>
-					<?php endif; ?>
-					<table class="login">
-						<form action="<?php echo site_url('user/login'); ?>" method="post">	
-							<tr><td><?php echo lang('form_username'); ?></td> <td><input name="username" id="username" type="text" size="15" class="styled" /></td></tr>
-							<tr><td><?php echo lang('form_password'); ?></td> <td><input name="password" id="password" type="password" size="15" class="styled" /></td></tr>
-							<tr><td colspan="2" class="login"><input type="submit" name="login" id="login" value="<?php echo lang('button_login'); ?>" class="login" /></td></tr>
-						</form>
-					</table><br />
-					<p align="center"><a href="<?php echo site_url('user/register'); ?>"><?php echo lang('register'); ?></a> | <a href="<?php echo site_url('user/forgotten_password'); ?>"><?php echo lang('forgotten_password'); ?></a></p>
-				</div>
-			</p>
-		</div>
-</div>
+		<?php endif; ?>
+		<table class="login">
+			<form action="<?php echo site_url('user/login'); ?>" method="post">	
+				<tr><td><?php echo lang('form_username'); ?></td> <td><input name="username" id="username" type="text" size="15" class="styled" /></td></tr>
+				<tr><td><?php echo lang('form_password'); ?></td> <td><input name="password" id="password" type="password" size="15" class="styled" /></td></tr>
+				<tr><td colspan="2" class="login"><input type="submit" name="login" id="login" value="<?php echo lang('button_login'); ?>" class="login" /></td></tr>
+			</form>
+		</table>
+		<p align="center"><a href="<?php echo site_url('user/register'); ?>"><?php echo lang('register'); ?></a> | <a href="<?php echo site_url('user/forgotten_password'); ?>"><?php echo lang('forgotten_password'); ?></a></p>
+	</div>
+</p>

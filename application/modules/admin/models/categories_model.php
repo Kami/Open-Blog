@@ -16,7 +16,20 @@ class Categories_model extends Model
 	// Public methods
 	public function get_categories()
 	{
-		$this->db->select('id, name, description');
+		$this->db->select('id, name, url_name, description');
+			
+		$query = $this->db->get($this->_table['categories']);
+			
+		if ($query->num_rows() > 0)
+		{
+			return $query->result_array();
+		}
+	}
+	
+	public function get_categories_by_ids($category_ids)
+	{
+		$this->db->select('id, name, url_name, description');
+		$this->db->where_in('id', $category_ids);
 			
 		$query = $this->db->get($this->_table['categories']);
 			

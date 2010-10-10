@@ -44,11 +44,11 @@
 					 		<table>
 					 			<tr>
 					 				<td width="150px" valign="top"><?php echo lang('form_target'); ?></td>
-					 				<td><?php echo form_dropdown('target', array('blank' => 'blank', 'self' => 'self', 'parent' => 'parent'), set_value('target')); ?></td>
+					 				<td><?php echo form_dropdown('target', array('blank' => 'blank', 'self' => 'self'), set_value('target')); ?> <a title="<?php echo lang('form_target_title'); ?>|<?php echo lang('form_target_hint'); ?>" class="tip">[?]</a></td>
 					 			</tr>
 					 			<tr>
 					 				<td width="150px" valign="top"><?php echo lang('form_visible'); ?></td>
-					 				<td><?php echo form_dropdown('visible', array('yes' => lang('form_yes'), 'no' => lang('form_no')), set_value('visible')); ?></td>
+					 				<td><?php echo form_dropdown('visible', array('yes' => lang('form_yes'), 'no' => lang('form_no')), set_value('visible')); ?> <a title="<?php echo lang('form_visible_title'); ?>|<?php echo lang('form_visible_hint'); ?>" class="tip">[?]</a></td>
 					 			</tr>
 					 		</table>
 					 	</fieldset>

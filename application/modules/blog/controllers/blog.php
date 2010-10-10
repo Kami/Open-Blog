@@ -17,7 +17,12 @@ class Blog extends Controller
 		$this->load->module_model('blog', 'blog_model', 'blog');
 		$this->load->module_model('blog', 'users_model', 'users');
 		
+		$this->load->library('user_agent');
+		
 		$this->load->module_language('blog', 'general');
+		$this->load->module_language('blog', 'sidebar');
+		
+		$this->load->library('securimage_library');	
 	}
 
 	// Public methods
@@ -26,7 +31,7 @@ class Blog extends Controller
 		$this->load->library('pagination');
 
 		$config['total_rows'] = $this->blog->get_posts_count();
-		$config['per_page'] = $this->blog->get_posts_per_site();
+		$config['per_page'] = $this->blog->get_posts_per_page();
 			
 		$this->pagination->initialize($config);
 			
@@ -41,7 +46,7 @@ class Blog extends Controller
 				redirect('blog', 'refresh');
 			}
 		
-			$data['posts_per_site'] = $this->blog->get_posts_per_site();
+			$data['posts_per_page'] = $this->blog->get_posts_per_page();
 			$data['posts_count'] = $this->blog->get_posts_count();
 			$data['pages_count'] = $pages_count;
 			$data['current_page'] = $page;
@@ -69,7 +74,7 @@ class Blog extends Controller
 		$this->load->module_model('blog', 'comments_model', 'comments');
 		$this->load->module_model('blog', 'users_model', 'users');
 			
-		if ($data['post'] = $this->blog->get_posts_by_url($year, $month, $day, $url_title))
+		if ($data['post'] = $this->blog->get_post_by_url($year, $month, $day, $url_title))
 		{
 			$data['post']['url'] = post_url($data['post']['url_title'], $data['post']['date_posted']);
 			$data['post']['display_name'] = $this->users->get_user_display_name($data['post']['author']);
@@ -91,13 +96,13 @@ class Blog extends Controller
 					{
 						$website = $this->users->get_user_website($comment['user_id']);
 						$display_name = $this->users->get_user_display_name($comment['user_id']);
-						$data['comments'][$key]['author'] = "<a href=\"$website\" target=\"_blank\">$display_name</a>";
+						$data['comments'][$key]['author'] = '<a href="' . prep_url($website) . '" target="_blank">' . $display_name . '</a>';
 					}
 					else
 					{
 						if ($comment['author_website'] != "")
 						{
-							$data['comments'][$key]['author'] = "<a href=\"" . $comment['author_website'] . "\" target=\"_blank\">" . $comment['author'] . "</a>";
+							$data['comments'][$key]['author'] = '<a href="' . prep_url($comment['author_website']) . '" target="_blank">' . $comment['author'] . '</a>';
 						}
 					}
 				}
@@ -134,8 +139,7 @@ class Blog extends Controller
 	}
 
 	public function category($url_name = null)
-	{
-			
+	{		
 		if ($data['posts'] = $this->blog->get_posts_by_category($url_name))
 		{
 			foreach ($data['posts'] as $key => $post)
@@ -151,6 +155,28 @@ class Blog extends Controller
 			$this->_template['page']	= 'errors/404';
 		}
 			
+		$this->system_library->load($this->_template['page'], $data);
+	}
+	
+	public function tags($tag_name = null)
+	{
+		$data['tag_name'] = $tag_name;
+		
+		if ($data['posts'] = $this->blog->get_posts_by_tags($tag_name))
+		{
+			foreach ($data['posts'] as $key => $post)
+			{
+				$data['posts'][$key]['url'] = post_url($post['url_title'], $post['date_posted']);
+				$data['posts'][$key]['display_name'] = $this->users->get_user_display_name($post['author']);
+			}
+				
+			$this->_template['page']	= 'blog/tags';
+		}
+		else
+		{
+			$this->_template['page']	= 'errors/tags_no_results';
+		}
+		
 		$this->system_library->load($this->_template['page'], $data);
 	}
 
@@ -189,19 +215,38 @@ class Blog extends Controller
 			
 		if ($this->session->userdata('logged_in') == FALSE)
 		{
-			$this->form_validation->set_rules('nickname', 'lang:nickname', 'required|max_length[50]');
-			$this->form_validation->set_rules('email', 'lang:email', 'required|valid_email');
+			$this->form_validation->set_rules('nickname', 'lang:nickname', 'required|max_length[50]|xss_clean');
+			$this->form_validation->set_rules('email', 'lang:email', 'required|valid_email|xss_clean');
+			
+			if ($this->system_library->settings['enable_captcha'] == 1)
+			{
+				$this->form_validation->set_rules('confirmation_code', 'lang:confirmation_code', 'required|callback_valid_confirmation_code');
+			}
 		}
 		
-		$this->form_validation->set_rules('website', 'lang:website', '');
-		$this->form_validation->set_rules('comment', 'lang:comment', 'required|max_length[400]');
+		$this->form_validation->set_rules('website', 'lang:website', 'xss_clean');
+		$this->form_validation->set_rules('comment', 'lang:comment', 'required|max_length[400]|xss_clean');
 			
 		$this->form_validation->set_error_delimiters('', '<br />');
 
 		if ($this->form_validation->run() == TRUE)
 		{
 			$this->comments->create_comment($id);
-			redirect('blog/post/' . $url, 'refresh');
+			redirect($url, 'refresh');
+		}
+	}
+	
+	public function valid_confirmation_code($confirmation_code)
+	{
+		if ($this->securimage_library->check($confirmation_code) == true)
+		{
+			return TRUE;
+		}
+		else
+		{
+			$this->form_validation->set_message('valid_confirmation_code', lang('invalid_confirmation_code'));
+			
+			return FALSE;
 		}
 	}
 }

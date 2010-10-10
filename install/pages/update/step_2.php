@@ -8,6 +8,9 @@ if (is_installed())
 	mysql_connect($db['default']['hostname'], $db['default']['username'], $db['default']['password']) or die(mysql_error());
 	mysql_select_db($db['default']['database']) or die(mysql_error());
 	
+	// SEO urls
+	$blog['enable_seo_urls'] = get_mod_rewrite_status();
+	
 	//  data
 	$data = get_data($db['default']['dbprefix']);
 	// drop old tables
@@ -19,10 +22,20 @@ if (is_installed())
 	
 	mysql_close();
 	
-	// write main config file
-	write_main_config($config['base_url']);
+	// write the main config file
+	if ($blog['enable_seo_urls'] == TRUE)
+	{
+		write_main_config($config['base_url'], TRUE);
+	}
+	else
+	{
+		write_main_config($config['base_url'], FALSE);
+		
+		// delete the .htaccess file
+		unlink('../.htaccess');
+	}
 	
-	echo 'Open Blog has been successfully updated to version 1.1.0.<br /><br />
+	echo 'Open Blog has been successfully updated to version 1.2.0.<br /><br />
 	Before you can start using your blog, you must delete the <strong>install/</strong> directory.<br /><br />
 	When you are done, go to your <a href="' . $config['base_url'] . '" target="_blank">blog home page</a>.';
 }

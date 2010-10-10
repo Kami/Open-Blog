@@ -2,11 +2,17 @@
 
 // Sidebar
 $lang['search']							= "Search";
-$lang['archives']						= "Archives";
+$lang['archives']						= "Archive";
 $lang['categories']						= "Categories";
+$lang['tag_cloud']						= "Tag cloud";
+$lang['recent_posts']					= "Recent posts";
+$lang['pages']							= "Pages";
 $lang['feeds']							= "Feeds";
 $lang['links']							= "Links";
 $lang['other']							= "Other";
+
+// Tag cloud
+$lang['no_tags']						= "no tags";
 
 // Feeds
 $lang['feeds_posts']					= "posts";

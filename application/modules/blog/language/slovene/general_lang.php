@@ -22,7 +22,12 @@ $lang['nickname']						= "Vzdevek";
 $lang['email']							= "E-pošta";
 $lang['website']						= "Spletna stran";
 $lang['comment']						= "Komentar";
+$lang['confirmation_image']				= "Potrditvena slika";
+$lang['confirmation_code']				= "Potrditvena koda";
 $lang['submit']							= "Pošlji";
+
+// Značke
+$lang['posts_tagged_with']				= "Sporočila označena s";
 
 // Iskanje
 $lang['search_results_for']				= "Iskalni rezultati za";
@@ -33,7 +38,9 @@ $lang['in']								= "v";
 $lang['error']							= "Napaka";
 $lang['not_found']						= "Strani ni mogoče najti.";
 $lang['no_posts_for_this_date']			= "Ni sporočil za to časovno obdobje.";
+$lang['no_posts_for_this_tag']			= "Ni sporočil s to oznako.";
 $lang['blog_no_posts']					= "Blog nima sporočil.";
+$lang['invalid_confirmation_code']		= "Vnesli ste napačno potrditveno kodo.";
 
 /* End of file general_lang.php */
 /* Location: ./application/modules/blog/language/slovene/general_lang.php */

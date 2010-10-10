@@ -1,6 +1,6 @@
 <h3><?php echo lang('search'); ?></h3>	
 			
-<form id="qsearch" action="<?php echo base_url(); ?>blog/search" method="post" >
+<form id="qsearch" action="<?php echo site_url('search'); ?>" method="post" >
 	<p>
 		<label for="qsearch">Search:</label>
 		<input class="tbox" type="text" value="" name="term" id="term" />

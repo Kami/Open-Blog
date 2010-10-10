@@ -35,6 +35,9 @@
 	        	<td width="250px">Blog URL:</td>
 	        	<td><input type="text" name="blog_url" value="<?php echo get_root_url(); ?>" id="blog_url" size="35" class="styled"  /></td>
 	        </tr>
+	        	<td width="250px">Enable SEO URLs :</td>
+	        	<td><input type="checkbox" name="enable_seo_urls" value="1" id="enable_seo_urls" class="styled" <?php echo (get_mod_rewrite_status()) ? 'checked="checked"' : ''; ?>  /> (choose this if your web server has mod_rewrite module enabled)</td>
+	        </tr>
         </table>
 	</td>
 </tr>
@@ -63,7 +66,7 @@
 	        	<td><input type="checkbox" name="allow_registrations" value="1" checked="checked"  /></td>
 	        </tr>
 	        <tr>
-	        	<td width="250px">Posts per site:</td>
+	        	<td width="250px">Posts per page:</td>
 	        	<td><input type="text" name="posts_per_site" value="5" id="posts_per_site" size="1" class="styled"  /> (default = 5)</td>
 	        </tr>
 	        <tr>

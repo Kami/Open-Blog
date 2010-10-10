@@ -4,9 +4,15 @@
 $lang['search']							= "Iskanje";
 $lang['archives']						= "Arhiv";
 $lang['categories']						= "Kategorije";
+$lang['tag_cloud']						= "Oblak oznak";
+$lang['recent_posts']					= "Zadnja sporočila";
+$lang['pages']							= "Strani";
 $lang['feeds']							= "Viri";
 $lang['links']							= "Povezave";
 $lang['other']							= "Ostalo";
+
+// Tag cloud
+$lang['no_tags']						= "ni oznak";
 
 // Viri
 $lang['feeds_posts']					= "sporočila";

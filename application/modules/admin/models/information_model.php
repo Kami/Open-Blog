@@ -28,8 +28,8 @@ class Information_model extends Model
 		else
 		{	
 			$latest_version = explode('|', $latest_version);
-			@$latest_version['version'] = $latest_version[0];
-			@$latest_version['state'] = $latest_version[1];
+			$latest_version['version'] = $latest_version[0];
+			$latest_version['state'] = $latest_version[1];
 			
 			if ($current_version >= $latest_version['version'])
 			{

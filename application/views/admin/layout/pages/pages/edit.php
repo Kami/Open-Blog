@@ -41,7 +41,7 @@
 					 		<table>
 					 			<tr>
 					 				<td width="150px" valign="top"><?php echo lang('form_status'); ?></td>
-					 				<td><?php echo form_dropdown('status', array('active' => lang('active'), 'inactive' => lang('inactive')), set_value('status', isset($page_data['status']) ? $page_data['status'] : '')); ?></td>
+					 				<td><?php echo form_dropdown('status', array('active' => lang('active'), 'inactive' => lang('inactive')), set_value('status', isset($page_data['status']) ? $page_data['status'] : '')); ?> <a title="<?php echo lang('form_status_title'); ?>|<?php echo lang('form_status_hint'); ?>" class="tip">[?]</a></td>
 					 			</tr>
 					 		</table>
 					 	</fieldset>

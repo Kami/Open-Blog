@@ -30,13 +30,14 @@ class Statistics_model extends Model
 	
 	public function get_post_with_most_comments()
 	{
-		$this->db->select('COUNT(' . $this->db->dbprefix . $this->_table['comments'] . '.id) AS comments_count, ' . $this->_table['posts'] . '.title, ' . $this->_table['posts'] . '.url_title, ' . $this->_table['posts'] . '.date_posted');
-		$this->db->join($this->_table['posts'], $this->_table['comments'] . '.post_id = ' . $this->_table['posts'] . '.id');
-		$this->db->group_by($this->_table['comments'] . '.post_id');
+		$this->db->select('COUNT(comments.id) AS comments_count, posts.title, posts.url_title, posts.date_posted');
+		$this->db->from($this->_table['comments'] . ' comments');
+		$this->db->join($this->_table['posts'] . ' posts', 'comments.post_id = posts.id');
+		$this->db->group_by('comments.post_id');
 		$this->db->order_by('comments_count', 'DESC');
 		$this->db->limit(1);
 		
-		$query = $this->db->get($this->_table['comments']);
+		$query = $this->db->get();
 		
 		if ($query->num_rows() == 1)
 		{
@@ -55,13 +56,14 @@ class Statistics_model extends Model
 	
 	public function get_category_with_most_posts()
 	{
-		$this->db->select('COUNT(' . $this->db->dbprefix . $this->_table['posts'] . '.id) AS posts_count, ' . $this->_table['categories'] . '.name, ' . $this->_table['categories'] . '.url_name');
-		$this->db->join($this->_table['categories'], $this->_table['posts'] . '.category_id = ' . $this->_table['categories'] . '.id');
-		$this->db->group_by($this->_table['posts'] . '.category_id');
+		$this->db->select('COUNT(posts_to_categories.id) AS posts_count, categories.name, categories.url_name');
+		$this->db->from($this->_table['posts_to_categories'] . ' posts_to_categories');
+		$this->db->join($this->_table['categories'] . ' categories', 'posts_to_categories.category_id = categories.id');
+		$this->db->group_by('posts_to_categories.category_id');
 		$this->db->order_by('posts_count', 'DESC');
 		$this->db->limit(1);
 		
-		$query = $this->db->get($this->_table['posts']);
+		$query = $this->db->get();
 		
 		if ($query->num_rows() == 1)
 		{

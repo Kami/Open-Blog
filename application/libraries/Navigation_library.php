@@ -21,6 +21,7 @@ class Navigation_library
 	{
 		$this->CI->db->select('title, description, url, external, position');
 		$this->CI->db->order_by('position', 'ASC'); 
+		
 		$query = $this->CI->db->get($this->_table['navigation']);
 			
 		if ($query->num_rows() > 0)

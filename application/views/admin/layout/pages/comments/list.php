@@ -25,7 +25,7 @@
 						<td class="admin"><?php echo date('Y-m-d', strtotime($comment['date'])); ?></td>
 						<td class="admin"><?php echo anchor('blog/post/' . $comment['post_url'], $comment['title'], array('target' => '_blank')); ?></td>
 						<td class="admin"><?php echo $comment['author']; ?></td>
-						<td class="admin"><?php echo word_limiter($comment['content'], 10); ?></td>
+						<td class="admin"><?php echo character_limiter($comment['content'], 35); ?></td>
 						<td class="admin"><?php echo anchor('admin/comments/edit/' . $comment['id'], '<img src="' . base_url() . 'application/views/admin/static/images/icons/edit.png" title="' . lang('edit') . '" border="0">'); ?> <?php echo anchor('admin/comments/delete/' . $comment['id'], '<img src="' . base_url() . 'application/views/admin/static/images/icons/delete.png" title="' . lang('delete') . '" border="0">', array ('onClick' => "return confirm('" . lang('delete_confirmation') . "')")); ?></td>
 					</tr>
 					<?php endforeach; ?>

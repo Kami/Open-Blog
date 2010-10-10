@@ -3,6 +3,12 @@
 <?php if ($this->system_library->settings['allow_registrations'] == 1): ?>
 	<p><?php echo lang('registration_description'); ?></p>
 	
+	<?php if($this->session->flashdata('message')): ?>
+		<div class="message">
+			<?php echo $this->session->flashdata('message');?>
+		</div>
+	<?php endif; ?>
+	
 	<?php if (validation_errors()): ?>
 		<div class="error">
 			<?php echo validation_errors(); ?>

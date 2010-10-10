@@ -20,9 +20,11 @@ class Categories_library
 	public function get_categories()
 	{
 		$this->CI->db->select('id, name, url_name');
-		$this->CI->db->select('(SELECT COUNT(' . $this->CI->db->dbprefix . 'posts.id) FROM ' . $this->CI->db->dbprefix . 'posts WHERE ' . $this->CI->db->dbprefix . 'posts.category_id = ' . $this->CI->db->dbprefix . 'categories.id AND ' . $this->CI->db->dbprefix . 'posts.status = "published") AS posts_count', FALSE); 
-		$this->CI->db->order_by('id', 'ASC'); 
-		$query = $this->CI->db->get($this->_table['categories']);
+		$this->CI->db->from($this->_table['categories'] . ' categories');
+		$this->CI->db->select('(SELECT COUNT(' . $this->CI->db->dbprefix . 'posts_to_categories.id) FROM ' . $this->CI->db->dbprefix . 'posts_to_categories WHERE ' . $this->CI->db->dbprefix . 'posts_to_categories.category_id = categories.id) AS posts_count', FALSE); 
+		$this->CI->db->order_by('id', 'ASC');
+		
+		$query = $this->CI->db->get();
 			
 		if ($query->num_rows() > 0)
 		{			

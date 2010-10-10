@@ -29,10 +29,13 @@ class Comments_model extends Model
 	
 	public function get_latest_comments($number = 10, $offset = 0)
 	{
-		$this->db->select($this->_table['comments'] . '.id, ' . $this->_table['comments'] . '.user_id, ' . $this->_table['comments'] . '.author, ' . $this->_table['comments'] . '.author_email, ' . $this->_table['comments'] . '.author_website, ' . $this->_table['comments'] . '.content, ' . $this->_table['comments'] . '.date, ' . $this->_table['posts'] . '.title, ' . $this->_table['posts'] . '.url_title, ' . $this->_table['posts'] . '.date_posted');
-		$this->db->join($this->_table['posts'], $this->_table['comments'] . '.post_id = ' . $this->_table['posts'] . '.id');
+		$this->db->select('comments.id, comments.user_id, comments.author, comments.author_email, comments.author_website, comments.content, comments.date, posts.title, posts.url_title, posts.date_posted');
+		$this->db->from($this->_table['comments'] . ' comments');
+		$this->db->join($this->_table['posts'] . ' posts', 'comments.post_id = posts.id');
 		$this->db->order_by('comments.id', 'DESC');
-		$query = $this->db->get($this->_table['comments'], $number, $offset);
+		$this->db->limit($number, $offset);
+		
+		$query = $this->db->get();
 			
 		if ($query->num_rows() > 0)
 		{

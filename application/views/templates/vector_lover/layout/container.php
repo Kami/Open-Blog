@@ -3,7 +3,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title><?php echo $this->system_library->settings['blog_title']; ?> - <?php echo $this->system_library->settings['blog_description']; ?></title>
+<title>
+	<?php if (isset($post['title'])): ?>
+		<?php echo $post['title']; ?> 
+	<?php elseif (isset($page_data['title'])): ?>
+		<?php echo $page_data['title']; ?> 
+	<?php else: ?>
+		<?php echo $this->system_library->settings['blog_title']; ?> - <?php echo $this->system_library->settings['blog_description']; ?>
+	<?php  endif; ?>
+</title>
 <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
 <meta name="description" content="<?php echo $this->system_library->settings['blog_description']; ?>" />
 <meta name="keywords" content="<?php echo $this->system_library->settings['meta_keywords']; ?>" /> 

@@ -25,7 +25,7 @@ class Rss extends Controller
 			$data['posts'] = $this->blog->get_posts();
 			
 			header("Content-Type: application/xml");
-			$this->system_library->load_normal('feed/rss_posts', $data);
+			$this->load->view('feed/rss_posts', $data);
 		}
 		else
 		{
@@ -56,7 +56,7 @@ class Rss extends Controller
 			}
 			
 			header("Content-Type: application/xml");
-			$this->system_library->load_normal('feed/rss_comments', $data);
+			$this->load->view('feed/rss_comments', $data);
 		}
 		else
 		{

@@ -24,11 +24,11 @@
 					 			</tr>
 					 			<tr>
 					 				<td width="200px"><?php echo lang('form_url'); ?></td>
-					 				<td><?php echo form_input(array('name' => 'url', 'id' => 'url', 'size' => '20', 'class' => 'styled', 'value' => set_value('url', isset($navigation['url']) ? $navigation['url'] : ''))); ?> (<?php echo lang('form_example'); ?> pages/about/)</td>
+					 				<td><?php echo form_input(array('name' => 'url', 'id' => 'url', 'size' => '20', 'class' => 'styled', 'value' => set_value('url', isset($navigation['url']) ? $navigation['url'] : ''))); ?> <a title="<?php echo lang('form_url_title'); ?>|<?php echo lang('form_url_hint'); ?>" class="tip">[?]</a></td>
 					 			</tr>
 					 			<tr>
 					 				<td width="200px"><?php echo lang('form_description'); ?></td>
-					 				<td><?php echo form_input(array('name' => 'description', 'id' => 'description', 'size' => '40', 'class' => 'styled', 'value' => set_value('description', isset($navigation['description']) ? $navigation['description'] : ''))); ?></td>
+					 				<td><?php echo form_input(array('name' => 'description', 'id' => 'description', 'size' => '40', 'class' => 'styled', 'value' => set_value('description', isset($navigation['description']) ? $navigation['description'] : ''))); ?> <a title="<?php echo lang('form_description_title'); ?>|<?php echo lang('form_description_hint'); ?>" class="tip">[?]</a></td>
 					 			</tr>
 					 		</table>
 					 	</fieldset>

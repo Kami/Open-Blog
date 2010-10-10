@@ -1,0 +1,171 @@
+/*
+Theme Name: pda-theme
+Theme URI: http://imthi.com/wp-pda/
+Description: A theme especially designed for embedded devices (PDA,WAP)
+Version: 1.0
+Author: Imthiaz
+Author URI: http://imthi.com/
+
+The CSS, XHTML and design is released under GPL:
+http://www.opensource.org/licenses/gpl-license.php
+
+$Id: style.css 8 2007-03-05 04:48:43Z imthiaz $
+
+*/
+
+body {
+	font-size: 62.5%; /* Resets 1em to 10px */
+	font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
+	background-color: #fff;
+	color: #000;
+	padding:0px;
+	margin:0px;
+}
+#header {
+	background-color: #73a0c5;
+	padding:5px;
+	margin:0px;
+	border-bottom: 1px solid #3C6A91;
+}
+#header h1{
+	font-size: 2em;
+	padding:0px;
+	margin:0px;
+}
+#header div.description{
+	font-size: 1.5em;
+}
+
+#main_navigation{
+	text-align: center;
+	background-color: #AEC8DD;
+	padding:0px;
+	margin:0px;
+	border-bottom: 1px solid #3C6A91;
+}
+h1,h2,h3{
+	font-size: 1.25em;
+	padding:0px;
+	margin:0px;
+	margin-bottom:3px;
+}
+h4,h5,h6{
+	font-size: 1em;
+	padding:0px;
+	margin:0px;
+	margin-bottom:2px;
+}
+h2.center{
+	padding:10px;
+	font-size: 2em;
+	text-align:center;
+}
+.pagetitle{
+	margin-bottom:5px;	
+	margin-top:5px;
+}
+
+form{
+	padding:0px;
+	margin:0px;
+}
+
+a{
+	color:#000;
+}
+p img{
+	padding: 0px;
+	max-width: 100%;
+}
+
+label
+{
+	width: 50px; 
+}
+
+div.post{
+	padding:0px;
+	margin:0px;
+	margin-top:2px;
+}
+
+div.post h2{
+	font-size: 1.5em;
+	padding:0px;
+	margin:0px;
+	margin-left:5px;
+}
+div.post small{
+	margin-left:5px;
+}
+
+div.entry{
+	padding:0px;
+	margin:0px;
+	margin-bottom:3px;
+	margin-left:5px;
+}
+p.postmetadata{
+	background-color: #E8E8E8;
+	padding:5px;
+	margin:0px;
+}
+.navigation{
+	background-color: #AEC8DD;
+	text-align:center;
+	padding:5px;
+	margin:0px;
+	margin-top:3px;
+	margin-bottom:3px;
+}
+
+ul#list{
+	margin: 0px;
+	padding: 0px;
+	margin-bottom:5px;
+}
+
+#list li{
+	margin: 0px;
+	padding: 3px;
+	display: inline;
+	list-style-type: none;
+}
+#list li.head{
+	font-weight:bold;
+}
+
+#list a {
+	padding: 2px 5px; 
+}
+h3#comments{
+	font-size: 1.25em;
+	padding:3px;
+	margin:0px;
+	background-color: #5562FF;
+	color:#fff;
+}
+ol.commentlist{
+	margin: 0px;
+	padding: 0px;
+}
+ol.commentlist li{
+	margin: 0px;
+	padding: 3px;
+	background-color: #D7DAFF;
+	list-style-type: none;
+}
+ol.commentlist li.alt{
+	background-color: #A4AAFF;
+}
+#footer {
+	background-color: #73a0c5;
+	padding:3px;
+	margin:0px;
+	border-top: 1px solid #3C6A91;
+	text-align:center;
+}
+#footer p{
+	padding:0px;
+	margin:0px;
+}

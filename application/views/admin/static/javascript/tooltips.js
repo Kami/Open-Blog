@@ -1,0 +1,1 @@
+$(document).ready(function(){$("a.tip").cluetip({splitTitle:"|",arrows:true,dropShadow:false,cluetipClass:"jtip"})});

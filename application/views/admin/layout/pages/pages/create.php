@@ -41,11 +41,11 @@
 					 		<table>
 					 			<tr>
 					 				<td width="150px" valign="top"><?php echo lang('form_status'); ?></td>
-					 				<td><?php echo form_dropdown('status', array('active' => lang('active'), 'inactive' => lang('inactive'))); ?></td>
+					 				<td><?php echo form_dropdown('status', array('active' => lang('active'), 'inactive' => lang('inactive'))); ?> <a title="<?php echo lang('form_status_title'); ?>|<?php echo lang('form_status_hint'); ?>" class="tip">[?]</a></td>
 					 			</tr>
 					 			<tr>
 					 				<td width="150px"><?php echo lang('form_add_to_navigation'); ?></td>
-					 				<td><?php echo form_checkbox('add_to_navigation', 1); ?></td>
+					 				<td><?php echo form_checkbox('add_to_navigation', 1); ?> <a title="<?php echo lang('form_add_to_navigation_title'); ?>|<?php echo lang('form_add_to_navigation_hint'); ?>" class="tip">[?]</a></td>
 					 			</tr>
 					 		</table>
 					 	</fieldset>

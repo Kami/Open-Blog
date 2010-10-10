@@ -34,6 +34,14 @@ $lang['form_add_to_navigation']			= "Dodaj med navigacijo";
 $lang['active']							= "aktivna";
 $lang['inactive']						= "neaktivna";
 
+// Namigi
+$lang['form_status_title']				= "Stanje strani";
+$lang['form_status_hint']				= "Stran se lahko nahaja v dveh stanjih:<br /><br />
+<strong>aktivno</strong> - stran je prikazana na strani<br />
+<strong>neaktivno</strong> - stran ni prikazana na strani";
+$lang['form_add_to_navigation_title']	= "Dodaj stran med navigacijo";
+$lang['form_add_to_navigation_hint']	= "V primeru, da obkljukate to potrditveno polje bo stran avtomatsko dodana med navigacijo.";
+
 // Ostalo
 $lang['new_page']						= "Ustvari novo stran";
 

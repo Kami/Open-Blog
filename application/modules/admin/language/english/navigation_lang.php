@@ -30,6 +30,15 @@ $lang['form_url']						= "URL";
 $lang['form_description']				= "Description";
 $lang['form_example']					= "e.g.:";
 
+// Form hints
+$lang['form_url_title']					= "Navigation item URL";
+$lang['form_url_hint']					= "Navigation item can point to the <strong>internal</strong> or <strong>external</strong> website.
+For example:<br /><br />
+<strong>pages/about</strong> - internal<br />
+<strong>http://www.open-blog.info</strong> - external";
+$lang['form_description_title']			= "Navigation item description";
+$lang['form_description_hint']			= "The description will be shown when you hover over the navigation item (title attribute).";
+
 // Other
 $lang['new_item']						= "Create a new navigation item";
 $lang['move_up']						= "Move this item up";

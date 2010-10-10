@@ -14,6 +14,7 @@
 		
 	<div class="top">
 		<?php
+			require('includes/functions_common.php');
 			require('includes/functions_install.php');
 	
 			$step = (int)$_GET['step'];
@@ -61,4 +62,4 @@
 </div>
 </body>
 </html>
-<?php ob_start(); ?>
+<?php ob_end_flush(); ?>

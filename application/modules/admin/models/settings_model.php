@@ -140,8 +140,16 @@ class Settings_model extends Model
 		$this->db->where('name', 'allow_registrations');
 		$this->db->update($this->_table['settings']);
 		
-		$this->db->set('value', $this->input->post('posts_per_site'));
-		$this->db->where('name', 'posts_per_site');
+		$this->db->set('value', $this->input->post('enable_captcha'));
+		$this->db->where('name', 'enable_captcha');
+		$this->db->update($this->_table['settings']);
+		
+		$this->db->set('value', $this->input->post('recognize_user_agent'));
+		$this->db->where('name', 'recognize_user_agent');
+		$this->db->update($this->_table['settings']);
+		
+		$this->db->set('value', $this->input->post('posts_per_page'));
+		$this->db->where('name', 'posts_per_page');
 		$this->db->update($this->_table['settings']);
 		
 		$this->db->set('value', $this->input->post('links_per_box'));

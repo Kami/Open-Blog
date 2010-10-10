@@ -13,14 +13,15 @@ class User extends Controller
 		// Load needed models, libraries, helpers and language files
 		$this->load->module_model('user', 'user_model', 'user');
 		
+		$this->load->library('phpass_library');
+		
 		$this->load->module_language('blog', 'general');
+		$this->load->module_language('user', 'registration');
 	}
 
 	// Public methods
 	public function register()
 	{
-		$this->load->module_language('user', 'registration');
-		
 		if (!$this->access_library->is_logged_in())
 		{
 			if ($this->system_library->settings['allow_registrations'] == 1)
@@ -42,7 +43,7 @@ class User extends Controller
 					$this->user->create_user();
 					$this->session->set_flashdata('message', lang('successfully_created'));
 		
-					redirect('user/login', 'refresh');
+					redirect('user/register', 'refresh');
 				}
 			}
 					
@@ -56,6 +57,34 @@ class User extends Controller
 		}
 	}
 
+	public function account_activation()
+	{
+		$key = $this->uri->segment(4);
+		$email = $this->uri->segment(6);
+
+		if ($key != '' && $email != '')
+		{
+			if ($this->user->check_secret_key($key, $email))
+			{
+				$this->user->activate_account($key, $email);
+				
+				$this->session->set_flashdata('message', lang('successfully_activated'));
+				
+				redirect('user/register', 'refresh');
+			}
+			else 
+			{
+				$this->_template['page']	= 'errors/invalid_secret_key';
+				
+				$this->system_library->load($this->_template['page']);
+			}
+		}
+		else
+		{
+			redirect('user/login', 'refresh');
+		}
+	}
+	
 	public function forgotten_password()
 	{
 		$this->load->module_language('user', 'forgotten_password');
