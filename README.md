@@ -23,4 +23,4 @@ It provides users with a very powerful yet easy to use interface which makes blo
 
 ## Install
 
-- run yorsite.com/install/
+- run `sitedomain.com/install/`
