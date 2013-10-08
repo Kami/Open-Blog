@@ -36,3 +36,7 @@ the development so the project was left to die.
 ## Install
 
 - run `sitedomain.com/install/`
+
+## Links
+
+* Project announcement thread - http://ellislab.com/forums/viewthread/102179/
