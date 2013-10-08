@@ -1,0 +1,10 @@
+*/config/development
+*/logs/log-*.php
+*/logs/!index.html
+*/cache/*
+*/cache/!index.html
+cgi-bin
+install
+installx
+application/config/config.php
+application/config/database.php
